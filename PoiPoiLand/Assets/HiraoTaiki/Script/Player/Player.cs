@@ -2,6 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//プレイヤーの状態
+public enum PlayerState
+{
+    Idle,
+    Walk,
+    Run,
+    Jump,
+    Hold,
+    Throw,
+    Damage,
+    Dead
+}
 public class Player : MonoBehaviour
 {
  
@@ -24,6 +37,9 @@ public class Player : MonoBehaviour
 
     Vector3 verticalSpeed;
     Vector3 velocity;
+
+    //最初のプレイヤーの状態
+    public PlayerState _stete = PlayerState.Idle;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +50,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"isGroundは{isGround}です");
+       // Debug.Log($"isGroundは{isGround}です");
     }
 
     private void FixedUpdate()
@@ -79,6 +95,7 @@ public class Player : MonoBehaviour
     //地面に触れたら着地と判定
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
