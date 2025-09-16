@@ -246,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39075ab0436a4b9f5f63148df01d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
+  _animator: {fileID: 0}
   _state: 0
 --- !u!136 &1079485916
 CapsuleCollider:

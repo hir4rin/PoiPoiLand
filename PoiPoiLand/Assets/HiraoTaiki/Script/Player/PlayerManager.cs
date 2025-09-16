@@ -38,10 +38,12 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.K))//‚à‚Ì‚ð—Ž‚Æ‚·‚Æ‚«
             {
                 _ball.QuitHold();
+                _player._state = PlayerState.Idle;
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
                 _ball.Throw();
+                _player._state = PlayerState.Idle;
             }
 
         }

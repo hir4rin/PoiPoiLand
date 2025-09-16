@@ -13,25 +13,31 @@ public class Ball : MonoBehaviour
 {
 
     GameObject _player;
+    Player _playerScript;
     public bool isColHit = false;
 
     Collider col;
     Rigidbody rb;
     Vector3 throwDir;//投げる向き
-   
+
+    Transform playerTransform;//プレイヤーのTransform
+
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player");
+        _playerScript = _player.GetComponent<Player>();
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
-        throwDir = transform.forward + transform.up * 0.5f;
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        playerTransform = transform.root;//親オブジェクト(player)のTransformを取得
+       
+        throwDir = playerTransform.forward + transform.up * 0.5f;//投げる向きはプレイヤーの向き＋少し上
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +54,7 @@ public class Ball : MonoBehaviour
     {
         if (!other.CompareTag("Ground"))
         {
-            isColHit = true;
+            isColHit = false;
 
 
         }

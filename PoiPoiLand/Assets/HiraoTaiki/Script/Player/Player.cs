@@ -29,7 +29,10 @@ public class Player : MonoBehaviour
     Vector3 Right = new Vector3(1,0,0);
     Vector3 Left = new Vector3(-1,0,0);
     Vector3 JumpPower = new Vector3(0,15,0);
+    //キャラクターの向き
 
+    public Vector3 moveDirection;
+   
 
 
     //移動スピード
@@ -53,17 +56,30 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+     
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"_stateは{_state}です");
+        //キャラクターの向き
+        moveDirection = playerVelocity;
+        moveDirection.y = 0;//y軸を0にして、水平面のみ回転するようにする
+        moveDirection.Normalize();
+        // Debug.Log($"_stateは{_state}です");
+        Debug.Log($"movedirectionは{moveDirection}");
+    
+
     }
 
     private void FixedUpdate()
     {
-        //_state = PlayerState.Idle;
+        //if (playerVelocity.magnitude == 0 && _state != PlayerState.Hold)
+        //{
+        //    _state = PlayerState.Idle;
+        //}
+        
         playerVelocity = Vector3.zero;
         
         if (!isGround)
@@ -73,40 +89,58 @@ public class Player : MonoBehaviour
         
         //ジャンプの重力計算
         //verticalSpeed += gravity * Time.deltaTime;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))//前移動
         {
             playerVelocity += Forward * speed;
-            
+            _animator.SetBool("isWalk",true);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))//後ろ移動
         {
             playerVelocity += Back * speed;
+            _animator.SetBool("isWalk", true);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))//左移動
         {
             playerVelocity += Left * speed;
+            _animator.SetBool("isWalk", true);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))//右移動
         {
+           
             playerVelocity += Right * speed;
+            _animator.SetBool("isWalk", true);
         }
-        if (Input.GetKey(KeyCode.Space) && isGround)
+
+        if (Input.GetKey(KeyCode.Space) && isGround)//ジャンプ
         {
             Debug.Log("飛んでいます");
             rb.AddForce(JumpPower,ForceMode.Impulse);
             isGround = false;
         }
+
+
+        if (playerVelocity.magnitude == 0)
+        {
+            _animator.SetBool("isWalk", false);
+        }
+        
+
         //単位ベクトル化(斜め用)
 
         //加える
         transform.position += playerVelocity;
 
-        //if (_state == PlayerState.Walk)
-        //{
-        //    _animator.SetTrigger("isWalk");
-        //}
-       
-       
+        //キャラの回転
+        if (moveDirection.sqrMagnitude > 0.0001f)//ベクトルの長さの2乗
+        {
+            Debug.Log("回転しています");
+            Quaternion rotation = Quaternion.LookRotation(moveDirection);
+            Matrix4x4 rotationMatrix = Matrix4x4.Rotate(rotation);
+            transform.rotation = rotationMatrix.rotation;
+        }
+
+        
+
     }
 
     //地面に触れたら着地と判定
