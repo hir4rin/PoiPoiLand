@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _playerState = _player._stete;//_playerStateの更新
+        _playerState = _player._state;//_playerStateの更新
 
         //Debug.Log($"PlayerStateは{_playerState}です");
 
@@ -29,11 +29,23 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
             {
                 Debug.Log("持ちました");
-
-                //ここにPlayer側で持つ処理(玉のポジションを変えてplayerのそばに置いとく処理(ここわからん))
-                //Unityには子オブジェクトにする機能があるらしい(DX_Libraryだとわからん)
+                _player._state = PlayerState.Hold;
+                _ball.Hold();
             }
         }
+        if (_player._state == PlayerState.Hold)
+        {
+            if (Input.GetKeyDown(KeyCode.K))//ものを落とすとき
+            {
+                _ball.QuitHold();
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                _ball.Throw();
+            }
+
+        }
+        
 
     }
     private void FixedUpdate()
