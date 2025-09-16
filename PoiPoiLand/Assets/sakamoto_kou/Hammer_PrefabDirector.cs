@@ -10,7 +10,6 @@ public class Hammer_PrefabDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hummerPrefab = GetComponent<GameObject>();    
     }
 
     // Update is called once per frame
