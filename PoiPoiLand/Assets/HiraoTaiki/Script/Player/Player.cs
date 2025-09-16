@@ -17,7 +17,12 @@ public enum PlayerState
 }
 public class Player : MonoBehaviour
 {
- 
+   //プレイヤーの座標
+   Vector3 playerPos = Vector3.zero;
+    //プレイヤーに加える方向
+    Vector3 playerVelocity = Vector3.zero;
+
+
     //移動方向
     Vector3 Forward = new Vector3(0,0,1);
     Vector3 Back = new Vector3(0,0,-1);
@@ -38,25 +43,28 @@ public class Player : MonoBehaviour
     Vector3 verticalSpeed;
     Vector3 velocity;
 
+    //アニメーション
+    public Animator _animator;
+
     //最初のプレイヤーの状態
-    public PlayerState _stete = PlayerState.Idle;
+    public PlayerState _state = PlayerState.Idle;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log($"isGroundは{isGround}です");
+        Debug.Log($"_stateは{_state}です");
     }
 
     private void FixedUpdate()
     {
-
-       
+        //_state = PlayerState.Idle;
+        playerVelocity = Vector3.zero;
         
         if (!isGround)
         {
@@ -67,19 +75,20 @@ public class Player : MonoBehaviour
         //verticalSpeed += gravity * Time.deltaTime;
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += Forward * speed;
+            playerVelocity += Forward * speed;
+            
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += Back * speed;
+            playerVelocity += Back * speed;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += Left * speed;
+            playerVelocity += Left * speed;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += Right * speed;
+            playerVelocity += Right * speed;
         }
         if (Input.GetKey(KeyCode.Space) && isGround)
         {
@@ -87,8 +96,16 @@ public class Player : MonoBehaviour
             rb.AddForce(JumpPower,ForceMode.Impulse);
             isGround = false;
         }
+        //単位ベクトル化(斜め用)
 
-        
+        //加える
+        transform.position += playerVelocity;
+
+        //if (_state == PlayerState.Walk)
+        //{
+        //    _animator.SetTrigger("isWalk");
+        //}
+       
        
     }
 
