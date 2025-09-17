@@ -23,14 +23,15 @@ public class HammerController : MonoBehaviour
         held, //持たれている
         thrown//投げられている
     }
-
-    HammerState currentState = HammerState.pop;
+    HammerState currentState;
 
     // Start is called before the first frame update
     void Start()
     {
         //現在のポジションに初期位置を設定する
         transform.position = startPos;
+        //初期状態をポップにする
+        currentState = HammerState.pop;
     }
 
     // Update is called once per frame
@@ -47,12 +48,6 @@ public class HammerController : MonoBehaviour
             case HammerState.thrown://なげられている状態
                 UpdateThrown();
                 break;
-        }
-        
-        //スペースを押したらステートをthrownにする
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            currentState = HammerState.thrown;
         }
 
         //高さが地面を超えた場合は破壊する
@@ -76,7 +71,11 @@ public class HammerController : MonoBehaviour
 
     private void UpdatePop() //Pop中のUpdate
     {
-       
+        //スペースを押したらステートをthrownにする
+        if (Input.GetKey(KeyCode.Space))
+        {
+            currentState = HammerState.thrown;
+        }
     }
     
     private void UpdateThrown() //なげられている状態のUpdate
