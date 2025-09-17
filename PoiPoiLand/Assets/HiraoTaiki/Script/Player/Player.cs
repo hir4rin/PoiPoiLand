@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
 
     //移動スピード
-    float speed = 0.05f;
+    float speed = 0.08f;
 
     //ジャンプのちから
     float jumpForce = 1.5f;
@@ -122,13 +122,26 @@ public class Player : MonoBehaviour
         if (playerVelocity.magnitude == 0)
         {
             _animator.SetBool("isWalk", false);
+            _animator.SetBool("isRun",false);
         }
-        
+
 
         //単位ベクトル化(斜め用)
-
-        //加える
-        transform.position += playerVelocity;
+        playerVelocity = playerVelocity.normalized;
+        playerVelocity = playerVelocity * speed;
+        if (Input.GetKey(KeyCode.LeftShift) && playerVelocity.magnitude != 0)
+        {
+            Debug.Log("走る");
+            playerVelocity *= 1.5f;
+            _animator.SetBool("isWalk",false);
+            _animator.SetBool("isRun",true);
+         }
+        else
+        {
+            _animator.SetBool("isRun", false);
+        }
+            //加える
+            transform.position += playerVelocity;
 
         //キャラの回転
         if (moveDirection.sqrMagnitude > 0.0001f)//ベクトルの長さの2乗
