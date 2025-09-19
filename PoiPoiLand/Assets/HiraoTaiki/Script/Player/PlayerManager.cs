@@ -7,14 +7,14 @@ public class PlayerManager : MonoBehaviour
     Player _player;
     PlayerState _playerState;
     HoldManager _holdManager;//つかみ管理
-    Ball _ball;//ボール
+    HammerController _hammer;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _holdManager = GameObject.Find("HoldManager").GetComponent<HoldManager>();
-        _ball = GameObject.Find("Ball").GetComponent<Ball>();
+        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
     }
 
     // Update is called once per frame
@@ -24,25 +24,25 @@ public class PlayerManager : MonoBehaviour
 
         //Debug.Log($"PlayerStateは{_playerState}です");
 
-        if (_holdManager.isColHit　&& _ball.isColHit)
+        if (_holdManager.isColHit　&& _hammer.isColHit)
         {
             if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
             {
                 Debug.Log("持ちました");
                 _player._state = PlayerState.Hold;
-                _ball.Hold();
+                _hammer.UpdateHold();
             }
         }
         if (_player._state == PlayerState.Hold)
         {
             if (Input.GetKeyDown(KeyCode.K))//ものを落とすとき
             {
-                _ball.QuitHold();
+                _hammer.QuitHold();
                 _player._state = PlayerState.Idle;
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
-                _ball.Throw();
+                _hammer.UpdateThrow();
                 _player._state = PlayerState.Idle;
             }
 
