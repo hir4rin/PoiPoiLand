@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HammerController;
 
 public class Hammer_PrefabDirector : MonoBehaviour
 {
@@ -10,18 +11,20 @@ public class Hammer_PrefabDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        //ŽžŠÔ‚ðXV
-        time++;
+        Debug_sakamoto();
+    }
 
-        if(time > 60.0f)
+    private void Debug_sakamoto()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Instantiate(hummerPrefab);
-            time = 0.0f;
         }
     }
 }
