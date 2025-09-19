@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("éùÇøÇ‹ÇµÇΩ");
                 _player._state = PlayerState.Hold;
+                _player._animator.SetBool("isHold", true);
                 _ball.Hold();
             }
         }
@@ -39,11 +40,13 @@ public class PlayerManager : MonoBehaviour
             {
                 _ball.QuitHold();
                 _player._state = PlayerState.Idle;
+                _player._animator.SetBool("isHold", false);
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
                 _ball.Throw();
                 _player._state = PlayerState.Idle;
+                _player._animator.SetBool("isHold", false);
             }
 
         }
