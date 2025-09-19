@@ -29,7 +29,6 @@ public class Ball : MonoBehaviour
         _playerScript = _player.GetComponent<Player>();
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
-      
     }
 
     // Update is called once per frame

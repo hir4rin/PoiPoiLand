@@ -9,7 +9,7 @@ public class GostMove : MonoBehaviour
 
     Transform playerTr; //プレイヤーのトランスフォーム
     [SerializeField] float speed = 2; // 敵の動くスピード
-    [SerializeField] float followRange = 5.0f; // 追従距離
+    [SerializeField] float followRange = 2.0f; // 追従距離
     [SerializeField] float floatHeight = 0.5f;
     [SerializeField] float floatSpeed = 2.0f;
     [SerializeField] float wanderRange = 1.0f;
@@ -43,13 +43,13 @@ public class GostMove : MonoBehaviour
         else
         {
             //幽霊っぽい挙動
-            //float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
-            //float xOffset = Mathf.Sin(Time.time * (floatSpeed * 0.5f)) * wanderRange;
+            float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+            float xOffset = Mathf.Sin(Time.time * (floatSpeed * 0.5f)) * wanderRange;
 
-            //transform.position = new Vector3(
-            //    pos.x + xOffset,
-            //    pos.y + yOffset,
-            //    pos.z);
+            transform.position = new Vector3(
+                pos.x + xOffset,
+                pos.y + yOffset,
+                pos.z);
             Debug.Log("誰も来ないやん");
         }
 

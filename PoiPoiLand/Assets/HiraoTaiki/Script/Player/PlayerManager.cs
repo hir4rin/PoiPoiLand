@@ -6,45 +6,44 @@ public class PlayerManager : MonoBehaviour
 {
     Player _player;
     PlayerState _playerState;
-    HoldManager _holdManager;//‚Â‚©‚İŠÇ—
-    Ball _ball;//ƒ{[ƒ‹
+    HoldManager _holdManager;//ã¤ã‹ã¿ç®¡ç†
+    HammerController _hammer;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _holdManager = GameObject.Find("HoldManager").GetComponent<HoldManager>();
-        _ball = GameObject.Find("Ball").GetComponent<Ball>();
+        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _playerState = _player._state;//_playerState‚ÌXV
+        _playerState = _player._state;//_playerStateã®æ›´æ–°
 
-        //Debug.Log($"PlayerState‚Í{_playerState}‚Å‚·");
+        //Debug.Log($"PlayerStateã¯{_playerState}ã§ã™");
 
-        if (_holdManager.isColHit@&& _ball.isColHit)
+        if (_holdManager.isColHitã€€&& _hammer.isColHit)
         {
-            if (Input.GetKeyDown(KeyCode.J))//Œ»İAŒ‹\ƒ‰ƒO‚ª‚ ‚éŠ´‚¶
+            if (Input.GetKeyDown(KeyCode.J))//ç¾åœ¨ã€çµæ§‹ãƒ©ã‚°ãŒã‚ã‚‹æ„Ÿã˜
             {
-                Debug.Log("‚¿‚Ü‚µ‚½");
+                Debug.Log("æŒã¡ã¾ã—ãŸ");
                 _player._state = PlayerState.Hold;
-                _player._animator.SetBool("isHold", true);
-                _ball.Hold();
+                _hammer.UpdateHold();
             }
         }
         if (_player._state == PlayerState.Hold)
         {
-            if (Input.GetKeyDown(KeyCode.K))//‚à‚Ì‚ğ—‚Æ‚·‚Æ‚«
+            if (Input.GetKeyDown(KeyCode.K))//ã‚‚ã®ã‚’è½ã¨ã™ã¨ã
             {
-                _ball.QuitHold();
+                _hammer.QuitHold();
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
-                _ball.Throw();
+                _hammer.UpdateThrow();
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
             }
