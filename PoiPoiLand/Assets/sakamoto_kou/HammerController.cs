@@ -1,8 +1,19 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
+
+
+
+//ハンマーのステート
+public enum HammerState
+{
+    pop, //出現中(Pop中)
+    held, //持たれている
+    thrown//投げられている
+}
 
 public class HammerController : MonoBehaviour
 {
@@ -14,7 +25,7 @@ public class HammerController : MonoBehaviour
     //ハンマーの傾ける角度
     Quaternion popInclination = Quaternion.AngleAxis(21.0f, Vector3.forward);
     //初期位置を設定
-    private Vector3 startPos = new Vector3(0.0f,2.5f,0.0f);
+    private Vector3 startPos = new Vector3(0.0f,0.5f,0.0f);
     //重力を設定
     private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
     //時間
@@ -30,14 +41,8 @@ public class HammerController : MonoBehaviour
     Transform playerTransform;//プレイヤーのTransform
     public bool isColHit = false;
 
-    //ハンマーのステート
-    public enum HammerState
-    {
-        pop,　//出現中(Pop中)
-        held, //持たれている
-        thrown//投げられている
-    }
-    HammerState currentState;
+   
+    public HammerState currentState;
 
     public GameObject hammer;
 
@@ -71,6 +76,7 @@ public class HammerController : MonoBehaviour
         {
             case HammerState.pop: //pop中
                 UpdatePop();
+                QuitHold();
                 break;
             case HammerState.held://持たれている状態
                 UpdateHold();
@@ -120,7 +126,7 @@ public class HammerController : MonoBehaviour
     void Debug_sakamoto()
     {
         //スペースを押したらステートをthrownにする
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.T))//SpaceをTに変更
         {
             currentState = HammerState.thrown;
         }
@@ -176,6 +182,7 @@ public class HammerController : MonoBehaviour
     {
         this.transform.SetParent(_player.transform, false);
         this.transform.localPosition = new Vector3(0.5f, 1, 0.5f);
+       // this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         col.enabled = false;
         rb.useGravity = false;
         rb.isKinematic = true;

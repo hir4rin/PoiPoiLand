@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         //{
         //    _state = PlayerState.Idle;
         //}
-        
+
         playerVelocity = Vector3.zero;
         
         if (!isGround)
@@ -92,23 +92,24 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W))//前移動
         {
             playerVelocity += Forward * speed;
-            _animator.SetBool("isWalk",true);
+           
+            Debug.Log("前に移動しています");
         }
         if (Input.GetKey(KeyCode.S))//後ろ移動
         {
             playerVelocity += Back * speed;
-            _animator.SetBool("isWalk", true);
+           
         }
         if (Input.GetKey(KeyCode.A))//左移動
         {
             playerVelocity += Left * speed;
-            _animator.SetBool("isWalk", true);
+           
         }
         if (Input.GetKey(KeyCode.D))//右移動
         {
            
             playerVelocity += Right * speed;
-            _animator.SetBool("isWalk", true);
+           
         }
 
         if (Input.GetKey(KeyCode.Space) && isGround)//ジャンプ
@@ -116,29 +117,66 @@ public class Player : MonoBehaviour
             Debug.Log("飛んでいます");
             rb.AddForce(JumpPower,ForceMode.Impulse);
             isGround = false;
+            if (_state != PlayerState.Hold)
+            {
+                _animator.SetTrigger("TriggerJump");
+            }
+            if (_state == PlayerState.Hold)
+            {
+                _animator.SetTrigger("TriggerJumpHold");
+            }
         }
 
-
-        if (playerVelocity.magnitude == 0)
+        //持ち歩き
+        if (playerVelocity.magnitude != 0 && _state == PlayerState.Hold)
         {
+            _animator.SetBool("isWalkHold", true);
+        }
+        //ただの歩き
+        if (playerVelocity.magnitude != 0 && _state != PlayerState.Hold)
+        {
+            _animator.SetBool("isWalk", true);
+        }
+        
+
+        //Debug.Log($"{playerVelocity}");
+        //止まっているとき
+        if (playerVelocity.magnitude < 0.00001f) //=0で動かなくてこんだけ小さくしてもfalseにならない//急にこうなった//一旦放置//今は解決(疑似)
+        {
+           
             _animator.SetBool("isWalk", false);
             _animator.SetBool("isRun",false);
+            _animator.SetBool("isWalkHold", false);
+            _animator.SetBool("isRunHold", false);
         }
 
 
         //単位ベクトル化(斜め用)
         playerVelocity = playerVelocity.normalized;
         playerVelocity = playerVelocity * speed;
+
+
+        //走る
         if (Input.GetKey(KeyCode.LeftShift) && playerVelocity.magnitude != 0)
         {
             Debug.Log("走る");
             playerVelocity *= 1.5f;
-            _animator.SetBool("isWalk",false);
-            _animator.SetBool("isRun",true);
-         }
+            if (_state != PlayerState.Hold)
+            {
+                _animator.SetBool("isWalk", false);
+                _animator.SetBool("isRun", true);
+            }
+            if (_state == PlayerState.Hold)
+            {
+                _animator.SetBool("isWalkHold", false);
+                _animator.SetBool("isRunHold", true);
+            }
+
+        }
         else
         {
             _animator.SetBool("isRun", false);
+            _animator.SetBool("isRunHold", false);
         }
             //加える
             transform.position += playerVelocity;

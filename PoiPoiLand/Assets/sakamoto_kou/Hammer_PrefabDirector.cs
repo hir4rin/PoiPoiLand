@@ -22,7 +22,7 @@ public class Hammer_PrefabDirector : MonoBehaviour
 
     private void Debug_sakamoto()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Q))//Lshift‚ğQ‚É•ÏX
         {
             Instantiate(hummerPrefab);
         }

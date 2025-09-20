@@ -8,18 +8,22 @@ public class PlayerManager : MonoBehaviour
     PlayerState _playerState;
     HoldManager _holdManager;//つかみ管理
     HammerController _hammer;
+    HammerState _hammerState;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _holdManager = GameObject.Find("HoldManager").GetComponent<HoldManager>();
-        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        //クローン
+        _hammer = GameObject.Find("Hammer_Prefab(Clone)").GetComponent<HammerController>();
+        //------------------
         _playerState = _player._state;//_playerStateの更新
 
         //Debug.Log($"PlayerStateは{_playerState}です");
@@ -30,27 +34,36 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("持ちました");
                 _player._state = PlayerState.Hold;
-                _hammer.UpdateHold();
+                _hammer.currentState = HammerState.held;
+                _player._animator.SetBool("isHold", true);
+
             }
         }
         if (_player._state == PlayerState.Hold)
         {
             if (Input.GetKeyDown(KeyCode.K))//ものを落とすとき
             {
-                _hammer.QuitHold();
+                _hammer.currentState = HammerState.pop;
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L))//ものを投げるとき
             {
-                _hammer.UpdateThrow();
+                _player._animator.SetTrigger("TriggerThrow");
+                _hammer.currentState =  HammerState.thrown;
                 _player._state = PlayerState.Idle;
-                _player._animator.SetBool("isHold", false);
+                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
+               
             }
 
         }
-        
 
+    }
+
+    private IEnumerator WaitAndRelease(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _player._animator.SetBool("isHold", false);
     }
     private void FixedUpdate()
     {
