@@ -17,19 +17,13 @@ public enum HammerState
 
 public class HammerController : MonoBehaviour
 {
-    //ハンマーのスピード
-    private Vector3 speed = new Vector3(0.0f,10.0f,10.0f);
     //x軸を軸にして毎秒6度、回転させるQuaternionを作成
     Quaternion throwRotation = Quaternion.AngleAxis(20, Vector3.right);
     Quaternion popRotation = Quaternion.AngleAxis(5, Vector3.up);
     //ハンマーの傾ける角度
     Quaternion popInclination = Quaternion.AngleAxis(21.0f, Vector3.forward);
     //初期位置を設定
-    private Vector3 startPos = new Vector3(0.0f,0.5f,0.0f);
-    //重力を設定
-    private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
-    //時間
-    private float time = 0.0f;
+    private Vector3 startPos = new Vector3(0.0f,2.5f,0.0f);
     //一度だけ発生するフラグ
     bool isInclination = false;
 
@@ -60,6 +54,8 @@ public class HammerController : MonoBehaviour
         _playerScript = _player.GetComponent<Player>();
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = true;
     }
 
     private void Update()
@@ -98,7 +94,7 @@ public class HammerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //壁に当たったら
+        //敵に当たったら
         if(collision.gameObject.CompareTag("Enemy"))
         {
             //破壊する
@@ -151,32 +147,9 @@ public class HammerController : MonoBehaviour
         Quaternion q = hammer.transform.rotation;
         //合成して自身に設定
         hammer.transform.rotation = popRotation * q;
+        rb.useGravity = false;
+        rb.isKinematic = true;
     }
-    
-    //private void UpdateThrown() //なげられている状態のUpdate
-    //{
-    //    //最初だけ回転を0にする
-    //    if (!isInclination)
-    //    {
-    //        hammer.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-    //        isInclination = true;
-    //    }
-
-    //    Debug.Log("なげられている");
-    //    //時間を更新
-    //    time += Time.deltaTime;
-
-    //    //現在の自身の回転の情報を取得する。
-    //    Quaternion q = this.transform.rotation;
-    //    //合成して自身に設定
-    //    this.transform.rotation = throwRotation * q;
-    //}
-
-    //private void UpdateHeld() //持たれている状態のUpdate
-    //{
-    //    Debug.Log("持たれている");
-    //    hammer.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-    //}
 
     public void UpdateHold() //掴んでる状態
     {
