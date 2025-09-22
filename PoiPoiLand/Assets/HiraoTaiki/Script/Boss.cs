@@ -7,10 +7,11 @@ public class Boss : MonoBehaviour
 
     //----------------------------------------------------------------
     //実装する内容
-    //1.動く瞬間に敵の座標をとって一定量動かす(動く時間はたまに)
-    //2.ワープする
-    ///3普通の玉攻撃(1と同じようにするか、ホーミングにしてy座標を下げてよけさせる)
-    // 4.甲羅やゴースト(色違いゴーストを出す)
+    //1.動く瞬間に敵の座標をとって一定量動かす(動く時間はたまに)                            (完了)
+    //2.ワープする(プレイヤーの周り二ワープ→攻撃)                                           (完了)
+    ///3普通の玉攻撃(1と同じようにするか、ホーミングにしてy座標を下げてよけさせる)          　
+    // 4.甲羅やゴースト(色違いゴーストを出す(場所はランダム))
+    //
     //必要なモーション(移動時、攻撃時、)
     //5.体力バー
     //----------------------------------------------------------------
@@ -30,8 +31,8 @@ public class Boss : MonoBehaviour
     float stopDistance = 5.0f;
 
     //ワープ用
-    Vector3 offset = new Vector3(5,0,5);//プレイヤーと敵の距離
-    Vector3 offsetMinus = new Vector3(-5, 0, -5);//プレイヤーと敵の距離(マイナス)
+    Vector3 offset;//プレイヤーと敵の距離
+   
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +45,19 @@ public class Boss : MonoBehaviour
     {
         
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M))//移動
         {
             StartMovePlayer();
             MoveToTarget();
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))//ワープ
+        {
+            Warp();
+        }
+        if (Input.GetKey(KeyCode.B))//魔法攻撃
+        {
+
         }
        
 
@@ -97,4 +107,30 @@ public class Boss : MonoBehaviour
 
 
     }
+    void Warp()
+    {
+        offset = new Vector3(
+            RandomExcept(),
+            0,
+            RandomExcept());
+        Vector3 targetPos = Hero.position;
+        targetPos.y = transform.position.y;//y軸は動かさない
+        transform.position = targetPos + offset;
+    }
+
+    float RandomExcept()
+    {
+        float val = 0f;
+        //
+        if (Random.value > 0.5f)
+        {
+            val = Random.Range(2f, 1f);
+        }
+        else
+        {
+            val = Random.Range(-2f, -1f);
+        }
+        return val;
+    }
+
 }
