@@ -30,9 +30,8 @@ public class Player : MonoBehaviour
     Vector3 Left = new Vector3(-1,0,0);
     Vector3 JumpPower = new Vector3(0,15,0);
     //キャラクターの向き
+    public Vector3 moveDirection; //キャラクターの向き
 
-    public Vector3 moveDirection;
-   
 
 
     //移動スピード
