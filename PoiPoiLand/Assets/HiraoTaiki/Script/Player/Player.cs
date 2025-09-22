@@ -190,7 +190,10 @@ public class Player : MonoBehaviour
             transform.rotation = rotationMatrix.rotation;
         }
 
-        
+        if (transform.position.y < -10)
+        {
+            Death();
+        }
 
     }
 
@@ -203,5 +206,10 @@ public class Player : MonoBehaviour
             isGround = true;
             velocity.y = 0;
         }
+    }
+    public void Death()
+    {
+        //ここでチェックポイントによって座標を変える
+        transform.position = new Vector3(0,3,-8);
     }
 }
