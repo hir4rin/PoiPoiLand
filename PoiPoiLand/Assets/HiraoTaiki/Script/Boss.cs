@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -32,7 +33,9 @@ public class Boss : MonoBehaviour
 
     //ワープ用
     Vector3 offset;//プレイヤーと敵の距離
-   
+
+    bool isRush = false;//突進中かどうか
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,10 +46,14 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isRush)
+        {
+                       LookAtPlayerQuaternion();
+        }
 
         if (Input.GetKeyDown(KeyCode.M))//移動
         {
+            isRush = true;
             StartMovePlayer();
             MoveToTarget();
         }
@@ -55,10 +62,10 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
-        if (Input.GetKey(KeyCode.B))//魔法攻撃
-        {
+        //if (Input.GetKey(KeyCode.B))//魔法攻撃
+        //{
 
-        }
+        //}
        
 
     }
@@ -85,7 +92,8 @@ public class Boss : MonoBehaviour
                     Debug.Log("到着");
                     Debug.Log("nowPos: " + nowPos + " / targetPosition: " + targetPosition);
                     Debug.Log("距離: " + Vector3.Distance(nowPos, targetPosition));
-
+                isRush = false;
+                LookAtPlayerQuaternion();
                 //}
 
             }
@@ -105,32 +113,48 @@ public class Boss : MonoBehaviour
         moveDir = (targetPosition - transform.position).normalized;
         moveDir.y = 0;//y軸は動かさない
 
-
     }
-    void Warp()
+    void Warp()//ワープ前にそこに移動するよっていうアニメーションを入れる
     {
-        offset = new Vector3(
-            RandomExcept(),
-            0,
-            RandomExcept());
-        Vector3 targetPos = Hero.position;
-        targetPos.y = transform.position.y;//y軸は動かさない
-        transform.position = targetPos + offset;
+        //マップの場所五個のうち、どれか一つに、ワープをするという仕様
+        //----------------------------------------------------------------
+        //今回のプレイヤーの周りにランダムにワープするというのは、なし
+        //----------------------------------------------------------------
+
+        //offset = new Vector3(
+        //    RandomExcept(),
+        //    0,
+        //    RandomExcept());
+        //Vector3 targetPos = Hero.position;
+        //targetPos.y = transform.position.y;//y軸は動かさない
+        //transform.position = targetPos + offset;
+        //LookAtPlayerQuaternion();
     }
 
-    float RandomExcept()
+    //float RandomExcept()
+    //{
+    //    float val = 0f;
+    //    //
+    //    if (Random.value > 0.5f)
+    //    {
+    //        val = Random.Range(2f, 1f);
+    //    }
+    //    else
+    //    {
+    //        val = Random.Range(-2f, -1f);
+    //    }
+    //    return val;
+    //}
+
+    void LookAtPlayerQuaternion()
     {
-        float val = 0f;
-        //
-        if (Random.value > 0.5f)
+        Vector3 dir = Hero.position - transform.position;
+        dir.y = 0;//y軸は動かさない
+        if (dir.sqrMagnitude > 0.01f)//向く方向がある場合のみ
         {
-            val = Random.Range(2f, 1f);
+            Quaternion　targetRotation = Quaternion.LookRotation(dir.normalized);
+            transform.rotation = targetRotation;
         }
-        else
-        {
-            val = Random.Range(-2f, -1f);
-        }
-        return val;
     }
 
 }
