@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Warp_Controller : MonoBehaviour
 {
-    [SerializeField] private Transform destinationPortal;
-
+    public GameObject player;
+    /// <summary>
+    /// ワープ先
+    /// </summary>
+    private Vector3 warpPoint = new Vector3(0.0f,0.63f, -7.417f);
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +26,7 @@ public class Warp_Controller : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            CharacterController controller = other.GetComponent<CharacterController>();
-            if (controller != null)
-            {
-                {
-                    controller.enabled = false; //一時的に無効化して位置変更
-                }
-            }
+            player.transform.position = warpPoint;
         }
     }
 }

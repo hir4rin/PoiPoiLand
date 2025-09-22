@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5857654
       objectReference: {fileID: 0}
@@ -48,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c6c4812ec2373604094d72b80b4b12ff, type: 3}
       propertyPath: m_Name
       value: Hammer_Prefab
@@ -85,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isColHit: 0
   currentState: 0
-  hammer: {fileID: 8721299393686393830}
 --- !u!136 &-7757869459448027376
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -134,5 +149,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
