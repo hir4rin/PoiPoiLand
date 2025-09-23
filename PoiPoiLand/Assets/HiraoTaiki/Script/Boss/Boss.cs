@@ -20,7 +20,8 @@ public class Boss : MonoBehaviour
 
     //プレイヤー(仮置き)
     public Transform Hero;
-   
+
+  
 
     //移動用
     Vector3 targetPosition;
@@ -36,11 +37,18 @@ public class Boss : MonoBehaviour
 
     bool isRush = false;//突進中かどうか
 
+    //魔法攻撃用
+    AttackPos _attackPos;
+    //魔法攻撃の連射防止用
+    [SerializeField] private float shootInterval = 2.0f;//発射間隔//連射を防ぐ
+    float shootTimer = 0.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _attackPos = GameObject.Find("AttackPos").GetComponent<AttackPos>();
+
     }
 
     // Update is called once per frame
@@ -62,15 +70,23 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
-        //if (Input.GetKey(KeyCode.B))//魔法攻撃
-        //{
+        if (Input.GetKey(KeyCode.B))//魔法攻撃
+        {
+            if (shootTimer >= shootInterval)
+            {
+                _attackPos.MagicAttack();
+                shootTimer = 0.0f;
+            }
+            
+        }
 
-        //}
-       
 
     }
     private void FixedUpdate()
     {
+       
+
+        shootTimer += Time.fixedDeltaTime;
         if (isMoving)
         {
            
