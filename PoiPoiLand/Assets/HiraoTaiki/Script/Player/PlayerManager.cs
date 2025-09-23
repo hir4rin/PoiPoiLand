@@ -10,10 +10,13 @@ public class PlayerManager : MonoBehaviour
     Player _player;
     PlayerState _playerState;
     HoldManager _holdManager;//つかみ管理
-    HammerController _hammer;
+    HammerController _hammer;//ハンマー
     HammerState _hammerState;
-    NokonokoController _nokonoko;//あか
+    NokonokoController _nokonoko;//のこのこ
     NokonokoState _nokonokoState;
+    BowlingNokonokoController _bowling;//のこのこボーリング
+    BowlingNokonokoState _bowlingState;
+
     
 
     // Start is called before the first frame update
@@ -36,6 +39,7 @@ public class PlayerManager : MonoBehaviour
     {
         _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
         _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
+        _bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
         //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         if (Input.GetKey(KeyCode.J))
         {
@@ -71,6 +75,18 @@ public class PlayerManager : MonoBehaviour
 
             }
         }
+        //ボーリング
+        if (_holdManager.isColHit && _bowling.isColHit)
+        {
+            if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+            {
+                Debug.Log("持ちました");
+                _player._state = PlayerState.Hold;
+                _bowling.currentState = BowlingNokonokoState.held;
+                _player._animator.SetBool("isHold", true);
+
+            }
+        }
         if (_player._state == PlayerState.Hold)
         {
             //ハンマー
@@ -102,7 +118,26 @@ public class PlayerManager : MonoBehaviour
             {
                 _player._animator.SetTrigger("TriggerThrow");
                 
-                _nokonoko.currentState = NokonokoState.thrown;
+                _nokonoko.currentState = NokonokoState.thrownzerogravity;
+                _player._state = PlayerState.Idle;
+                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
+
+            }
+
+            //ボーリング
+            if (Input.GetKeyDown(KeyCode.K) && _bowling.currentState == BowlingNokonokoState.held)//ものを落とすとき
+            {
+
+                _bowling.currentState = BowlingNokonokoState.pop;
+                _player._state = PlayerState.Idle;
+                _player._animator.SetBool("isHold", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき
+            {
+                _player._animator.SetTrigger("TriggerThrow");
+
+                _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
 
