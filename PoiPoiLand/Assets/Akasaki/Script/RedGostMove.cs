@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GostMove : MonoBehaviour
+public class RedGostMove : MonoBehaviour
 {
     Vector3 basePos; // 初期位置
     Vector3 pos; //更新された位置
@@ -13,6 +13,11 @@ public class GostMove : MonoBehaviour
     [SerializeField] float floatHeight = 0.5f;
     [SerializeField] float floatSpeed = 2.0f;
     [SerializeField] float wanderRange = 1.0f;
+
+    // ボスエネミーに突撃する
+    public Transform boss; // Inspectorでボスを設定
+    public float moveSpeed = 5.0f;
+    private bool isChasingBoss = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -25,6 +30,18 @@ public class GostMove : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(transform.position, playerTr.position);
+
+        if(isChasingBoss && boss != null)
+        {
+            //ボスの方向ベクトル
+            Vector3 direction = (boss.position - transform.position).normalized;
+
+            //ボスの方へ移動
+            transform.position += direction * moveSpeed * Time.deltaTime;
+
+
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
 
 
 
@@ -50,9 +67,27 @@ public class GostMove : MonoBehaviour
 
             //transform.position = basePos + new Vector3(xOffset, yOffset, 0);
 
-
+            
             Debug.Log("誰もいない");
         }
 
     }
+
+    //ハンマーがRedGostに当たったらボスの方向に向かう
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hammer"))
+        {
+            isChasingBoss = true;
+            Debug.Log("ハンマーに当たったからボスに突撃ー！");
+
+        }
+        if (other.CompareTag("Boss"))
+        {
+
+            Debug.Log("ボスに当たったら消える");
+            Destroy(gameObject);
+        }
+    }
+
 }
