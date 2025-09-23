@@ -4,21 +4,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public enum NokonokoState
+public enum BowlingNokonokoState
 {
     pop, //出現中(Pop中)
     held, //持たれている
     thrownzerogravity, //投げられた瞬間、無重力
     throwngravity,//重力付き
     move//移動中
-    
+
 }
 
-public class NokonokoController : MonoBehaviour
+public class BowlingNokonokoController : MonoBehaviour
 {
-    public float speed = 0.1f;
+    
     private Rigidbody rb;
-    private Vector3 startPos = new Vector3(2.18f, 2.0f, 0.0f);
+    //private bool isGrounded = false;//地面に着地したか
+    //private Vector3 moveDir;      //投げた後の進行方向
+    //public float speed = 0.1f;    //地面を進むスピード
+    private Vector3 startPos = new Vector3(4.18f, 2.0f, 0.0f);
 
     bool isThrow = false;
 
@@ -28,7 +31,7 @@ public class NokonokoController : MonoBehaviour
     Vector3 throwDir;//投げる向き
     Transform playerTransform;//プレイヤーのTransform
     public bool isColHit = false;
-    public NokonokoState currentState;
+    public BowlingNokonokoState currentState;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +40,7 @@ public class NokonokoController : MonoBehaviour
         transform.position = startPos;
 
         //初期状態をポップにする
-        currentState = NokonokoState.pop;
+        currentState = BowlingNokonokoState.pop;
 
         _player = GameObject.Find("Player");
         _playerScript = _player.GetComponent<Player>();
@@ -59,14 +62,14 @@ public class NokonokoController : MonoBehaviour
     {
         switch (currentState)
         {
-            case NokonokoState.pop: //pop中
+            case BowlingNokonokoState.pop: //pop中
                 UpdatePop();
                 QuitHold();
                 break;
-            case NokonokoState.held://持たれている状態
+            case BowlingNokonokoState.held://持たれている状態
                 UpdateHold();
                 break;
-            case NokonokoState.thrownzerogravity://なげられている状態
+            case BowlingNokonokoState.thrownzerogravity://なげられている状態
                 UpdateThrow(throwDir);
                 break;
         }
@@ -74,24 +77,9 @@ public class NokonokoController : MonoBehaviour
         Debug_akasaki();
     }
 
+
+
     
-
-    // 壁にぶつかったとき反射
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    // 現在の進行方向
-    //    Vector3 inDirection = rb.velocity;
-
-    //    // 壁の法線ベクトル
-    //    Vector3 normal = collision.contacts[0].normal;
-
-    //    // 反射ベクトルを計算
-    //    Vector3 reflectDir = Vector3.Reflect(inDirection, normal);
-
-
-    //    // 速度を反射方向に更新
-    //    //rb.velocity = reflectDir.normalized*speed;
-    //}
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -113,19 +101,19 @@ public class NokonokoController : MonoBehaviour
         //スペースを押したらステートをthrownにする
         if (Input.GetKey(KeyCode.T))//SpaceをTに変更
         {
-            currentState = NokonokoState.thrownzerogravity;
+            currentState = BowlingNokonokoState.thrownzerogravity;
         }
 
         //Hを押したらステートをheldにする
         if (Input.GetKey(KeyCode.H))
         {
-            currentState = NokonokoState.held;
+            currentState = BowlingNokonokoState.held;
         }
 
         //Pを押したらステートをpopにする
         if (Input.GetKey(KeyCode.P))
         {
-            currentState = NokonokoState.pop;
+            currentState = BowlingNokonokoState.pop;
         }
 
         //Rを押したらハンマーを消す
@@ -163,7 +151,7 @@ public class NokonokoController : MonoBehaviour
         rb.isKinematic = true;
 
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        
+
     }
     public void QuitHold() //離したとき
     {
@@ -176,9 +164,12 @@ public class NokonokoController : MonoBehaviour
     {
         if (!isThrow)
         {
+            
+
+
             this.transform.SetParent(null);
             col.enabled = true;
-            rb.useGravity = false; // 無重力状態
+            rb.useGravity = true; // 重力状態
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
             ////現在の自身の回転の情報を取得する。
