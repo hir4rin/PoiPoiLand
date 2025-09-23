@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Hammer
   - Boss
+  - Wall
   layers:
   - Default
   - TransparentFX
