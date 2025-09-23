@@ -16,8 +16,11 @@ public enum BowlingNokonokoState
 
 public class BowlingNokonokoController : MonoBehaviour
 {
-    public float speed = 0.1f;
+    
     private Rigidbody rb;
+    //private bool isGrounded = false;//地面に着地したか
+    //private Vector3 moveDir;      //投げた後の進行方向
+    //public float speed = 0.1f;    //地面を進むスピード
     private Vector3 startPos = new Vector3(4.18f, 2.0f, 0.0f);
 
     bool isThrow = false;
@@ -76,22 +79,7 @@ public class BowlingNokonokoController : MonoBehaviour
 
 
 
-    // 壁にぶつかったとき反射
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    // 現在の進行方向
-    //    Vector3 inDirection = rb.velocity;
-
-    //    // 壁の法線ベクトル
-    //    Vector3 normal = collision.contacts[0].normal;
-
-    //    // 反射ベクトルを計算
-    //    Vector3 reflectDir = Vector3.Reflect(inDirection, normal);
-
-
-    //    // 速度を反射方向に更新
-    //    //rb.velocity = reflectDir.normalized*speed;
-    //}
+    
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -176,6 +164,9 @@ public class BowlingNokonokoController : MonoBehaviour
     {
         if (!isThrow)
         {
+            
+
+
             this.transform.SetParent(null);
             col.enabled = true;
             rb.useGravity = true; // 重力状態
