@@ -48,6 +48,9 @@ public class Player : MonoBehaviour
     //アニメーション
     public Animator _animator;
 
+    Warp_Controller _checkPoint;
+
+
     //最初のプレイヤーの状態
     public PlayerState _state = PlayerState.Idle;
     // Start is called before the first frame update
@@ -55,7 +58,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-     
+        _checkPoint = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
 
     }
 
@@ -189,7 +192,7 @@ public class Player : MonoBehaviour
             transform.rotation = rotationMatrix.rotation;
         }
 
-        if (transform.position.y < -10)
+        if (transform.position.y < 9)
         {
             Death();
         }
@@ -209,6 +212,32 @@ public class Player : MonoBehaviour
     public void Death()
     {
         //ここでチェックポイントによって座標を変える
-        transform.position = new Vector3(0,3,-8);
+         Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
+        switch (PlayerPrefs.GetInt("PointNum"))
+        {
+            case 0:
+                this.transform.position = _checkPoint.StartPos;
+                break;
+            case 1:
+                this.transform.position = _checkPoint.warpToFirstStage;
+                break;
+            case 2:
+                this.transform.position = _checkPoint.warpToMapFirst;
+                break;
+            case 3:
+                this.transform.position = _checkPoint.warpToSecondStage;
+                break;
+            case 4:
+                this.transform.position = _checkPoint.warpToMapSecond;
+                break;
+            case 5:
+                this.transform.position = _checkPoint.warpToThirdStage;
+                break;
+            case 6:
+                this.transform.position = _checkPoint.warpToMapThird;
+                break;
+            default:
+                break;
+        }
     }
 }

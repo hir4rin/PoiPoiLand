@@ -22,8 +22,8 @@ public class BossFakeMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        centerY = transform.position.y * Yura;
-        centerX = transform.position.x * Yura;
+        centerY = transform.localPosition.y * Yura;
+        centerX = transform.localPosition.x * Yura;
        
 
     }
@@ -38,6 +38,6 @@ public class BossFakeMove : MonoBehaviour
         //•‚—VŠ´
         float newY = centerY + Mathf.Sin(Time.time * floatFrequencyY) * floatAmplitudeY;
         float newX = centerX + Mathf.Sin(Time.time * floatFrequencyX) * floatAmplitudeX;
-        transform.position = new Vector3(newX, newY, transform.position.z);
+        transform.localPosition = new Vector3(newX, newY, transform.localPosition.z);
     }
 }
