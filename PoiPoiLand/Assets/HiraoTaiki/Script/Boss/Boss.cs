@@ -42,7 +42,13 @@ public class Boss : MonoBehaviour
     //魔法攻撃の連射防止用
     [SerializeField] private float shootInterval = 2.0f;//発射間隔//連射を防ぐ
     float shootTimer = 0.0f;
+    
 
+
+    //ボスの移動
+    Vector3 rightMove  =new Vector3(1,0,0);
+    Vector3 leftMove = new Vector3(-1,0,0);
+    bool isRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +85,8 @@ public class Boss : MonoBehaviour
             }
             
         }
-
+       
+        
 
     }
     private void FixedUpdate()
@@ -113,7 +120,32 @@ public class Boss : MonoBehaviour
                 //}
 
             }
-           
+            //if (Input.GetKeyDown(KeyCode.I))//移動中
+            //{
+            //    if (!isRight)
+            //    {
+            //        isRight = true;
+            //        Debug.Log("移動");
+            //    }
+            //    else
+            //    {
+            //        transform.position += leftMove;
+            //        isRight = false;
+            //    }
+
+            //}
+            //if (!isRight)
+            //{
+            //    transform.position += rightMove;
+            //    isRight = true;
+            //    Debug.Log("移動");
+            //}
+            //else
+            //{
+            //    transform.position += leftMove;
+            //    isRight = false;
+            //}
+
         }
     }
 
@@ -137,30 +169,30 @@ public class Boss : MonoBehaviour
         //今回のプレイヤーの周りにランダムにワープするというのは、なし
         //----------------------------------------------------------------
 
-        //offset = new Vector3(
-        //    RandomExcept(),
-        //    0,
-        //    RandomExcept());
-        //Vector3 targetPos = Hero.position;
-        //targetPos.y = transform.position.y;//y軸は動かさない
-        //transform.position = targetPos + offset;
-        //LookAtPlayerQuaternion();
+        offset = new Vector3(
+            RandomExcept(),
+            0,
+            RandomExcept());
+        Vector3 targetPos = Hero.position;
+        targetPos.y = transform.position.y;//y軸は動かさない
+        transform.position = targetPos + offset;
+        LookAtPlayerQuaternion();
     }
 
-    //float RandomExcept()
-    //{
-    //    float val = 0f;
-    //    //
-    //    if (Random.value > 0.5f)
-    //    {
-    //        val = Random.Range(2f, 1f);
-    //    }
-    //    else
-    //    {
-    //        val = Random.Range(-2f, -1f);
-    //    }
-    //    return val;
-    //}
+    float RandomExcept()
+    {
+        float val = 0f;
+        //
+        if (Random.value > 0.5f)
+        {
+            val = Random.Range(2f, 1f);
+        }
+        else
+        {
+            val = Random.Range(-2f, -1f);
+        }
+        return val;
+    }
 
     void LookAtPlayerQuaternion()
     {
