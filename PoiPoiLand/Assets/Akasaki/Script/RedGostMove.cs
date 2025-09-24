@@ -10,9 +10,9 @@ public class RedGostMove : MonoBehaviour
     Transform playerTr; //プレイヤーのトランスフォーム
     [SerializeField] float speed = 2; // 敵の動くスピード
     [SerializeField] float followRange = 2.0f; // 追従距離
-    [SerializeField] float floatHeight = 0.5f;
-    [SerializeField] float floatSpeed = 2.0f;
-    [SerializeField] float wanderRange = 1.0f;
+    [SerializeField] float floatHeight = 0.5f; //幽霊っぽい縦の挙動
+    [SerializeField] float floatSpeed = 2.0f;  //幽霊っぽい動きのスピード
+    [SerializeField] float wanderRange = 1.0f; //幽霊っぽい横の挙動
 
     // ボスエネミーに突撃する
     public Transform boss; // Inspectorでボスを設定
