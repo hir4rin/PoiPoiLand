@@ -55,4 +55,14 @@ public class GostMove : MonoBehaviour
         }
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hammer"))
+        {
+            Destroy(gameObject);
+            Debug.Log("ƒnƒ“ƒ}[‚É“–‚½‚Á‚½‚©‚ç€");
+
+        }
+    }
 }

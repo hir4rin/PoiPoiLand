@@ -37,10 +37,13 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
-        _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
-        _bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
-        //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
+        //_hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
+        _hammer = Resources.Load<HammerController>("Hammer_Prefab").GetComponent<HammerController>();
+        //_nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
+        _nokonoko = Resources.Load<NokonokoController>("Nokonoko").GetComponent<NokonokoController>();
+        //_bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
+        _bowling = Resources.Load<BowlingNokonokoController>("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
+        
         if (Input.GetKey(KeyCode.J))
         {
             Debug.Log("J押してる");
