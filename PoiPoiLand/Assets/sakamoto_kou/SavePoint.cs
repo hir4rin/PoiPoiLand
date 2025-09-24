@@ -7,7 +7,7 @@ public class SavePoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SaveGame(0);
     }
 
     // Update is called once per frame
@@ -16,25 +16,11 @@ public class SavePoint : MonoBehaviour
         
     }
 
-    //セーブポイントに触れたとき
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            //プレイヤーンのポジションを保持する
-            SaveGame(other.gameObject);
-        }
-    }
-
-    void SaveGame(GameObject player)
+    void SaveGame(int pointNum)
     {
         //セーブデータを保存する処理
-        Vector3 position = player.transform.position;
-        PlayerPrefs.SetFloat("PlayerX", position.x);
-        PlayerPrefs.SetFloat("PlayerY", position.y);
-        PlayerPrefs.SetFloat("PlayerZ", position.z);
+        PlayerPrefs.SetInt("PointNum", pointNum);
         PlayerPrefs.Save();
-
         Debug.Log("セーブした！");
     }
 }
