@@ -171,7 +171,7 @@ public class BowlingNokonokoController : MonoBehaviour
             col.enabled = true;
             rb.useGravity = true; // 重力状態
             rb.isKinematic = false;
-            rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
+            rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
             ////現在の自身の回転の情報を取得する。
             //Quaternion q = this.transform.rotation;
             ////合成して自身に設定

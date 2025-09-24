@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         moveDirection.y = 0;//y²‚ğ0‚É‚µ‚ÄA…•½–Ê‚Ì‚İ‰ñ“]‚·‚é‚æ‚¤‚É‚·‚é
         moveDirection.Normalize();
         // Debug.Log($"_state‚Í{_state}‚Å‚·");
-        Debug.Log($"movedirection‚Í{moveDirection}");
+        //Debug.Log($"movedirection‚Í{moveDirection}");
     
 
     }
