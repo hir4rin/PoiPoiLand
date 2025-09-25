@@ -9,7 +9,7 @@ public class Warp_Controller : MonoBehaviour
     /// ワープ先
     /// </summary>
     public Vector3 StartPos = new Vector3(-35.0f, 13.0f, -9.0f);// スタート地点
-    public Vector3 warpToFirstStage = new Vector3(100.0f, 5.5f, 2.5f); // ステージ1に移動
+    public Vector3 warpToFirstStage = new Vector3(100.0f, 21.5f, 2.5f); // ステージ1に移動
     public Vector3 warpToMapFirst = new Vector3(-36.0f, 13.5f, 10.1f); // ステージ1からマップに戻ってくる
     public Vector3 warpToSecondStage = new Vector3(152.5f, 5.3f, -2.5f); // ステージ2に移動
     public Vector3 warpToMapSecond = new Vector3(-91.0f, 15.0f, 15.5f); // ステージ2
@@ -66,34 +66,42 @@ public class Warp_Controller : MonoBehaviour
             switch (PlayerPrefs.GetInt("PointNum"))
             {
                 case 0:
-                    player.transform.position = StartPos;
+                    player.transform.position = warpToFirstStage;
                     PlayerPrefs.SetInt("PointNum", 1);
+                    Debug.Log("case0");
                     break;
                 case 1:
-                    player.transform.position = warpToFirstStage;
+                    player.transform.position = warpToMapFirst;
                     PlayerPrefs.SetInt("PointNum", 2);
+                    Debug.Log("case1");
                     break;
                 case 2:
-                    player.transform.position = warpToMapFirst;
+                    player.transform.position = warpToSecondStage;
                     PlayerPrefs.SetInt("PointNum", 3);
+                    Debug.Log("case2");
                     break;
                 case 3:
-                    player.transform.position = warpToSecondStage;
+                    player.transform.position = warpToMapSecond;
                     PlayerPrefs.SetInt("PointNum", 4);
+                    Debug.Log("case3");
                     break;
                 case 4:
-                    player.transform.position = warpToMapSecond;
+                    player.transform.position = warpToThirdStage;
                     PlayerPrefs.SetInt("PointNum", 5);
+                    Debug.Log("case4");
                     break;
                 case 5:
                     player.transform.position = warpToThirdStage;
                     PlayerPrefs.SetInt("PointNum", 6);
+                    Debug.Log("case5");
                     break;
                 case 6:
                     player.transform.position = warpToMapThird;
                     PlayerPrefs.SetInt("PointNum", 7);
+                    Debug.Log("case6");
                     break;
                 case 7:
+                    Debug.Log("case7");
                     break;
                 default:
                     break;

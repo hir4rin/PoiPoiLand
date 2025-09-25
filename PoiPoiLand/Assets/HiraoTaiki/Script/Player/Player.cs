@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         //キャラの回転
         if (moveDirection.sqrMagnitude > 0.0001f)//ベクトルの長さの2乗
         {
-            Debug.Log("回転しています");
+            //Debug.Log("回転しています");
             Quaternion rotation = Quaternion.LookRotation(moveDirection);
             Matrix4x4 rotationMatrix = Matrix4x4.Rotate(rotation);
             transform.rotation = rotationMatrix.rotation;
