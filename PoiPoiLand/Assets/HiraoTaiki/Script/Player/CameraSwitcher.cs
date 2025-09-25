@@ -7,7 +7,8 @@ public class CameraSwitcher : MonoBehaviour
 {
     public CinemachineFreeLook behindCam;
     public CinemachineFreeLook sidecam;
-
+    public CinemachineFreeLook _secondBehind;
+    public CinemachineFreeLook _secondSide;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,16 @@ public class CameraSwitcher : MonoBehaviour
             Debug.Log("•Ï‚í‚Á‚½");
             behindCam.Priority = 10;
             sidecam.Priority = 20;//‰¡‚ª—LŒø
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            sidecam.Priority = 10;
+            _secondBehind.Priority = 20;//Œã‚ë‚ª—LŒø
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _secondBehind.Priority = 10;
+            _secondSide.Priority = 20;//‰¡‚ª—LŒø
         }
     }
     private void FixedUpdate()
