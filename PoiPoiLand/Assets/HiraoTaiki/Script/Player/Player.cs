@@ -24,10 +24,10 @@ public class Player : MonoBehaviour
 
 
     //移動方向
-    Vector3 Forward = new Vector3(0,0,1);
-    Vector3 Back = new Vector3(0,0,-1);
-    Vector3 Right = new Vector3(1,0,0);
-    Vector3 Left = new Vector3(-1,0,0);
+    Vector3 Forward;
+    Vector3 Back;
+    Vector3 Right;
+    Vector3 Left;
     Vector3 JumpPower = new Vector3(0,15,0);
     //キャラクターの向き
     public Vector3 moveDirection; //キャラクターの向き
@@ -65,6 +65,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Forward = Camera.main.transform.forward.normalized;
+        Forward.y = 0;
+        Back = -Forward;
+        Right = Camera.main.transform.right.normalized;
+        Right.y = 0;
+        Left = -Right;
+
         //キャラクターの向き
         moveDirection = playerVelocity;
         moveDirection.y = 0;//y軸を0にして、水平面のみ回転するようにする
@@ -213,31 +220,31 @@ public class Player : MonoBehaviour
     {
         ////ここでチェックポイントによって座標を変える
         // Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
-        //switch (PlayerPrefs.GetInt("PointNum"))
-        //{
-        //    case 0:
-        //        this.transform.position = _checkPoint.StartPos;
-        //        break;
-        //    case 1:
-        //        this.transform.position = _checkPoint.warpToFirstStage;
-        //        break;
-        //    case 2:
-        //        this.transform.position = _checkPoint.warpToMapFirst;
-        //        break;
-        //    case 3:
-        //        this.transform.position = _checkPoint.warpToSecondStage;
-        //        break;
-        //    case 4:
-        //        this.transform.position = _checkPoint.warpToMapSecond;
-        //        break;
-        //    case 5:
-        //        this.transform.position = _checkPoint.warpToThirdStage;
-        //        break;
-        //    case 6:
-        //        this.transform.position = _checkPoint.warpToMapThird;
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (PlayerPrefs.GetInt("PointNum"))
+        {
+            case 0:
+                this.transform.position = _checkPoint.StartPos;
+                break;
+            case 1:
+                this.transform.position = _checkPoint.warpToFirstStage;
+                break;
+            case 2:
+                this.transform.position = _checkPoint.warpToMapFirst;
+                break;
+            case 3:
+                this.transform.position = _checkPoint.warpToSecondStage;
+                break;
+            case 4:
+                this.transform.position = _checkPoint.warpToMapSecond;
+                break;
+            case 5:
+                this.transform.position = _checkPoint.warpToThirdStage;
+                break;
+            case 6:
+                this.transform.position = _checkPoint.warpToMapThird;
+                break;
+            default:
+                break;
+        }
     }
 }
