@@ -17,18 +17,21 @@ public enum PlayerState
 }
 public class Player : MonoBehaviour
 {
-   //プレイヤーの座標
-   Vector3 playerPos = Vector3.zero;
+
+
+    //プレイヤーの座標
+    Vector3 playerPos = Vector3.zero;
     //プレイヤーに加える方向
     Vector3 playerVelocity = Vector3.zero;
 
 
     //移動方向
-    Vector3 Forward = new Vector3(0,0,1);
-    Vector3 Back = new Vector3(0,0,-1);
-    Vector3 Right = new Vector3(1,0,0);
-    Vector3 Left = new Vector3(-1,0,0);
-    Vector3 JumpPower = new Vector3(0,15,0);
+    Vector3 Forward;
+    Vector3 Back;
+    Vector3 Right;
+    Vector3 Left;
+    //CameraSwitcher _cameraSwitch;
+    Vector3 JumpPower = new Vector3(0, 15, 0);
     //キャラクターの向き
     public Vector3 moveDirection; //キャラクターの向き
 
@@ -56,6 +59,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //移動方向
+        //Forward = Camera.main.transform.forward.normalized;
+        //Back = Camera.main.transform.forward.normalized * -1;
+        //Right = Camera.main.transform.right.normalized;
+        //Left = Camera.main.transform.right.normalized * -1;
+        //_cameraSwitch = GameObject.Find("CameraSwitch").GetComponent<CameraSwitcher>();
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _checkPoint = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
@@ -65,13 +74,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Transform camTransform = Camera.main.transform;
+        Forward = camTransform.forward.normalized;
+        Forward.y = 0;
+        Back = -Forward;
+
+        Right = camTransform.right.normalized;
+        Right.y = 0;
+        Left = -Right;
+
         //キャラクターの向き
         moveDirection = playerVelocity;
         moveDirection.y = 0;//y軸を0にして、水平面のみ回転するようにする
         moveDirection.Normalize();
         // Debug.Log($"_stateは{_state}です");
         //Debug.Log($"movedirectionは{moveDirection}");
-    
+
 
     }
 
@@ -81,43 +99,46 @@ public class Player : MonoBehaviour
         //{
         //    _state = PlayerState.Idle;
         //}
-
+        Debug.Log(Forward);
+        //Debug.Log(Back);
+        //Debug.Log(Left);
+        //Debug.Log(Right);
         playerVelocity = Vector3.zero;
-        
+
         if (!isGround)
         {
             transform.position += velocity * 2;//常にかかっている速度
         }
-        
+
         //ジャンプの重力計算
         //verticalSpeed += gravity * Time.deltaTime;
         if (Input.GetKey(KeyCode.W))//前移動
         {
             playerVelocity += Forward * speed;
-           
+
             Debug.Log("前に移動しています");
         }
         if (Input.GetKey(KeyCode.S))//後ろ移動
         {
             playerVelocity += Back * speed;
-           
+
         }
         if (Input.GetKey(KeyCode.A))//左移動
         {
             playerVelocity += Left * speed;
-           
+
         }
         if (Input.GetKey(KeyCode.D))//右移動
         {
-           
+
             playerVelocity += Right * speed;
-           
+
         }
 
         if (Input.GetKey(KeyCode.Space) && isGround)//ジャンプ
         {
             Debug.Log("飛んでいます");
-            rb.AddForce(JumpPower,ForceMode.Impulse);
+            rb.AddForce(JumpPower, ForceMode.Impulse);
             isGround = false;
             if (_state != PlayerState.Hold)
             {
@@ -139,15 +160,15 @@ public class Player : MonoBehaviour
         {
             _animator.SetBool("isWalk", true);
         }
-        
+
 
         //Debug.Log($"{playerVelocity}");
         //止まっているとき
         if (playerVelocity.magnitude < 0.00001f) //=0で動かなくてこんだけ小さくしてもfalseにならない//急にこうなった//一旦放置//今は解決(疑似)
         {
-           
+
             _animator.SetBool("isWalk", false);
-            _animator.SetBool("isRun",false);
+            _animator.SetBool("isRun", false);
             _animator.SetBool("isWalkHold", false);
             _animator.SetBool("isRunHold", false);
         }
@@ -180,8 +201,8 @@ public class Player : MonoBehaviour
             _animator.SetBool("isRun", false);
             _animator.SetBool("isRunHold", false);
         }
-            //加える
-            transform.position += playerVelocity;
+        //加える
+        transform.position += playerVelocity;
 
         //キャラの回転
         if (moveDirection.sqrMagnitude > 0.0001f)//ベクトルの長さの2乗
@@ -212,7 +233,7 @@ public class Player : MonoBehaviour
     public void Death()
     {
         //ここでチェックポイントによって座標を変える
-         Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
+        Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
         {
             case 0:
