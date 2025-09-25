@@ -6,7 +6,7 @@ using static HammerController;
 public class Hammer_PrefabDirector : MonoBehaviour
 {
     private float time = 0.0f;
-    public GameObject hummerPrefab;
+    [SerializeField] private GameObject hummerPrefab;
 
     // Start is called before the first frame update
     void Start()

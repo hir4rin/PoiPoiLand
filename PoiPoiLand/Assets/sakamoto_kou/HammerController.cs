@@ -30,10 +30,14 @@ public class HammerController : MonoBehaviour
     /// ハンマーを傾ける角度
     /// </summary>
     Quaternion popInclination = Quaternion.AngleAxis(21.0f, Vector3.forward);
+
+    Vector3 size = new Vector3(70.0f, 70.0f, 70.0f);
+
     //初期位置を設定
-    private Vector3 startPos = new Vector3(0.0f,2.5f,0.0f);
+    private Vector3 startPos = new Vector3(0.0f, 2.5f, 0.0f);
     //一度だけ発生するフラグ
     bool isInclination = false;
+    bool isReset = false; // 回転をゼロに戻したかどうか
     bool isThrow = false;
 
     GameObject _player;
@@ -43,16 +47,15 @@ public class HammerController : MonoBehaviour
     Vector3 throwDir;//投げる向き
     Transform playerTransform;//プレイヤーのTransform
     public bool isColHit = false;
-  
+
     public HammerState currentState;
 
     // Start is called before the first frame update
     void Start()
     {
         //現在のポジションに初期位置を設定する
-        transform.position = startPos;
-        //少し傾ける
-        this.transform.rotation = popInclination;
+        //transform.position = startPos;
+
         //初期状態をポップにする
         currentState = HammerState.pop;
 
@@ -61,7 +64,6 @@ public class HammerController : MonoBehaviour
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
-        //rb.isKinematic = true;        
     }
 
     private void Update()
@@ -74,17 +76,20 @@ public class HammerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch(currentState)
+        switch (currentState)
         {
             case HammerState.pop: //pop中
                 UpdatePop();
-                QuitHold();
                 break;
             case HammerState.held://持たれている状態
                 UpdateHold();
                 break;
             case HammerState.thrown://なげられている状態
                 UpdateThrow();
+                //現在の自身の回転の情報を取得する。
+                Quaternion q = this.transform.rotation;
+                //合成して自身に設定
+                this.transform.rotation = throwRotation * q;
                 break;
         }
 
@@ -101,17 +106,24 @@ public class HammerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //敵に当たったら
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             //破壊する
             Debug.Log("敵に当たった");
             Destroy(gameObject);
         }
+
+        //地面に当たったら
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            //再度pop状態にする
+            currentState = HammerState.pop;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.CompareTag("Ground"))
+        if (!other.CompareTag("Ground"))
         {
             isColHit = true;
         }
@@ -146,21 +158,34 @@ public class HammerController : MonoBehaviour
         }
 
         //Rを押したらハンマーを消す
-        if(Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         {
             Destroy(gameObject);
         }
     }
 
     void UpdatePop() //Pop中のUpdate
-    {
-        Debug.Log("Pop中");
-        //現在の自身の回転の情報を取得する。
+    {   
+        Debug.Log(isReset);
+        if (!isReset)
+        {
+            //最初だけ回転を0にする
+            this.transform.rotation = Quaternion.identity;
+            //少し傾ける
+            this.transform.rotation = popInclination;
+            isReset = true;
+            this.transform.localScale = size;
+        }
+
+        //Debug.Log("Pop中");
+        //どのくらい回転するか
         Quaternion q = this.transform.rotation;
         //合成して自身に設定
         this.transform.rotation = popRotation * q;
         rb.useGravity = false;
         rb.isKinematic = true;
+        isInclination = false;
+        isThrow = false;
     }
 
     public void UpdateHold() //掴んでる状態
@@ -179,6 +204,8 @@ public class HammerController : MonoBehaviour
     {
         this.transform.SetParent(null);
         col.enabled = true;
+        isReset = false;
+        currentState = HammerState.pop;
     }
     public void UpdateThrow()//なげたとき
     {
@@ -189,17 +216,14 @@ public class HammerController : MonoBehaviour
             isInclination = true;
         }
 
-        if(!isThrow)
+        if (!isThrow)
         {
             this.transform.SetParent(null);
             col.enabled = true;
             rb.useGravity = true;
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
-            ////現在の自身の回転の情報を取得する。
-            //Quaternion q = this.transform.rotation;
-            ////合成して自身に設定
-            //this.transform.rotation = popRotation * q;
+            isReset = false;
             isThrow = true;
         }
     }

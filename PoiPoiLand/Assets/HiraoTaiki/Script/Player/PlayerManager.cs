@@ -28,22 +28,26 @@ public class PlayerManager : MonoBehaviour
         //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
 
         //Addressables.LoadAssetAsync<GameObject>("Hammer_Prefab").Completed=>{_hammer= handle.}
-        
-        
+
+
         //ノコノコクローンあか
         //_nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
+
+        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
+        _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
+        _bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //_hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
-        _hammer = Resources.Load<HammerController>("Hammer_Prefab").GetComponent<HammerController>();
-        //_nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
-        _nokonoko = Resources.Load<NokonokoController>("Nokonoko").GetComponent<NokonokoController>();
-        //_bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
-        _bowling = Resources.Load<BowlingNokonokoController>("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
         
+        //_hammer = Resources.Load<HammerController>("Hammer_Prefab").GetComponent<HammerController>();
+        
+        //_nokonoko = Resources.Load<NokonokoController>("Nokonoko").GetComponent<NokonokoController>();
+     
+        //_bowling = Resources.Load<BowlingNokonokoController>("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
+
         if (Input.GetKey(KeyCode.J))
         {
             Debug.Log("J押してる");
@@ -95,7 +99,7 @@ public class PlayerManager : MonoBehaviour
             //ハンマー
             if (Input.GetKeyDown(KeyCode.K)&& _hammer.currentState == HammerState.held)//ものを落とすとき
             {
-                _hammer.currentState = HammerState.pop;
+                _hammer.QuitHold();
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
             }
