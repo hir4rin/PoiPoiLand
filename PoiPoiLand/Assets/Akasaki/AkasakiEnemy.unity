@@ -265,7 +265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8233590826881616220, guid: 5da2289fc2f1db345ad98dfe22cd5366, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.77
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8233590826881616220, guid: 5da2289fc2f1db345ad98dfe22cd5366, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2309,6 +2309,10 @@ PrefabInstance:
       propertyPath: boss
       value: 
       objectReference: {fileID: 1048892606}
+    - target: {fileID: 6471150761486728404, guid: a9f1c111ff13a1940b72c1824094243f, type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8831352273817949962, guid: a9f1c111ff13a1940b72c1824094243f, type: 3}
       propertyPath: m_Name
       value: RedGost
