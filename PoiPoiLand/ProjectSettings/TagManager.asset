@@ -9,6 +9,8 @@ TagManager:
   - Hammer
   - Boss
   - Wall
+  - Nokonoko
+  - Bowling
   layers:
   - Default
   - TransparentFX

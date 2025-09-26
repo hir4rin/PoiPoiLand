@@ -7,6 +7,8 @@ public class Hammer_PrefabDirector : MonoBehaviour
 {
     private float time = 0.0f;
     [SerializeField] private GameObject hummerPrefab;
+    [SerializeField] private GameObject nokonokoPrefab;
+    [SerializeField] private GameObject bowlingPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,8 @@ public class Hammer_PrefabDirector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))//LshiftÇQÇ…ïœçX
         {
             Instantiate(hummerPrefab);
+            Instantiate(nokonokoPrefab);
+            Instantiate(bowlingPrefab);
         }
     }
 }

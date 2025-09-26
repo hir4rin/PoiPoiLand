@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     BowlingNokonokoController _bowling;//のこのこボーリング
     BowlingNokonokoState _bowlingState;
 
-    
+    bool isHaving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,52 +47,55 @@ public class PlayerManager : MonoBehaviour
         //_nokonoko = Resources.Load<NokonokoController>("Nokonoko").GetComponent<NokonokoController>();
      
         //_bowling = Resources.Load<BowlingNokonokoController>("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
-
-        if (Input.GetKey(KeyCode.J))
-        {
-            Debug.Log("J押してる");
-        }
         //------------------
         _playerState = _player._state;//_playerStateの更新
-
-        
 
         //Debug.Log($"PlayerStateは{_playerState}です");
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
-            if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+            if(!isHaving)
             {
-                Debug.Log("持ちました");
-                _player._state = PlayerState.Hold;
-                _hammer.currentState = HammerState.held;
-                _player._animator.SetBool("isHold", true);
-
+                if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                {
+                    Debug.Log("持ちました");
+                    _player._state = PlayerState.Hold;
+                    _hammer.currentState = HammerState.held;
+                    _player._animator.SetBool("isHold", true);
+                    isHaving = true;
+                }
             }
         }
         //ノコノコ
         if (_holdManager.isColHit && _nokonoko.isColHit)
         {
-            if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+            if (!isHaving)
             {
-                Debug.Log("持ちました");
-                _player._state = PlayerState.Hold;
-                _nokonoko.currentState = NokonokoState.held;
-                _player._animator.SetBool("isHold", true);
-
+                if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                {
+                    Debug.Log("持ちました");
+                    _player._state = PlayerState.Hold;
+                    _nokonoko.currentState = NokonokoState.held;
+                    _player._animator.SetBool("isHold", true);
+                    isHaving = true;
+                }
             }
         }
         //ボーリング
         if (_holdManager.isColHit && _bowling.isColHit)
         {
-            if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
-            {
-                Debug.Log("持ちました");
-                _player._state = PlayerState.Hold;
-                _bowling.currentState = BowlingNokonokoState.held;
-                _player._animator.SetBool("isHold", true);
 
-            }
+            if (!isHaving)
+            {
+                if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                {
+                    Debug.Log("持ちました");
+                    _player._state = PlayerState.Hold;
+                    _bowling.currentState = BowlingNokonokoState.held;
+                    _player._animator.SetBool("isHold", true);
+                    isHaving = true;
+                }
+            }   
         }
         if (_player._state == PlayerState.Hold)
         {
@@ -102,6 +105,7 @@ public class PlayerManager : MonoBehaviour
                 _hammer.QuitHold();
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
+                isHaving = false;
             }
             
             if (Input.GetKeyDown(KeyCode.L) && _hammer.currentState == HammerState.held)//ものを投げるとき
@@ -110,15 +114,15 @@ public class PlayerManager : MonoBehaviour
                 _hammer.currentState =  HammerState.thrown;
                 _player._state = PlayerState.Idle;
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
-               
+                isHaving = false;
             }
             //のこのこ
             if (Input.GetKeyDown(KeyCode.K) && _nokonoko.currentState == NokonokoState.held)//ものを落とすとき
             {
-                
                 _nokonoko.currentState = NokonokoState.pop;
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
+                isHaving = false;
             }
 
             if (Input.GetKeyDown(KeyCode.L) && _nokonoko.currentState == NokonokoState.held)//ものを投げるとき
@@ -128,7 +132,7 @@ public class PlayerManager : MonoBehaviour
                 _nokonoko.currentState = NokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
-
+                isHaving = false;
             }
 
             //ボーリング
@@ -138,6 +142,7 @@ public class PlayerManager : MonoBehaviour
                 _bowling.currentState = BowlingNokonokoState.pop;
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
+                isHaving = false;
             }
 
             if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき
@@ -147,7 +152,7 @@ public class PlayerManager : MonoBehaviour
                 _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
-
+                isHaving = false;
             }
 
         }
@@ -162,5 +167,20 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
        
+    }
+
+    public void SetHammer(HammerController hammer)
+    {
+        _hammer = hammer;
+    }
+
+    public void SetNokonoko(NokonokoController nokonoko)
+    {
+        _nokonoko = nokonoko;
+    }
+
+    public void SetBowling(BowlingNokonokoController bowling)
+    {
+        _bowling = bowling;
     }
 }

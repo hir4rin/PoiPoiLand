@@ -222,29 +222,29 @@ public class Player : MonoBehaviour
         // Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
         {
-            case 0:
-                this.transform.position = _checkPoint.StartPos;
-                break;
-            case 1:
-                this.transform.position = _checkPoint.warpToFirstStage;
-                break;
-            case 2:
-                this.transform.position = _checkPoint.warpToMapFirst;
-                break;
-            case 3:
-                this.transform.position = _checkPoint.warpToSecondStage;
-                break;
-            case 4:
-                this.transform.position = _checkPoint.warpToMapSecond;
-                break;
-            case 5:
-                this.transform.position = _checkPoint.warpToThirdStage;
-                break;
-            case 6:
-                this.transform.position = _checkPoint.warpToMapThird;
-                break;
-            default:
-                break;
+            //case 0:
+            //    this.transform.position = _checkPoint.StartPos;
+            //    break;
+            //case 1:
+            //    this.transform.position = _checkPoint.warpToFirstStage;
+            //    break;
+            //case 2:
+            //    this.transform.position = _checkPoint.warpToMapFirst;
+            //    break;
+            //case 3:
+            //    this.transform.position = _checkPoint.warpToSecondStage;
+            //    break;
+            //case 4:
+            //    this.transform.position = _checkPoint.warpToMapSecond;
+            //    break;
+            //case 5:
+            //    this.transform.position = _checkPoint.warpToThirdStage;
+            //    break;
+            //case 6:
+            //    this.transform.position = _checkPoint.warpToMapThird;
+            //    break;
+            //default:
+            //    break;
         }
     }
 }

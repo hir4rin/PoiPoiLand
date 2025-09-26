@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 public class HoldManager : MonoBehaviour
 {
 
     public bool isColHit = false;
+    public GameObject _playerManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,21 @@ public class HoldManager : MonoBehaviour
         if (!other.CompareTag("Ground"))
         {
             isColHit = true;
-
+            //ハンマーと当たった場合
+            if (other.CompareTag("Hammer"))
+            {
+                _playerManager.GetComponent<PlayerManager>().SetHammer(other.GetComponent<HammerController>());
+            }
+            //のこのこと当たった場合
+            else if(other.CompareTag("Nokonoko"))
+            {
+                _playerManager.GetComponent<PlayerManager>().SetNokonoko(other.GetComponent<NokonokoController>());
+            }
+            //ボウリングのこのこと当たった場合
+            else if(other.CompareTag("Bowling"))
+            {
+                _playerManager.GetComponent<PlayerManager>().SetBowling(other.GetComponent<BowlingNokonokoController>());
+            }
 
         }
     }

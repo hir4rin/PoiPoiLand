@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5763643106268514824}
   m_Layer: 0
   m_Name: BowlingNokonoko
-  m_TagString: Untagged
+  m_TagString: Bowling
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
