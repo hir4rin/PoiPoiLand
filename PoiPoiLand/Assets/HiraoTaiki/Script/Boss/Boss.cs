@@ -41,20 +41,20 @@ public class Boss : MonoBehaviour
     //–‚–@UŒ‚—p
     AttackPos _attackPos;
     //–‚–@UŒ‚‚Ì˜AË–h~—p
-    [SerializeField] private float shootInterval = 2.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
+    [SerializeField] private float shootInterval = 1.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
     float shootTimer = 0.0f;
 
     //‹T‚ğ“Š‚°‚é—p
 
     //‹T‚Ì˜AË–h~—p
-    [SerializeField] private float throwInterval = 2.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
+    [SerializeField] private float throwInterval = 1.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
     float throwTimer = 0.0f;
 
     //Fˆá‚¢ƒS[ƒXƒg—p
     AttackGhost _attackGhost;
     AttackGhost _attackGhost2;
     //ƒS[ƒXƒg‚Ì˜AË–h~—p
-    [SerializeField] private float ghostInterval = 2.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
+    [SerializeField] private float ghostInterval = 1.0f;//”­ËŠÔŠu//˜AË‚ğ–h‚®
     float ghostTimer = 0.0f;
 
 

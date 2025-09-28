@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4195824683422353708}
   - component: {fileID: 2536281652862984442}
   - component: {fileID: 6335323965967374764}
+  - component: {fileID: 6501794167161843203}
   m_Layer: 0
   m_Name: GravityTurtle
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7294026826443887201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4493978, y: 2.7108622, z: -5.178654}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -60,7 +61,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &2536281652862984442
 MonoBehaviour:
@@ -90,6 +91,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+--- !u!135 &6501794167161843203
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294026826443887201}
+  m_Material: {fileID: 13400000, guid: fc9319e08656d6440a0366a439548dbf, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0.43, z: 0}
 --- !u!1001 &4946084489733130456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,15 +126,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.324049
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7991381
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3118849
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
       propertyPath: m_LocalRotation.w
@@ -149,10 +171,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7191066652575033768}
   m_SourcePrefab: {fileID: 100100000, guid: f905c892a0744e17b0a91522be197c67, type: 3}
 --- !u!4 &4946084489733001820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
   m_PrefabInstance: {fileID: 4946084489733130456}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4946084489733164668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: f905c892a0744e17b0a91522be197c67, type: 3}
+  m_PrefabInstance: {fileID: 4946084489733130456}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7191066652575033768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4946084489733164668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9219774979bb944f9459570d9a38c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _turtle: {fileID: 2536281652862984442}

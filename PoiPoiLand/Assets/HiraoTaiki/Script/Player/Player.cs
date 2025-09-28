@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
                 move.z = 0;
             }
             playerVelocity += move.normalized * speed;
-            Debug.Log("‘O‚ÉˆÚ“®‚µ‚Ä‚¢‚Ü‚·");
+           // Debug.Log("‘O‚ÉˆÚ“®‚µ‚Ä‚¢‚Ü‚·");
         }
         if (Input.GetKey(KeyCode.S))//Œã‚ëˆÚ“®
         {
@@ -211,7 +211,7 @@ public class Player : MonoBehaviour
         //‘–‚é
         if (Input.GetKey(KeyCode.LeftShift) && playerVelocity.magnitude != 0)
         {
-            Debug.Log("‘–‚é");
+         //   Debug.Log("‘–‚é");
             playerVelocity *= 1.5f;
             if (_state != PlayerState.Hold)
             {

@@ -46,5 +46,10 @@ public class AttackPos : MonoBehaviour
         turtle.currentState = BowlingNokonokoState.Boss;
         turtle.SetTarget(boss);
 
+        //‰ñ“]—p
+        Rigidbody turtleRb = turtleobj.GetComponent<Rigidbody>();
+        TurtleFakeMove _fake = turtleobj.GetComponentInChildren<TurtleFakeMove>();
+        _fake.Init(turtleRb);
+
     }
 }
