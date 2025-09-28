@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class RedGostMove : MonoBehaviour
 {
     Vector3 basePos; // 初期位置
     Vector3 pos; //更新された位置
 
-    Transform playerTr; //プレイヤーのトランスフォーム
+    public Transform playerTransform; //プレイヤーのトランスフォーム
     [SerializeField] float speed = 2; // 敵の動くスピード
     [SerializeField] float followRange = 2.0f; // 追従距離
     [SerializeField] float floatHeight = 0.5f; //幽霊っぽい縦の挙動
@@ -22,45 +23,48 @@ public class RedGostMove : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
-        basePos = transform.position;//Gostの初期位置
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //  basePos = transform.position;//Gostの初期位置
+        if (playerTransform == null)
+        {
+            GameObject obj = GameObject.FindWithTag("Player"); // Playerタグのオブジェクトを探す
+            if (obj != null)
+            {
+                playerTransform = obj.transform;
+            }
+        }
+        //Boss用
+        if (boss == null)
+        {
+            GameObject objBoss = GameObject.FindWithTag("Boss"); // ボスタグのオブジェクトを探す
+            if (objBoss != null)
+            {
+                boss = objBoss.transform;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, playerTr.position);
 
-        if(isChasingBoss && boss != null)
-        {
-            //ボスの方向ベクトル
-            Vector3 direction = (boss.position - transform.position).normalized;
+        //キャラクターの方を向く
+        LookAtPlayerQuaternion();
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
 
-            //ボスの方へ移動
-            transform.position += direction * moveSpeed * Time.deltaTime;
-
-
-            transform.rotation = Quaternion.LookRotation(direction);
-        }
-
+       
 
 
         // プレイヤーが一定範囲内に入った場合
-        if (distance < followRange)
-        {
+        //if (distance < followRange)
+        //{
             //プレイヤーに向かって進む
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                playerTr.position,
-                //new Vector3(playerTr.position.x, playerTr.position.y),
-                speed * Time.deltaTime);
+          
+          //  Debug.Log("入ってきたやん");
+        //}
 
-            Vector3 pos = transform.position;
-            Debug.Log("入ってきたやん");
-        }
-
-        else
-        {
+        //else
+        //{
             //幽霊っぽい挙動
             //float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
             //float xOffset = Mathf.Sin(Time.time * (floatSpeed * 0.5f)) * wanderRange;
@@ -68,9 +72,29 @@ public class RedGostMove : MonoBehaviour
             //transform.position = basePos + new Vector3(xOffset, yOffset, 0);
 
             
-            Debug.Log("誰もいない");
-        }
+          //  Debug.Log("誰もいない");
+        //}
 
+    }
+    private void FixedUpdate()
+    {
+        transform.position = Vector3.MoveTowards(
+              transform.position,
+              playerTransform.position,
+              //new Vector3(playerTransform.position.x, playerTransform.position.y),
+              speed * Time.deltaTime);
+
+        Vector3 pos = transform.position;
+    }
+    void LookAtPlayerQuaternion()
+    {
+        Vector3 dir = playerTransform.position - transform.position;
+        dir.y = 0;//y軸は動かさない
+        if (dir.sqrMagnitude > 0.01f)//向く方向がある場合のみ
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
+            transform.rotation = targetRotation;
+        }
     }
 
     //ハンマーがRedGostに当たったらボスの方向に向かう
@@ -88,6 +112,20 @@ public class RedGostMove : MonoBehaviour
             Debug.Log("ボスに当たったら消える");
             Destroy(gameObject);
         }
-    }
 
+        if (other.CompareTag("Player"))
+        {
+         //   Debug.Log("プレイヤーに当たったら消える");
+            Destroy(gameObject);
+        }
+    }
+    public void SetTarget(Transform target)
+    {
+        playerTransform = target;
+    }
+    public void SetBoss(Transform target)
+    {
+        boss = target;
+    }
+    
 }

@@ -18,7 +18,7 @@ public class BossFakeMove : MonoBehaviour
 
 
     //•‚—VŠ´
-    float floatAmplitudeY = 0.5f; // U•
+    float floatAmplitudeY = 0.2f; // U•
     float floatFrequencyY = 1.4f; // ü”g”(ã‰º‚Ì‘¬‚³)
     float floatFrequencyX = 0.7f;//flaotFrequencyY‚Ì”¼•ª‚Ì‘¬‚³(‘å‘Ì)
     float floatAmplitudeX = 1.0f; // U•(‘å‘Ì)
@@ -28,14 +28,16 @@ public class BossFakeMove : MonoBehaviour
     float centerY;
 
     //‰ŠúˆÊ’u‚Ì”{—¦
-    float Yura = 3.0f;
+    float Yura = 1.5f;
+
+    Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
         centerY = transform.localPosition.y * Yura;
         centerX = transform.localPosition.x * Yura;
-       
+       _animator = GetComponent<Animator>();
 
     }
 
@@ -50,5 +52,14 @@ public class BossFakeMove : MonoBehaviour
         float newY = centerY + Mathf.Sin(Time.time * floatFrequencyY) * floatAmplitudeY;
         float newX = centerX + Mathf.Sin(Time.time * floatFrequencyX) * floatAmplitudeX;
         transform.localPosition = new Vector3(newX, newY, transform.localPosition.z);
+    }
+    public void Action(string move)
+    {
+        if (move == "Attack")
+        {
+            _animator.SetTrigger("isTriggerAttack");
+        }
+        
+
     }
 }

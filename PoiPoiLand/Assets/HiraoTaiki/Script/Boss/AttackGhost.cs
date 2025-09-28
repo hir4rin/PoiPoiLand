@@ -23,9 +23,8 @@ public class AttackGhost : MonoBehaviour
     {
         GameObject ghostobj = Instantiate(RedGhost, transform.position, transform.rotation);
         RedGostMove ghost = ghostobj.GetComponent<RedGostMove>();
-        ghost.boss = boss;
         //player‚Æboss‚ðset‚·‚é
-        // ghost.SetTarget(_player);
-        //
+         ghost.SetTarget(_player);
+        ghost.SetBoss(boss);
     }
 }

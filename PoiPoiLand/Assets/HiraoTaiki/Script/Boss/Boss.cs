@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour
 
     //プレイヤー
     public Transform _player;
-    
+
 
 
 
@@ -45,13 +45,14 @@ public class Boss : MonoBehaviour
     float shootTimer = 0.0f;
 
     //亀を投げる用
-   
+
     //亀の連射防止用
     [SerializeField] private float throwInterval = 2.0f;//発射間隔//連射を防ぐ
     float throwTimer = 0.0f;
 
     //色違いゴースト用
-    AttackGhost attackGhost;
+    AttackGhost _attackGhost;
+    AttackGhost _attackGhost2;
     //ゴーストの連射防止用
     [SerializeField] private float ghostInterval = 2.0f;//発射間隔//連射を防ぐ
     float ghostTimer = 0.0f;
@@ -66,12 +67,17 @@ public class Boss : MonoBehaviour
     //移動の感覚
     float movetime = 0.5f;
 
+    //bossのアニメーション用
+    public BossFakeMove _mimic;
+
 
     // Start is called before the first frame update
     void Start()
     {
         _attackPos = GameObject.Find("AttackPos").GetComponent<AttackPos>();
-
+        _attackGhost = GameObject.Find("RedGhostF").GetComponent<AttackGhost>();
+        _attackGhost2 = GameObject.Find("RedGhostS").GetComponent<AttackGhost>();
+        _mimic = GameObject.Find("Mimic").GetComponent<BossFakeMove>();
     }
 
     // Update is called once per frame
@@ -93,7 +99,7 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
-     
+
         if (Input.GetKeyDown(KeyCode.O))//移動中
         {
             movetime = 0;
@@ -104,8 +110,9 @@ public class Boss : MonoBehaviour
         {
             if (shootTimer >= shootInterval)
             {
-                _attackPos.MagicAttack();
                 shootTimer = 0.0f;
+                _mimic.Action("Attack");
+                StartCoroutine(WaitAndRelease(0.5f, "magic"));
             }
 
         }
@@ -113,8 +120,9 @@ public class Boss : MonoBehaviour
         {
             if (throwTimer >= throwInterval)
             {
-              _attackPos.TurtleAttack();
                 throwTimer = 0.0f;
+                _mimic.Action("Attack");
+                StartCoroutine(WaitAndRelease(0.5f, "turtle"));
             }
 
         }
@@ -122,8 +130,9 @@ public class Boss : MonoBehaviour
         {
             if (ghostTimer >= ghostInterval)
             {
-                attackGhost.GhostAttack();
                 ghostTimer = 0.0f;
+                _mimic.Action("Attack");
+                StartCoroutine(WaitAndRelease(0.5f, "ghost"));
             }
         }
 
@@ -245,6 +254,28 @@ public class Boss : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
             transform.rotation = targetRotation;
         }
+    }
+    private IEnumerator WaitAndRelease(float delay, string name)
+    {
+        yield return new WaitForSeconds(delay);
+        if (name == "magic")
+        {
+            _attackPos.MagicAttack();
+
+        }
+        if (name == "turtle")
+        {
+            _attackPos.TurtleAttack();
+
+        }
+        if (name == "ghost")
+        {
+            _attackGhost.GhostAttack();
+            _attackGhost2.GhostAttack();
+
+        }
+
+
     }
 
 }
