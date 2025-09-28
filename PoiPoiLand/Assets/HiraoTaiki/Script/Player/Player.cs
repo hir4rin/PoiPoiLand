@@ -65,12 +65,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Forward = Camera.main.transform.forward.normalized;
-        Forward.y = 0;
-        Back = -Forward;
-        Right = Camera.main.transform.right.normalized;
-        Right.y = 0;
-        Left = -Right;
+        //Forward = Camera.main.transform.forward.normalized;
+        //Forward.y = 0;
+        //Back = -Forward;
+        //Right = Camera.main.transform.right.normalized;
+        //Right.y = 0;
+        //Left = -Right;
 
         //キャラクターの向き
         moveDirection = playerVelocity;
@@ -95,30 +95,73 @@ public class Player : MonoBehaviour
         {
             transform.position += velocity * 2;//常にかかっている速度
         }
-        
+        Transform camTransform = Camera.main.transform;
+        Vector3 camForward = Vector3.ProjectOnPlane(camTransform.forward, Vector3.up).normalized;
+        Vector3 camRight = Vector3.ProjectOnPlane(camTransform.right, Vector3.up).normalized;
+
+        Forward = camForward;
+        Back = -Forward;
+        Right = camRight;
+        Left = -Right;
+
+        bool isHorizontalX = Mathf.Abs(camRight.x) > Mathf.Abs(camRight.z);
         //ジャンプの重力計算
         //verticalSpeed += gravity * Time.deltaTime;
         if (Input.GetKey(KeyCode.W))//前移動
         {
-            playerVelocity += Forward * speed;
-           
+            Vector3 move = Forward;
+            if (isHorizontalX)
+            {
+                move.x = 0;
+            }
+            else
+            {
+                move.z = 0;
+            }
+            playerVelocity += move.normalized * speed;
             Debug.Log("前に移動しています");
         }
         if (Input.GetKey(KeyCode.S))//後ろ移動
         {
-            playerVelocity += Back * speed;
-           
+            Vector3 move = Back;
+            if (isHorizontalX)
+            {
+                move.x = 0;
+            }
+            else
+            {
+                move.z = 0;
+            }
+            playerVelocity += move.normalized * speed;
+
         }
         if (Input.GetKey(KeyCode.A))//左移動
         {
-            playerVelocity += Left * speed;
-           
+            Vector3 move = Left;
+            if (isHorizontalX)
+            {
+                move.z = 0;
+            }
+            else
+            {
+                move.x = 0;
+            }
+            playerVelocity += move.normalized * speed;
+
         }
         if (Input.GetKey(KeyCode.D))//右移動
         {
-           
-            playerVelocity += Right * speed;
-           
+            Vector3 move = Right;
+            if (isHorizontalX)
+            {
+                move.z = 0;
+            }
+            else
+            {
+                move.x = 0;
+            }
+            playerVelocity += move.normalized * speed;
+
         }
 
         if (Input.GetKey(KeyCode.Space) && isGround)//ジャンプ
@@ -222,29 +265,29 @@ public class Player : MonoBehaviour
         // Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
         {
-            //case 0:
-            //    this.transform.position = _checkPoint.StartPos;
-            //    break;
-            //case 1:
-            //    this.transform.position = _checkPoint.warpToFirstStage;
-            //    break;
-            //case 2:
-            //    this.transform.position = _checkPoint.warpToMapFirst;
-            //    break;
-            //case 3:
-            //    this.transform.position = _checkPoint.warpToSecondStage;
-            //    break;
-            //case 4:
-            //    this.transform.position = _checkPoint.warpToMapSecond;
-            //    break;
-            //case 5:
-            //    this.transform.position = _checkPoint.warpToThirdStage;
-            //    break;
-            //case 6:
-            //    this.transform.position = _checkPoint.warpToMapThird;
-            //    break;
-            //default:
-            //    break;
+            case 0:
+                this.transform.position = _checkPoint.StartPos;
+                break;
+            case 1:
+                this.transform.position = _checkPoint.warpToFirstStage;
+                break;
+            case 2:
+                this.transform.position = _checkPoint.warpToMapFirst;
+                break;
+            case 3:
+                this.transform.position = _checkPoint.warpToSecondStage;
+                break;
+            case 4:
+                this.transform.position = _checkPoint.warpToMapSecond;
+                break;
+            case 5:
+                this.transform.position = _checkPoint.warpToThirdStage;
+                break;
+            case 6:
+                this.transform.position = _checkPoint.warpToMapThird;
+                break;
+            default:
+                break;
         }
     }
 }
