@@ -97,13 +97,10 @@ public class Warp_Controller : MonoBehaviour
                     break;
                 case 6:
                     player.transform.position = warpToMapThird;
-                    PlayerPrefs.SetInt("PointNum", 7);
                     Debug.Log("case6");
                     break;
-                case 7:
-                    Debug.Log("case7");
-                    break;
                 default:
+                    Debug.Log("PointNum‚ª‚ ‚è‚Ü‚¹‚ñ");
                     break;
             }
         }
