@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour
 
                 _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
-                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
+                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
                 isHaving = false;
             }
 

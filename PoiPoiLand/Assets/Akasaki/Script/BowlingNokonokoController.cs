@@ -10,9 +10,17 @@ public enum BowlingNokonokoState
     held, //持たれている
     thrownzerogravity, //投げられた瞬間、無重力
     throwngravity,//重力付き
-    move//移動中
+    move,//移動中
+    Boss,//ボス用
 
 }
+
+//平尾------------------------------
+//：動いているとき、回転する見た目をすること
+//：動きが止まったら、pop状態に戻ること
+//:できたら、回転とスピードを同じくらいの量に変わるようにすること
+//：ボス用とプレイヤー用に分けること
+//----------------------------------
 
 public class BowlingNokonokoController : MonoBehaviour
 {
@@ -33,22 +41,36 @@ public class BowlingNokonokoController : MonoBehaviour
     public bool isColHit = false;
     public BowlingNokonokoState currentState;
 
+    //Boss用
+    public GameObject boss;
+    Vector3 throwDirBoss;//投げる向き
+    Transform bossTransform;//ボスのTransform
+
     // Start is called before the first frame update
     void Start()
     {
         // 現在の位置を開始位置に
-        transform.position = startPos;
-
-        //初期状態をポップにする
-        currentState = BowlingNokonokoState.pop;
+        // transform.position = startPos;
 
         _player = GameObject.Find("Player");
         _playerScript = _player.GetComponent<Player>();
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
-        rb.useGravity = false;
+    
+        if (currentState == 0) // enum の初期値 (pop) のときだけ
+        {
+            //初期状態をポップにする
+            currentState = BowlingNokonokoState.pop;
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+        
 
-        rb = GetComponent<Rigidbody>();
+       
+       
+
+        
+        boss = GameObject.Find("Boss");
     }
 
     private void Update()
@@ -56,6 +78,18 @@ public class BowlingNokonokoController : MonoBehaviour
         playerTransform = transform.root;//親オブジェクト(player)のTransformを取得
 
         throwDir = playerTransform.forward;//投げる向きはプレイヤーの向き＋少し上
+
+        //Boss用
+        if (boss == null)
+        {
+            GameObject obj = GameObject.FindWithTag("Boss"); // ボスタグのオブジェクトを探す
+            if (obj != null)
+            {
+                boss = obj;
+            }
+        }
+        bossTransform = boss.transform;
+        throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
     }
 
     private void FixedUpdate()
@@ -72,9 +106,13 @@ public class BowlingNokonokoController : MonoBehaviour
             case BowlingNokonokoState.thrownzerogravity://なげられている状態
                 UpdateThrow(throwDir);
                 break;
+            case BowlingNokonokoState.Boss:
+                BossThrow(throwDirBoss);
+                break;
+
         }
 
-        Debug_akasaki();
+        //Debug_akasaki();
     }
 
 
@@ -96,32 +134,32 @@ public class BowlingNokonokoController : MonoBehaviour
         }
     }
 
-    void Debug_akasaki()
-    {
-        //スペースを押したらステートをthrownにする
-        if (Input.GetKey(KeyCode.T))//SpaceをTに変更
-        {
-            currentState = BowlingNokonokoState.thrownzerogravity;
-        }
+    //void Debug_akasaki()
+    //{
+    //    //スペースを押したらステートをthrownにする
+    //    if (Input.GetKey(KeyCode.T))//SpaceをTに変更
+    //    {
+    //        currentState = BowlingNokonokoState.thrownzerogravity;
+    //    }
 
-        //Hを押したらステートをheldにする
-        if (Input.GetKey(KeyCode.H))
-        {
-            currentState = BowlingNokonokoState.held;
-        }
+    //    //Hを押したらステートをheldにする
+    //    if (Input.GetKey(KeyCode.H))
+    //    {
+    //        currentState = BowlingNokonokoState.held;
+    //    }
 
-        //Pを押したらステートをpopにする
-        if (Input.GetKey(KeyCode.P))
-        {
-            currentState = BowlingNokonokoState.pop;
-        }
+    //    //Pを押したらステートをpopにする
+    //    if (Input.GetKey(KeyCode.P))
+    //    {
+    //        currentState = BowlingNokonokoState.pop;
+    //    }
 
-        //Rを押したらハンマーを消す
-        if (Input.GetKey(KeyCode.R))
-        {
-            Destroy(gameObject);
-        }
-    }
+    //    //Rを押したらハンマーを消す
+    //    if (Input.GetKey(KeyCode.R))
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
 
 
@@ -141,7 +179,7 @@ public class BowlingNokonokoController : MonoBehaviour
 
     public void UpdateHold() //掴んでる状態
     {
-        Debug.Log("つかみぎゃん");
+        //Debug.Log("つかみぎゃん");
         this.transform.SetParent(_player.transform, false);
         this.transform.localPosition = new Vector3(0.5f, 1, 0.5f);
         this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -179,5 +217,27 @@ public class BowlingNokonokoController : MonoBehaviour
             isThrow = true;
         }
     }
+    public void BossThrow(Vector3 direction)
+    {
+      
+        if (!isThrow)
+        {
+            col.enabled = true;
+            rb.useGravity = true; // 重力状態
+            rb.isKinematic = false;
+            rb.AddForce(direction.normalized * 10f, ForceMode.Impulse);
+            isThrow = true;
+        }
+            
+        
+
+
+    }
+    public void SetTarget(Transform target)
+    {
+        bossTransform = target;
+    }
+
+
 
 }

@@ -41,13 +41,13 @@ public class ThrowingBowlingNokonoko: MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 地面に着地タグ
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded=false;
-            rb.useGravity=false;
-            rb.isKinematic = false;
-        }
+        //// 地面に着地タグ
+        //if(collision.gameObject.CompareTag("Ground"))
+        //{
+        //    isGrounded=false;
+        //    rb.useGravity=false;
+        //    rb.isKinematic = false;
+        //}
 
         //壁に当たった場合のタグ
     //    if (collision.gameObject.CompareTag("Wall"))

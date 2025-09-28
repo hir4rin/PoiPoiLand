@@ -8,9 +8,11 @@ public class AttackPos : MonoBehaviour
 
     [SerializeField] private GameObject magicballPrefab;//魔法弾のプレハブ
     [SerializeField] private Transform firePoint;//発射位置
- 
-    //プレイヤー(仮置き)
-    public Transform Hero;//弾に渡す用
+    [SerializeField] private GameObject _gravityTurtle;//亀のプレハブ
+
+    //プレイヤー
+    public Transform _player;//弾に渡す用
+    public Transform boss;//亀に渡す用
 
 
 
@@ -34,7 +36,15 @@ public class AttackPos : MonoBehaviour
     {
         GameObject ballobj = Instantiate(magicballPrefab, firePoint.position, firePoint.rotation);
         magicball ball = ballobj.GetComponent<magicball>();
-        ball.SetTarget(Hero);
+        ball.SetTarget(_player);
+
+    }
+    public void TurtleAttack()
+    {
+        GameObject turtleobj = Instantiate(_gravityTurtle, firePoint.position, firePoint.rotation);
+        BowlingNokonokoController turtle = turtleobj.GetComponent<BowlingNokonokoController>();
+        turtle.currentState = BowlingNokonokoState.Boss;
+        turtle.SetTarget(boss);
 
     }
 }

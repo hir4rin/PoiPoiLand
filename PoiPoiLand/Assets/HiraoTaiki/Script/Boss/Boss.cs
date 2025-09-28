@@ -18,8 +18,9 @@ public class Boss : MonoBehaviour
     //----------------------------------------------------------------
 
 
-    //プレイヤー(仮置き)
-    public Transform Hero;
+    //プレイヤー
+    public Transform _player;
+    
 
 
 
@@ -42,6 +43,18 @@ public class Boss : MonoBehaviour
     //魔法攻撃の連射防止用
     [SerializeField] private float shootInterval = 2.0f;//発射間隔//連射を防ぐ
     float shootTimer = 0.0f;
+
+    //亀を投げる用
+   
+    //亀の連射防止用
+    [SerializeField] private float throwInterval = 2.0f;//発射間隔//連射を防ぐ
+    float throwTimer = 0.0f;
+
+    //色違いゴースト用
+    AttackGhost attackGhost;
+    //ゴーストの連射防止用
+    [SerializeField] private float ghostInterval = 2.0f;//発射間隔//連射を防ぐ
+    float ghostTimer = 0.0f;
 
 
 
@@ -80,6 +93,13 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
+     
+        if (Input.GetKeyDown(KeyCode.O))//移動中
+        {
+            movetime = 0;
+            Debug.Log("移動中");
+            isMovingBoss = true;
+        }
         if (Input.GetKey(KeyCode.B))//魔法攻撃
         {
             if (shootTimer >= shootInterval)
@@ -89,11 +109,22 @@ public class Boss : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.O))//移動中
+        if (Input.GetKeyDown(KeyCode.P))//亀を投げる
         {
-            movetime = 0;
-            Debug.Log("移動中");
-            isMovingBoss = true;
+            if (throwTimer >= throwInterval)
+            {
+              _attackPos.TurtleAttack();
+                throwTimer = 0.0f;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.I))//色違いゴーストを出す
+        {
+            if (ghostTimer >= ghostInterval)
+            {
+                attackGhost.GhostAttack();
+                ghostTimer = 0.0f;
+            }
         }
 
 
@@ -104,6 +135,8 @@ public class Boss : MonoBehaviour
 
 
         shootTimer += Time.fixedDeltaTime;
+        throwTimer += Time.fixedDeltaTime;
+        ghostTimer += Time.fixedDeltaTime;
         if (isMoving)
         {
 
@@ -161,7 +194,7 @@ public class Boss : MonoBehaviour
     void StartMovePlayer()
     {
         //ターゲットの位置を取得
-        targetPosition = Hero.position;
+        targetPosition = _player.position;
         targetPosition.y = transform.position.y;//y軸は動かさない
         isMoving = true;
     }
@@ -182,7 +215,7 @@ public class Boss : MonoBehaviour
             RandomExcept(),
             0,
             RandomExcept());
-        Vector3 targetPos = Hero.position;
+        Vector3 targetPos = _player.position;
         targetPos.y = transform.position.y;//y軸は動かさない
         transform.position = targetPos + offset;
         LookAtPlayerQuaternion();
@@ -205,7 +238,7 @@ public class Boss : MonoBehaviour
 
     void LookAtPlayerQuaternion()
     {
-        Vector3 dir = Hero.position - transform.position;
+        Vector3 dir = _player.position - transform.position;
         dir.y = 0;//y軸は動かさない
         if (dir.sqrMagnitude > 0.01f)//向く方向がある場合のみ
         {

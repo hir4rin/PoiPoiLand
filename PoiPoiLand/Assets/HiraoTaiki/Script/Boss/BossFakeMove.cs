@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class BossFakeMove : MonoBehaviour
 {
+    /// <summary>
+    /// animation‚Ìó‘Ô—p
+    /// </summary>
+    public enum BossState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damage,
+        Dead
+    }
 
 
     //•‚—VŠ´
-    float floatAmplitudeY = 1.0f; // U•
+    float floatAmplitudeY = 0.5f; // U•
     float floatFrequencyY = 1.4f; // ü”g”(ã‰º‚Ì‘¬‚³)
     float floatFrequencyX = 0.7f;//flaotFrequencyY‚Ì”¼•ª‚Ì‘¬‚³(‘å‘Ì)
     float floatAmplitudeX = 1.0f; // U•(‘å‘Ì)
@@ -17,7 +28,7 @@ public class BossFakeMove : MonoBehaviour
     float centerY;
 
     //‰ŠúˆÊ’u‚Ì”{—¦
-    float Yura = 1.0f;
+    float Yura = 3.0f;
 
     // Start is called before the first frame update
     void Start()
