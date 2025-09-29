@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         //_hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
         _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
-        _bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
+        _bowling = GameObject.Find("GravityTurtle").GetComponent<BowlingNokonokoController>();
     }
 
     // Update is called once per frame

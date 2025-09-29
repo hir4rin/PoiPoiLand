@@ -181,7 +181,7 @@ public class BowlingNokonokoController : MonoBehaviour
     {
         //Debug.Log("‚Â‚©‚Ý‚¬‚á‚ñ");
         this.transform.SetParent(_player.transform, false);
-        this.transform.localPosition = new Vector3(0.5f, 1, 0.5f);
+        this.transform.localPosition = new Vector3(0.5f, 0.2f, 0.5f);
         this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         this.transform.rotation = Quaternion.Euler(30.0f, 90.0f, 0.0f);
         col.enabled = false;
