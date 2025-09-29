@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Nokonoko
   - Bowling
+  - Stone
   layers:
   - Default
   - TransparentFX
