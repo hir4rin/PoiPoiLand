@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
     //ジャンプのちから
     float jumpForce = 1.5f;
-    bool isGround = false;//地面についているかどうか
+    public bool isGround = false;//地面についているかどうか
     Rigidbody rb;
 
     Vector3 verticalSpeed;
