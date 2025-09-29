@@ -26,6 +26,9 @@ public class HammerController : MonoBehaviour
     /// Pop中に毎秒5度、y軸を軸にして回転させるQuaternion
     /// </summary>
     Quaternion popRotation = Quaternion.AngleAxis(5, Vector3.up);
+
+    Quaternion throwForward = Quaternion.AngleAxis(90.0f, Vector3.up);
+
     /// <summary>
     /// ハンマーを傾ける角度
     /// </summary>
@@ -47,6 +50,8 @@ public class HammerController : MonoBehaviour
     Vector3 throwDir;//投げる向き
     Transform playerTransform;//プレイヤーのTransform
     public bool isColHit = false;
+    //プレイヤーの正面
+    
 
     public HammerState currentState;
 
@@ -165,12 +170,11 @@ public class HammerController : MonoBehaviour
     }
 
     void UpdatePop() //Pop中のUpdate
-    {   
+    {
         Debug.Log(isReset);
         if (!isReset)
         {
-            //最初だけ回転を0にする
-            this.transform.rotation = Quaternion.identity;
+            ResetRotate();
             //少し傾ける
             this.transform.rotation = popInclination;
             isReset = true;
@@ -212,12 +216,12 @@ public class HammerController : MonoBehaviour
         //最初だけ回転を0にする
         if (!isInclination)
         {
-            this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-            isInclination = true;
+            ResetRotate();
         }
 
         if (!isThrow)
         {
+            this.transform.rotation = throwForward;
             this.transform.SetParent(null);
             col.enabled = true;
             rb.useGravity = true;
@@ -226,5 +230,12 @@ public class HammerController : MonoBehaviour
             isReset = false;
             isThrow = true;
         }
+    }
+
+    private void ResetRotate()
+    {
+        this.transform.rotation = Quaternion.identity;
+        isInclination = true;
+        Debug.Log("リセット");
     }
 }

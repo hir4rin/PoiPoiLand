@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurtleFakeMove : MonoBehaviour
 {
+    //Œ©‚½–Ú‚¾‚¯‰ñ“]‚µ‚Ä‚¢‚éb—…
     [SerializeField] BowlingNokonokoController _turtle;
     Rigidbody rb;
     // Start is called before the first frame update

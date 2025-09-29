@@ -33,7 +33,8 @@ public class PlayerManager : MonoBehaviour
         //ノコノコクローンあか
         //_nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
 
-        _hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
+        //_hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
+        _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
         _bowling = GameObject.Find("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
     }
@@ -41,16 +42,9 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        //_hammer = Resources.Load<HammerController>("Hammer_Prefab").GetComponent<HammerController>();
-        
-        //_nokonoko = Resources.Load<NokonokoController>("Nokonoko").GetComponent<NokonokoController>();
-     
-        //_bowling = Resources.Load<BowlingNokonokoController>("BowlingNokonoko").GetComponent<BowlingNokonokoController>();
-        //------------------
         _playerState = _player._state;//_playerStateの更新
 
-        //Debug.Log($"PlayerStateは{_playerState}です");
+        Debug.Log($"PlayerStateは{_playerState}です");
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
@@ -100,7 +94,7 @@ public class PlayerManager : MonoBehaviour
         if (_player._state == PlayerState.Hold)
         {
             //ハンマー
-            if (Input.GetKeyDown(KeyCode.K)&& _hammer.currentState == HammerState.held)//ものを落とすとき
+            if (Input.GetKeyDown(KeyCode.K) && _hammer.currentState == HammerState.held)//ものを落とすとき
             {
                 _hammer.QuitHold();
                 _player._state = PlayerState.Idle;
