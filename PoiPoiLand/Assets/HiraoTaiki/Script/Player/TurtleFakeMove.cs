@@ -10,7 +10,7 @@ public class TurtleFakeMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GameObject.Find("GravityTurtle").GetComponent<Rigidbody>();
+        rb = Resources.Load<GameObject>("GravityTurtle").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

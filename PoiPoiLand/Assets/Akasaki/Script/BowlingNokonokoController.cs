@@ -64,12 +64,7 @@ public class BowlingNokonokoController : MonoBehaviour
             rb.useGravity = false;
             rb.isKinematic = true;
         }
-        
-
-       
-       
-
-        
+      
         boss = GameObject.Find("Boss");
     }
 
@@ -228,9 +223,7 @@ public class BowlingNokonokoController : MonoBehaviour
             rb.AddForce(direction.normalized * 20f, ForceMode.Impulse);
             isThrow = true;
         }
-            
-        
-
+     
 
     }
     public void SetTarget(Transform target)
