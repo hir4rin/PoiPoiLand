@@ -24,7 +24,6 @@ public class Stage1StoneManager : MonoBehaviour
     void FixedUpdate()
     {
         stageState = stage1Manager.State;
-        Debug.Log(stoneHealthPoint);
         hpGauge.fillAmount = stoneHealthPoint / 3.0f;
         if (burnHpGauge.fillAmount > hpGauge.fillAmount)
         {
@@ -40,7 +39,7 @@ public class Stage1StoneManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            stoneHealthPoint -= 0.50f;
+            stoneHealthPoint -= 0.25f;
         }
     }
 }
