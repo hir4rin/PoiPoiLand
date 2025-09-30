@@ -21,6 +21,7 @@ public class CameraSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             Debug.Log("変わった");
@@ -28,24 +29,28 @@ public class CameraSwitcher : MonoBehaviour
             sidecam.Priority = 20;//横が有効
             currentCamera = sidecam;
         }
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             sidecam.Priority = 10;
             _secondBehind.Priority = 20;//後ろが有効
             currentCamera = _secondBehind;
         }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             _secondBehind.Priority = 10;
             _secondSide.Priority = 20;//横が有効
             currentCamera = _secondSide;
         }
+
         if(Input.GetKeyDown(KeyCode.Y))
         {
             _secondSide.Priority = 10;
             behindCam.Priority = 20;//後ろが有効
             currentCamera = behindCam;
         }
+
     }
     private void FixedUpdate()
     {

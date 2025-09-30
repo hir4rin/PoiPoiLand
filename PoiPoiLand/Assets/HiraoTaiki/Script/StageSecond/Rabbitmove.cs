@@ -13,6 +13,8 @@ public class Rabbitmove : MonoBehaviour
 
     float speed = 0.5f;
 
+    public RabbitJenerator _RJ;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,7 @@ public class Rabbitmove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+
         Debug.Log("êGÇÍÇΩ");
         if (other.CompareTag("Wall"))
         {
@@ -52,6 +55,14 @@ public class Rabbitmove : MonoBehaviour
             {
                 isRightMove = true;
             }
+
         }
+        if (other.CompareTag("Bowling"))
+        {
+            Destroy(gameObject);
+            _RJ.rabbitCount++;
+        }
+
     }
+    
 }
