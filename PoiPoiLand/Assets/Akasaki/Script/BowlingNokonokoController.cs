@@ -24,7 +24,6 @@ public enum BowlingNokonokoState
 
 public class BowlingNokonokoController : MonoBehaviour
 {
-    
     private Rigidbody rb;
     //private bool isGrounded = false;//地面に着地したか
     //private Vector3 moveDir;      //投げた後の進行方向
@@ -157,11 +156,6 @@ public class BowlingNokonokoController : MonoBehaviour
     //}
 
 
-
-
-
-
-
     void UpdatePop() //Pop中のUpdate
     {
        // Debug.Log("Pop中");
@@ -223,14 +217,9 @@ public class BowlingNokonokoController : MonoBehaviour
             rb.AddForce(direction.normalized * 20f, ForceMode.Impulse);
             isThrow = true;
         }
-     
-
     }
     public void SetTarget(Transform target)
     {
         bossTransform = target;
     }
-
-
-
 }

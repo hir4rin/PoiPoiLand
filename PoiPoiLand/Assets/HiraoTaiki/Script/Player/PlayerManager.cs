@@ -24,19 +24,9 @@ public class PlayerManager : MonoBehaviour
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _holdManager = GameObject.Find("HoldManager").GetComponent<HoldManager>();
-        //クローン
-        //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
-
-        //Addressables.LoadAssetAsync<GameObject>("Hammer_Prefab").Completed=>{_hammer= handle.}
-
-
-        //ノコノコクローンあか
-        //_nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
-
-        //_hammer = GameObject.Find("Hammer_Prefab").GetComponent<HammerController>();
         _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
-        _nokonoko = GameObject.Find("Nokonoko").GetComponent<NokonokoController>();
-        _bowling = GameObject.Find("GravityTurtle").GetComponent<BowlingNokonokoController>();
+        _nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
+        _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
     }
 
     // Update is called once per frame
@@ -78,7 +68,6 @@ public class PlayerManager : MonoBehaviour
         //ボーリング
         if (_holdManager.isColHit && _bowling.isColHit)
         {
-
             if (!isHaving)
             {
                 if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ

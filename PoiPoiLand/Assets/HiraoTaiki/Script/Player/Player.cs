@@ -260,8 +260,8 @@ public class Player : MonoBehaviour
     }
     public void Death()
     {
-        ////ここでチェックポイントによって座標を変える
-        // Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
+        //ここでチェックポイントによって座標を変える
+        Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
         {
             case 0:
