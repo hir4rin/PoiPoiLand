@@ -44,5 +44,9 @@ public class Stage1EnemyController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if(other.gameObject.tag == "Hammer")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

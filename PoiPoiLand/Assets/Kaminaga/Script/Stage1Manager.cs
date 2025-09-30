@@ -46,6 +46,7 @@ public class Stage1Manager : MonoBehaviour
         if (state == Stage1State.Start)
         {
             stageTime += Time.deltaTime;
+            //Debug.Log(stageTime);
             if (stageTime > 30.0f)
             {
                 state = Stage1State.Cleared;
