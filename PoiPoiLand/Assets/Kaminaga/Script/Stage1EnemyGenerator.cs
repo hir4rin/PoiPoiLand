@@ -10,29 +10,43 @@ public class Stage1EnemyGenerator : MonoBehaviour
     [SerializeField] private GameObject spawnPoint4;
     private GameObject enemyPrefab;
     bool isSpawn = false;
+    [SerializeField] private GameObject stage1;
+    private Stage1Manager stage1Manager;
+    private Stage1State stageState;
     int counter = 0;
     void Start()
     {
         enemyPrefab = (GameObject)Resources.Load("Stage1_Ghost");
+        stage1Manager = stage1.GetComponent<Stage1Manager>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        counter++;
-        if(counter > 600) // 10秒後にスポーン
+        stageState = stage1Manager.State;
+
+        if (stageState != Stage1State.Start)
         {
-            isSpawn = false;
-            counter = 0;
+            return;
         }
-        if (enemyPrefab != null)
+        else
         {
-            if (!isSpawn)
+            counter++;
+            if (counter > 600) // 10秒後にスポーン
             {
-                SpawnEnemy();
-                isSpawn = true;
+                isSpawn = false;
+                counter = 0;
+            }
+            if (enemyPrefab != null)
+            {
+                if (!isSpawn)
+                {
+                    SpawnEnemy();
+                    isSpawn = true;
+                }
             }
         }
+        
     }
 
     void SpawnEnemy()
