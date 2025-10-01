@@ -5,14 +5,15 @@ using UnityEngine;
 public class GoalZone : MonoBehaviour
 {
     [SerializeField] RabbitJenerator _RJ;
-    [SerializeField]
+    [SerializeField] TurtleJenerator _TJ;
+    [SerializeField] GameObject _warp2;
 
     bool isNext = false;
     float timer = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _warp2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,11 +26,14 @@ public class GoalZone : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > 3)
             {
+                _RJ.AllReset();//消えなかった
                 //生成関数呼び出し
 
                 //
                 isNext = false;
                 _RJ.RabbitSporn();
+
+                _TJ.turtleSpawn();//亀のリスポーン
             }
 
         }
@@ -40,16 +44,17 @@ public class GoalZone : MonoBehaviour
         {
             Debug.Log("終了");
             //クリアじゃなかったら、
-            if (_RJ.rabbitCount < 7)
+            if (_RJ.rabbitCount < 8)
             {
                 timer = 0;
                 isNext = true;
-                _RJ.AllReset();//消えなかった
+             
 
             }
             if (_RJ.rabbitCount >= 7)
             {
-                //ワープの出現
+                //ワープの出現]
+                _warp2.SetActive(true);
             }
             
         }

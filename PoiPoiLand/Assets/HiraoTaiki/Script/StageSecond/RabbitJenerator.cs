@@ -9,12 +9,14 @@ public class RabbitJenerator : MonoBehaviour
     const int count = 10;//生成数
 
     [SerializeField] GameObject _rabbit;
-    GameObject _reviceRabbit;
+    GameObject _arriveRabbit;
+    List<Rabbitmove> rabbits = new List<Rabbitmove>();
+
 
     public int rabbitCount = 0;
 
 
-    float xStep = 0.5f;//xのずらす量
+    float xStep = 0.3f;//xのずらす量
     public float zPos;//zの位置
 
     float x = -3.0f; //xの初期位置
@@ -49,27 +51,41 @@ public class RabbitJenerator : MonoBehaviour
             {
 
                 Vector3 pos = new Vector3(154.3f + x, 32.3f, 6.5f + zPos);
-            _reviceRabbit =  Instantiate(_rabbit, pos, Quaternion.Euler(0, 180, 0));
+            _arriveRabbit =  Instantiate(_rabbit, pos, Quaternion.Euler(0, 180, 0));
+            Rabbitmove  _rabittmove= _arriveRabbit.GetComponent<Rabbitmove>();
+            rabbits.Add(_rabittmove);
                 //zをずらす
                 zPos += 3;
                 //xをずらす
                 x += xStep * dir;
 
-
-                //端に来たら折り返し
-                if (x >= 0 || x <= -3)
-                {
-                    dir *= -1;
-                }
-
-
+            // 次のウサギを置く前に、もし端を超えたら折り返す
+            if (x > 0)
+            {
+                x = 0;
+                dir = -1;
             }
+            else if (x < -3)
+            {
+                x = -3;
+                dir = 1;
+            }
+
+
+        }
         
 
     }
     public void AllReset()
     {
-        Destroy(_reviceRabbit);//消えなかった
+       foreach (var _rabbitmove in rabbits)
+        {
+            if (_rabbitmove != null)
+            {
+                _rabbitmove.AllDeath();
+            }
+            
+        }
     }
 
 }

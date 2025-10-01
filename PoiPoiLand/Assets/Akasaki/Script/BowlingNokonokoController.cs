@@ -84,6 +84,13 @@ public class BowlingNokonokoController : MonoBehaviour
         }
         bossTransform = boss.transform;
         throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//“Š‚°‚éŒü‚«‚Íƒ{ƒX‚ÌŒü‚«+­‚µ‰º
+
+
+        //yÀ•W10ˆÈ‰º‚ÅÁ‹
+        if (transform.position.y < 10)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
