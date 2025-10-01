@@ -2,45 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RabbitJenerator : MonoBehaviour
 {
-    [SerializeField] GameObject _rabbit;
 
+    const int count = 10;//生成数
+
+    [SerializeField] GameObject _rabbit;
+    GameObject _reviceRabbit;
 
     public int rabbitCount = 0;
 
-    int count = 10;//生成数
+
     float xStep = 0.5f;//xのずらす量
     public float zPos;//zの位置
 
-    float x = -3f; //xの初期位置
+    float x = -3.0f; //xの初期位置
 
     int dir = 1;//(1なら正、-1なら負)
 
     // Start is called before the first frame update
     void Start()
     {
-     
         
+        RabbitSporn();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log(rabbitCount);
-        }
+       
 
+    }
+    public void RabbitSporn()
+    {
         //ラビットを固定位置に生成(関数)
         //zは-3,xは0.5ずつずらす(-3から0を行ったり来たり)
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            for (int i = 0; i < count;i++)
+     
+            //初期化組
+            rabbitCount = 0;//rabbitcountのリセット
+            zPos = 0;
+            x = -3.0f;
+
+            for (int i = 0; i < count; i++)
             {
-                Vector3 pos = new Vector3(154.3f + x,32.3f,6.5f + zPos);
-                Instantiate(_rabbit,pos,Quaternion.Euler(0,180,0));
+
+                Vector3 pos = new Vector3(154.3f + x, 32.3f, 6.5f + zPos);
+            _reviceRabbit =  Instantiate(_rabbit, pos, Quaternion.Euler(0, 180, 0));
                 //zをずらす
                 zPos += 3;
                 //xをずらす
@@ -55,10 +64,12 @@ public class RabbitJenerator : MonoBehaviour
 
 
             }
-        }
+        
 
-        //ラビットが亀に触れると倒れる
-
+    }
+    public void AllReset()
+    {
+        Destroy(_reviceRabbit);//消えなかった
     }
 
 }

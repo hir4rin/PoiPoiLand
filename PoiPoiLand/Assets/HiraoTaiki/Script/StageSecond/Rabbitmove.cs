@@ -18,13 +18,13 @@ public class Rabbitmove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+      _RJ = GameObject.Find("RabbitJenerator").GetComponent<RabbitJenerator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+     
     }
     private void FixedUpdate()
     {
@@ -63,6 +63,10 @@ public class Rabbitmove : MonoBehaviour
             _RJ.rabbitCount++;
         }
 
+    }
+    public void AllDeath()
+    {
+        Destroy(gameObject);
     }
     
 }
