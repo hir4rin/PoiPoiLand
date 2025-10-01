@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class Stage1StoneManager : MonoBehaviour
 {
     public float stoneHealthPoint;
+    [SerializeField] private Image hpGaugeBack;
     [SerializeField] private Image hpGauge;
     [SerializeField] private Image burnHpGauge;
     [SerializeField] private GameObject stage1;
     private Stage1Manager stage1Manager;
-    private Stage1State stageState;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +23,6 @@ public class Stage1StoneManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        stageState = stage1Manager.State;
         hpGauge.fillAmount = stoneHealthPoint / 3.0f;
         if (burnHpGauge.fillAmount > hpGauge.fillAmount)
         {
@@ -33,6 +32,11 @@ public class Stage1StoneManager : MonoBehaviour
         {
             stage1Manager.State = Stage1State.Failed;
             Destroy(this.gameObject);
+        }
+        hpGaugeBack.rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, this.transform.position + new Vector3(0.0f,2.0f,0.0f));
+        if (stage1Manager.State == Stage1State.Cleared)
+        {
+            this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f,1.0f,0.0f));
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Stage1State
 {
     Idle, // 未クリアで始まっていない
-    Start, // 始まった
+    Wait, // ウェーブが始まる前
+    Start, // ウェーブが始まった
     Cleared, // クリアされた
     Failed // 失敗した
 }
@@ -19,7 +20,7 @@ public class Stage1Manager : MonoBehaviour
         set { state = value; }
     }
     private GameObject player;
-    private bool isStart;
+    private bool isWait;
     private float stageTime; 
 
     // Start is called before the first frame update
@@ -27,7 +28,7 @@ public class Stage1Manager : MonoBehaviour
     {
         state = Stage1State.Idle;
         player = GameObject.Find("Player");
-        isStart = false;
+        isWait = false;
         stageTime = 0;
     }
 
@@ -37,10 +38,10 @@ public class Stage1Manager : MonoBehaviour
         Debug.Log(state);
         if(player.transform.position == new Vector3(100.0f,21.5f,2.5f) || Input.GetKeyDown(KeyCode.P))
         {
-            if (!isStart)
+            if (!isWait)
             {
-                state = Stage1State.Start;
-                isStart = true;
+                state = Stage1State.Wait;
+                isWait = true;
             }
         }
         if (state == Stage1State.Start)
