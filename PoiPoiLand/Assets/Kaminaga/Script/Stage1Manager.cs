@@ -19,7 +19,9 @@ public class Stage1Manager : MonoBehaviour
         get { return state; }
         set { state = value; }
     }
+    [SerializeField] private GameObject warpPoint;
     private GameObject player;
+    private Player playerScript;
     private bool isWait;
     private float stageTime; 
 
@@ -27,7 +29,9 @@ public class Stage1Manager : MonoBehaviour
     void Start()
     {
         state = Stage1State.Idle;
+        warpPoint.SetActive(false);
         player = GameObject.Find("Player");
+        playerScript = player.GetComponent<Player>();
         isWait = false;
         stageTime = 0;
     }
@@ -36,7 +40,7 @@ public class Stage1Manager : MonoBehaviour
     void FixedUpdate()
     {
         Debug.Log(state);
-        if(player.transform.position == new Vector3(100.0f,21.5f,2.5f) || Input.GetKeyDown(KeyCode.P))
+        if(PlayerPrefs.GetInt("PointNum") == 1 || Input.GetKeyDown(KeyCode.P))
         {
             if (!isWait)
             {
@@ -56,6 +60,10 @@ public class Stage1Manager : MonoBehaviour
         if(state == Stage1State.Failed && Input.GetKeyDown(KeyCode.S))
         {
             state = Stage1State.Wait;
+        }
+        if(state == Stage1State.Cleared)
+        {
+            warpPoint.SetActive(true);
         }
     }
 }

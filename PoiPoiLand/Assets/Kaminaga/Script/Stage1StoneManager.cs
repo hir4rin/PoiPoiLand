@@ -36,6 +36,9 @@ public class Stage1StoneManager : MonoBehaviour
         hpGaugeBack.rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, this.transform.position + new Vector3(0.0f,2.0f,0.0f));
         if (stage1Manager.State == Stage1State.Cleared)
         {
+            hpGaugeBack.enabled = false;
+            hpGauge.enabled = false;
+            burnHpGauge.enabled = false;
             this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f,1.0f,0.0f));
         }
     }

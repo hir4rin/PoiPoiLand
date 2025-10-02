@@ -62,7 +62,7 @@ public class TriggerGhostManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Hammer")
+        if (other.gameObject.tag == "Hammer")
         {
             manager.State = Stage1State.Start;
             Destroy(this.gameObject);
