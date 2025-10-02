@@ -20,7 +20,7 @@ public class NokonokoController : MonoBehaviour
     private Rigidbody rb;
     private Vector3 startPos = new Vector3(2.18f, 2.0f, 0.0f);
 
-    bool isThrow = false;
+     bool isThrow = false;
 
     GameObject _player;
     Player _playerScript;
@@ -143,7 +143,7 @@ public class NokonokoController : MonoBehaviour
 
     void UpdatePop() //Pop’†‚ÌUpdate
     {
-        Debug.Log("Pop’†");
+       // Debug.Log("Pop’†");
         //Œ»İ‚Ì©g‚Ì‰ñ“]‚Ìî•ñ‚ğæ“¾‚·‚éB
         Quaternion q = this.transform.rotation;
         //‡¬‚µ‚Ä©g‚Éİ’è

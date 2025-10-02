@@ -30,7 +30,7 @@ public class BowlingNokonokoController : MonoBehaviour
     //public float speed = 0.1f;    //地面を進むスピード
     private Vector3 startPos = new Vector3(4.18f, 2.0f, 0.0f);
 
-    bool isThrow = false;
+    public bool isThrow = false;
 
     GameObject _player;
     Player _playerScript;

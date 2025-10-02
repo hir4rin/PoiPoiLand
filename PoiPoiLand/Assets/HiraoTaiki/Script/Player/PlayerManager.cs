@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
         _playerState = _player._state;//_playerStateの更新
 
         Debug.Log($"PlayerStateは{_playerState}です");
+        Debug.Log($"GravityTuttleは{_bowling.currentState}です");
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
@@ -72,8 +73,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
                 {
-                    Debug.Log("持ちました");
                     _player._state = PlayerState.Hold;
+                    Debug.Log("_player._state:" + _player._state);
                     _bowling.currentState = BowlingNokonokoState.held;
                     _player._animator.SetBool("isHold", true);
                     isHaving = true;
@@ -121,19 +122,21 @@ public class PlayerManager : MonoBehaviour
             //ボーリング
             if (Input.GetKeyDown(KeyCode.K) && _bowling.currentState == BowlingNokonokoState.held)//ものを落とすとき
             {
-
+                Debug.Log("_player._state:" + _player._state);
                 _bowling.currentState = BowlingNokonokoState.pop;
                 _player._state = PlayerState.Idle;
                 _player._animator.SetBool("isHold", false);
                 isHaving = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき
+            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//ここが変
             {
+                Debug.Log("_player._state:" + _player._state);
                 _player._animator.SetTrigger("TriggerThrow");
-
+                _bowling.isThrow = false;
                 _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
+               
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
                 isHaving = false;
             }
