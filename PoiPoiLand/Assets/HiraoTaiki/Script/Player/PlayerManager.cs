@@ -133,7 +133,7 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("_player._state:" + _player._state);
                 _player._animator.SetTrigger("TriggerThrow");
-                _bowling.isThrow = false;
+                _bowling.isThrowBowling = false;
                 _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
                

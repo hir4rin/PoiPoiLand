@@ -51,11 +51,17 @@ public class GoalZone : MonoBehaviour
              
 
             }
-            if (_RJ.rabbitCount >= 7)
+            if (_RJ.rabbitCount >= 8)
             {
                 //ワープの出現]
                 _warp2.SetActive(true);
+                if (_RJ.rabbitCount == 10)
+                {
+                    //パーフェクトのえんしゅつなり音なり
+
+                }
             }
+
             
         }
         

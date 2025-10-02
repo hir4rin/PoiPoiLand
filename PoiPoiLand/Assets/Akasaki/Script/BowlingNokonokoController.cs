@@ -30,7 +30,7 @@ public class BowlingNokonokoController : MonoBehaviour
     //public float speed = 0.1f;    //地面を進むスピード
     private Vector3 startPos = new Vector3(4.18f, 2.0f, 0.0f);
 
-    public bool isThrow = false;
+    public bool isThrowBowling = false;
 
     GameObject _player;
     Player _playerScript;
@@ -196,26 +196,26 @@ public class BowlingNokonokoController : MonoBehaviour
     // 投げる
     public void UpdateThrow(Vector3 direction)
     {
-        if (!isThrow)
+        if (!isThrowBowling)
         {
             this.transform.SetParent(null);
             col.enabled = true;
             rb.useGravity = true; // 重力状態
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
-            isThrow = true;
+            isThrowBowling = true;
         }
     }
     public void BossThrow(Vector3 direction)
     {
       
-        if (!isThrow)
+        if (!isThrowBowling)
         {
             col.enabled = true;
             rb.useGravity = true; // 重力状態
             rb.isKinematic = false;
             rb.AddForce(direction.normalized * 20f, ForceMode.Impulse);
-            isThrow = true;
+            isThrowBowling = true;
         }
     }
     public void SetTarget(Transform target)
