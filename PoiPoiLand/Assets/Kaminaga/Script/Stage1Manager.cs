@@ -53,5 +53,9 @@ public class Stage1Manager : MonoBehaviour
                 state = Stage1State.Cleared;
             }
         }
+        if(state == Stage1State.Failed && Input.GetKeyDown(KeyCode.S))
+        {
+            state = Stage1State.Wait;
+        }
     }
 }
