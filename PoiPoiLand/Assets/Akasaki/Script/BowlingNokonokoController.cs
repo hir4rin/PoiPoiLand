@@ -84,6 +84,13 @@ public class BowlingNokonokoController : MonoBehaviour
         }
         bossTransform = boss.transform;
         throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
+
+
+        //y座標10以下で消去
+        if (transform.position.y < 10)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -191,18 +198,11 @@ public class BowlingNokonokoController : MonoBehaviour
     {
         if (!isThrow)
         {
-            
-
-
             this.transform.SetParent(null);
             col.enabled = true;
             rb.useGravity = true; // 重力状態
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
-            ////現在の自身の回転の情報を取得する。
-            //Quaternion q = this.transform.rotation;
-            ////合成して自身に設定
-            //this.transform.rotation = popRotation * q;
             isThrow = true;
         }
     }

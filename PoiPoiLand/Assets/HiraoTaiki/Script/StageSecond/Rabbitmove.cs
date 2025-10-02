@@ -11,7 +11,7 @@ public class Rabbitmove : MonoBehaviour
     [SerializeField] bool isColHit = false;
     Vector3 Velocity = Vector3.zero;
 
-    float speed = 0.5f;
+    float speed = 1.8f;
 
     public RabbitJenerator _RJ;
 
@@ -38,7 +38,8 @@ public class Rabbitmove : MonoBehaviour
             Velocity = left;
          
         }
-        transform.position += Velocity * speed * Time.fixedDeltaTime;
+        //ƒVƒXƒeƒ€‚Ì“s‡‚É‚æ‚è‹tŒü‚«
+        transform.position += - Velocity * speed * Time.fixedDeltaTime;
     }
     private void OnTriggerEnter(Collider other)
     {

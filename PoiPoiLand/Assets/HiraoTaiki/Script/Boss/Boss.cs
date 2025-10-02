@@ -141,8 +141,6 @@ public class Boss : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
-
         shootTimer += Time.fixedDeltaTime;
         throwTimer += Time.fixedDeltaTime;
         ghostTimer += Time.fixedDeltaTime;
@@ -274,8 +272,23 @@ public class Boss : MonoBehaviour
             _attackGhost2.GhostAttack();
 
         }
-
-
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        //ハンマーをあてられた場合
+        if (other.CompareTag("Hammer"))
+        {
 
+        }
+        //ボーリングのこのこをあてられた場合
+        else if (other.CompareTag("Bowling"))
+        {
+
+        }
+        //重力なしのこのこをあてられた場合
+        else if (other.CompareTag("Nokonoko"))
+        {
+
+        }
+    }
 }

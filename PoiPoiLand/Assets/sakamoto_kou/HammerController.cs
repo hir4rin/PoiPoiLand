@@ -51,7 +51,7 @@ public class HammerController : MonoBehaviour
     Transform playerTransform;//ƒvƒŒƒCƒ„[‚ÌTransform
     public bool isColHit = false;
     //ƒvƒŒƒCƒ„[‚Ì³–Ê
-    
+
 
     public HammerState currentState;
 
@@ -110,14 +110,6 @@ public class HammerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //“G‚É“–‚½‚Á‚½‚ç
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            //”j‰ó‚·‚é
-            Debug.Log("“G‚É“–‚½‚Á‚½");
-            Destroy(gameObject);
-        }
-
         //’n–Ê‚É“–‚½‚Á‚½‚ç
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -139,6 +131,18 @@ public class HammerController : MonoBehaviour
         if (!other.CompareTag("Ground"))
         {
             isColHit = false;
+        }
+        // “G‚É“–‚½‚Á‚½‚ç
+        if (other.CompareTag("Enemy")) //G‹›
+        {
+            //”j‰ó‚·‚é
+            Debug.Log("“G‚É“–‚½‚Á‚½");
+            Destroy(this.gameObject);
+        }
+        if (other.CompareTag("Boss")) //ƒ{ƒX
+        {
+            //”j‰ó
+            Destroy(this.gameObject);
         }
     }
 

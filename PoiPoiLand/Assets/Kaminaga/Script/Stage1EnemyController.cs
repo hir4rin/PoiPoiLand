@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stage1EnemyController : MonoBehaviour
 {
-    private GameObject stone;
+    private GameObject stonePos;
     private Stage1Manager stage1Manager;
     private Stage1State stage1State;
     //private Transform stone; // stoneのTransformをInspectorに入れるようにする
@@ -14,10 +14,10 @@ public class Stage1EnemyController : MonoBehaviour
 
     void Start()
     {
-        stone = GameObject.Find("Stone"); // stoneオブジェクトを探す
+        stonePos = GameObject.Find("StonePos"); // stoneの場所(移動用に補正してある)オブジェクトを探す
         stage1Manager = GameObject.Find("Stage1Manager").GetComponent<Stage1Manager>();
         pos = transform.position; // 初期位置を保存
-        direction = (new Vector3(100.0f,4.8f,5.0f) - transform.position).normalized; // stoneの方向を向く
+        direction = (stonePos.transform.position - transform.position).normalized; // stoneの方向を向く
         speed = 0.01f; // 移動速度
     }
 
