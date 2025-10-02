@@ -175,7 +175,7 @@ public class HammerController : MonoBehaviour
 
     void UpdatePop() //Pop’†‚ÌUpdate
     {
-        Debug.Log(isReset);
+      //  Debug.Log(isReset);
         if (!isReset)
         {
             ResetRotate();

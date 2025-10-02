@@ -69,6 +69,8 @@ public class Boss : MonoBehaviour
 
     //bossのアニメーション用
     public BossFakeMove _mimic;
+    //bossのHP管理
+    [SerializeField] BossHp _hp;
 
 
     // Start is called before the first frame update
@@ -278,17 +280,25 @@ public class Boss : MonoBehaviour
         //ハンマーをあてられた場合
         if (other.CompareTag("Hammer"))
         {
+            //ヒット喰らい処理
+
+            //ダメージ処理
+            _hp.TakeDamage(5000);
 
         }
         //ボーリングのこのこをあてられた場合
         else if (other.CompareTag("Bowling"))
         {
-
+            //ヒット喰らい処理
+            //ダメージ処理
+            _hp.TakeDamage(100);
         }
         //重力なしのこのこをあてられた場合
         else if (other.CompareTag("Nokonoko"))
         {
-
+            //ヒット喰らい処理
+            //ダメージ処理
+            _hp.TakeDamage(400);
         }
     }
 }

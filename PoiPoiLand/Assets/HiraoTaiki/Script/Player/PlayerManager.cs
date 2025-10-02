@@ -34,8 +34,8 @@ public class PlayerManager : MonoBehaviour
     {
         _playerState = _player._state;//_playerStateの更新
 
-        Debug.Log($"PlayerStateは{_playerState}です");
-        Debug.Log($"GravityTuttleは{_bowling.currentState}です");
+       // Debug.Log($"PlayerStateは{_playerState}です");
+       // Debug.Log($"GravityTuttleは{_bowling.currentState}です");
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
