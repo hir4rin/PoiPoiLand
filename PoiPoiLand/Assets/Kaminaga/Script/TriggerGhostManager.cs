@@ -22,13 +22,15 @@ public class TriggerGhostManager : MonoBehaviour
         firstPos = this.transform.position;
         maxPos = firstPos + new Vector3(10.0f,0.0f,0.0f);
         minPos = firstPos - new Vector3(10.0f,0.0f,0.0f);
-        lookPlayer = (player.transform.position - this.transform.position).normalized;
+        lookPlayer = Vector3.zero;
         isRight = true;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        lookPlayer = (player.transform.position - this.transform.position).normalized;
+        lookPlayer.y = 0.0f;
         Quaternion rotation = Quaternion.LookRotation(lookPlayer);
         transform.rotation = rotation;
         if (transform.position.x >= maxPos.x)

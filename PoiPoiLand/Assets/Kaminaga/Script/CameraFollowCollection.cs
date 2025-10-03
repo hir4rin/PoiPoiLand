@@ -11,16 +11,15 @@ public class CameraFollowCollection : MonoBehaviour
 
     [SerializeField] private Transform currentPlayerPos; // プレイヤーの座標を取得
     [SerializeField] private Player player;
-    private float yThreshold; // カメラの補正を行う閾値
 
-
-    float lastPlayerY; // 前のフレームでのプレイヤーのy座標
+    private Vector3 lastPlayerPos; // 前のフレームでのプレイヤーの座標
+    [SerializeField] private Vector3 threshold; // カメラの補正を行う閾値
 
     // Start is called before the first frame update
     void Start()
     {
-        lastPlayerY = currentPlayerPos.position.y;
-        yThreshold = 1.0f;
+        lastPlayerPos = currentPlayerPos.position;
+        threshold = new Vector3(0.0f, 1.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -32,19 +31,39 @@ public class CameraFollowCollection : MonoBehaviour
         // (今のフレームのY座標 - 前回のフレームのY座標)の大きさが1.0未満なら更新しない
         if (player.isGround)
         {
-            if (Mathf.Abs(targetPos.y - lastPlayerY) < yThreshold)
+            Debug.Log("xの変化量" + Mathf.Abs(targetPos.x - lastPlayerPos.x).ToString());
+            if (Mathf.Abs(targetPos.x - lastPlayerPos.x) < threshold.x)
             {
-                targetPos.y = lastPlayerY;
+                targetPos.x = lastPlayerPos.x;
             }
             else
             {
-                lastPlayerY = targetPos.y;
+                lastPlayerPos.x = targetPos.x;
+            }
+
+            if (Mathf.Abs(targetPos.y - lastPlayerPos.y) < threshold.y)
+            {
+                targetPos.y = lastPlayerPos.y;
+            }
+            else
+            {
+                lastPlayerPos.y = targetPos.y;
+            }
+
+            if (Mathf.Abs(targetPos.z - lastPlayerPos.z) < threshold.z)
+            {
+                targetPos.z = lastPlayerPos.z;
+            }
+            else
+            {
+                lastPlayerPos.z = targetPos.z;
             }
 
         }
         else
         {
-            lastPlayerY = targetPos.y;
+            lastPlayerPos = targetPos;
+            //lastPlayerY = targetPos.y;
         }
 
         // プレイヤーの位置に更新
