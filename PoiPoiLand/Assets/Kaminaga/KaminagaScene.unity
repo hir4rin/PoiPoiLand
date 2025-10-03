@@ -536,6 +536,7 @@ MonoBehaviour:
   throwInterval: 5
   ghostInterval: 2
   _mimic: {fileID: 0}
+  _hp: {fileID: 0}
 --- !u!4 &31584244
 Transform:
   m_ObjectHideFlags: 0
