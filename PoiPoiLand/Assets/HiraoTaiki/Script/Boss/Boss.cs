@@ -10,11 +10,11 @@ public class Boss : MonoBehaviour
     //実装する内容
     //1.動く瞬間に敵の座標をとって一定量動かす(動く時間はたまに)                            (完了)
     //2.ワープする(プレイヤーの周り二ワープ→攻撃)                                           (完了)
-    ///3普通の玉攻撃(1と同じようにするか、ホーミングにしてy座標を下げてよけさせる)          　
-    // 4.甲羅やゴースト(色違いゴーストを出す(場所はランダム))
+    ///3普通の玉攻撃(1と同じようにするか、ホーミングにしてy座標を下げてよけさせる)          　(完了)
+    // 4.甲羅やゴースト(色違いゴーストを出す(場所はランダム))　　　　　　　　　　　　　　　　　(完了)
     //
-    //必要なモーション(移動時、攻撃時、)
-    //5.体力バー
+    //必要なモーション(移動時、攻撃時、)　　　　　　　　　　　　　　　　　　　　　　　　　　　　(完了)
+    //5.体力バー　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　(完了)
     //----------------------------------------------------------------
 
 
@@ -59,9 +59,9 @@ public class Boss : MonoBehaviour
 
 
 
-    //ボスの移動
-    Vector3 rightMove = new Vector3(2f, 0, 0);
-    Vector3 leftMove = new Vector3(-2f, 0, 0);
+    //ボスの移動(速度)
+    Vector3 rightMove = new Vector3(4f, 0, 0);
+    Vector3 leftMove = new Vector3(-4f, 0, 0);
     bool isRight = false;
     bool isMovingBoss = false;
     //移動の感覚
@@ -71,6 +71,12 @@ public class Boss : MonoBehaviour
     public BossFakeMove _mimic;
     //bossのHP管理
     [SerializeField] BossHp _hp;
+
+    //bossの攻撃パターン用のタイマー
+    float timer = 0.0f;
+    float moveInterval = 4.0f;//攻撃の時間差
+    int attackCounter = 0;
+    bool isAnger = false;
 
 
     // Start is called before the first frame update
@@ -85,10 +91,57 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         if (!isRush)
         {
             LookAtPlayerQuaternion();
         }
+
+        //攻撃パターンランダム3回→
+        //移動
+        Debug.Log("attackCounter" + attackCounter);
+       if (!isAnger)//通常時
+        {
+            if (timer > moveInterval && !isMovingBoss)//攻撃
+            {
+                if (attackCounter == 3)//移動
+                {
+                    attackCounter = 0;
+                    Movement();
+
+                }
+                else if (attackCounter != 3)
+                {
+                    attackCounter++;
+                    timer = 0;
+                    AttackSelect();
+                }
+
+            }
+        }
+       if (isAnger)//怒り時//いったん攻撃のインターバルが速くなる(弾、亀、ゴーストの数上げたいor速度を上げたい)
+        {
+            if (timer > moveInterval　/　4 && !isMovingBoss)//攻撃
+            {
+                if (attackCounter == 3)//移動
+                {
+                    attackCounter = 0;
+                    Movement();
+
+                }
+                else if (attackCounter != 3)
+                {
+                    attackCounter++;
+                    timer = 0;
+                    AttackSelect();
+                }
+
+            }
+        }
+      
+        
+
 
         if (Input.GetKeyDown(KeyCode.M))//移動
         {
@@ -102,51 +155,22 @@ public class Boss : MonoBehaviour
             Warp();
         }
 
-        if (Input.GetKeyDown(KeyCode.O))//移動中
-        {
-            movetime = 0;
-            Debug.Log("移動中");
-            isMovingBoss = true;
-        }
-        if (Input.GetKey(KeyCode.B))//魔法攻撃
-        {
-            if (shootTimer >= shootInterval)
-            {
-                shootTimer = 0.0f;
-                _mimic.Action("Attack");
-                StartCoroutine(WaitAndRelease(0.5f, "magic"));
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.P))//亀を投げる
-        {
-            if (throwTimer >= throwInterval)
-            {
-                throwTimer = 0.0f;
-                _mimic.Action("Attack");
-                StartCoroutine(WaitAndRelease(0.5f, "turtle"));
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.I))//色違いゴーストを出す
-        {
-            if (ghostTimer >= ghostInterval)
-            {
-                ghostTimer = 0.0f;
-                _mimic.Action("Attack");
-                StartCoroutine(WaitAndRelease(0.5f, "ghost"));
-            }
-        }
-
-
-
+       
     }
     private void FixedUpdate()
     {
+        timer += Time.fixedDeltaTime;
         shootTimer += Time.fixedDeltaTime;
         throwTimer += Time.fixedDeltaTime;
         ghostTimer += Time.fixedDeltaTime;
-        if (isMoving)
+
+
+
+
+
+
+
+        if (isMoving)//Playerの後ろに行くやつ
         {
 
             Debug.Log("移動中");
@@ -174,7 +198,7 @@ public class Boss : MonoBehaviour
             }
 
         }
-        if (isMovingBoss)
+        if (isMovingBoss)//横に移動
         {
             movetime += Time.fixedDeltaTime;
             if (!isRight)
@@ -188,13 +212,13 @@ public class Boss : MonoBehaviour
                 transform.position += leftMove * Time.fixedDeltaTime;
 
             }
-            if (movetime > 4)
+            if (movetime > 3)
             {
                 isRight = !isRight;
                 movetime = 0;
-                Debug.Log("移動");
+                Debug.Log("ボスが移動");
+                timer = 0;
                 isMovingBoss = false;
-
             }
         }
 
@@ -243,6 +267,46 @@ public class Boss : MonoBehaviour
             val = Random.Range(-2f, -1f);
         }
         return val;
+    }
+    void AttackSelect()
+    {
+        int r = Random.Range(0, 3);
+
+        switch(r)
+        {
+            case 0://魔法弾
+                if (shootTimer >= shootInterval)
+                {
+                    shootTimer = 0.0f;
+                    _mimic.Action("Attack");
+                    StartCoroutine(WaitAndRelease(0.5f, "magic"));
+                }
+                break;
+            case 1://亀を投げる
+                if (throwTimer >= throwInterval)
+                {
+                    throwTimer = 0.0f;
+                    _mimic.Action("Attack");
+                    StartCoroutine(WaitAndRelease(0.5f, "turtle"));
+                }
+                break;
+            case 2://色違いゴースト
+                if (ghostTimer >= ghostInterval)
+                {
+                    ghostTimer = 0.0f;
+                    _mimic.Action("Attack");
+                    StartCoroutine(WaitAndRelease(0.5f, "ghost"));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    void Movement()
+    {
+        movetime = 0;
+        Debug.Log("ボスが移動中");
+        isMovingBoss = true;
     }
 
     void LookAtPlayerQuaternion()

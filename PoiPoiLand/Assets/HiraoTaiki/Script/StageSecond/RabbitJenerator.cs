@@ -53,7 +53,7 @@ public class RabbitJenerator : MonoBehaviour
                 Vector3 pos = new Vector3(154.3f + x, 32.3f, 6.5f + zPos);
             _arriveRabbit =  Instantiate(_rabbit, pos, Quaternion.Euler(0, 180, 0));
             Rabbitmove  _rabittmove= _arriveRabbit.GetComponent<Rabbitmove>();
-            rabbits.Add(_rabittmove);
+            rabbits.Add(_rabittmove);//List
                 //z‚ð‚¸‚ç‚·
                 zPos += 3;
                 //x‚ð‚¸‚ç‚·
