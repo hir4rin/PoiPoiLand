@@ -41,7 +41,7 @@ public class HammerController : MonoBehaviour
     //一度だけ発生するフラグ
     bool isInclination = false;
     bool isReset = false; // 回転をゼロに戻したかどうか
-    bool isThrow = false;
+   public  bool isThrowHammer = false;
 
     GameObject _player;
     Player _playerScript;
@@ -54,6 +54,10 @@ public class HammerController : MonoBehaviour
 
 
     public HammerState currentState;
+    //ハンマージェネレータの接続
+     HammerGenerator _hG;
+    //自分がどこのハンマーか
+    public int posNum = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +73,7 @@ public class HammerController : MonoBehaviour
         col = this.GetComponent<Collider>();
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
+        _hG = GameObject.Find("HammerGenerator").GetComponent<HammerGenerator>();
     }
 
     private void Update()
@@ -124,14 +129,6 @@ public class HammerController : MonoBehaviour
         {
             isColHit = true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Ground"))
-        {
-            isColHit = false;
-        }
         // 敵に当たったら
         if (other.CompareTag("Enemy")) //雑魚
         {
@@ -141,9 +138,21 @@ public class HammerController : MonoBehaviour
         }
         if (other.CompareTag("Boss")) //ボス
         {
+            //生成
+            _hG.HammerSpawn(posNum);
             //破壊
             Destroy(this.gameObject);
+           // Debug.Log("ボスに当たった");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Ground"))
+        {
+            isColHit = false;
+        }
+       
     }
 
     void Debug_sakamoto()
@@ -193,7 +202,7 @@ public class HammerController : MonoBehaviour
         rb.useGravity = false;
         rb.isKinematic = true;
         isInclination = false;
-        isThrow = false;
+        isThrowHammer = false;
     }
 
     public void UpdateHold() //掴んでる状態
@@ -223,7 +232,7 @@ public class HammerController : MonoBehaviour
             ResetRotate();
         }
 
-        if (!isThrow)
+        if (!isThrowHammer)
         {
             this.transform.rotation = throwForward;
             this.transform.SetParent(null);
@@ -232,7 +241,7 @@ public class HammerController : MonoBehaviour
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
             isReset = false;
-            isThrow = true;
+            isThrowHammer = true;
         }
     }
 
@@ -240,6 +249,6 @@ public class HammerController : MonoBehaviour
     {
         this.transform.rotation = Quaternion.identity;
         isInclination = true;
-        Debug.Log("リセット");
+       // Debug.Log("リセット");
     }
 }

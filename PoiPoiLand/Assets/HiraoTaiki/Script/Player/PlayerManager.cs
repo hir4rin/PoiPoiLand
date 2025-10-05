@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
 
        // Debug.Log($"PlayerStateは{_playerState}です");
        // Debug.Log($"GravityTuttleは{_bowling.currentState}です");
+       //持つとき----------------------------------------------------------
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
@@ -81,7 +82,8 @@ public class PlayerManager : MonoBehaviour
                 }
             }   
         }
-        if (_player._state == PlayerState.Hold)
+        //-----------------------------------------------------------------------
+        if (_player._state == PlayerState.Hold)//持っている状態のとき
         {
             //ハンマー
             if (Input.GetKeyDown(KeyCode.K) && _hammer.currentState == HammerState.held)//ものを落とすとき
@@ -96,6 +98,7 @@ public class PlayerManager : MonoBehaviour
             {
                 _player._animator.SetTrigger("TriggerThrow");
                 _hammer.currentState =  HammerState.thrown;
+                _hammer.isThrowHammer = false;
                 _player._state = PlayerState.Idle;
                 StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
                 isHaving = false;

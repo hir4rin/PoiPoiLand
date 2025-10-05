@@ -31,7 +31,7 @@ public class TurtleFakeMove : MonoBehaviour
         || _turtle.currentState == BowlingNokonokoState.throwngravity
         || _turtle.currentState == BowlingNokonokoState.Boss)
         {
-            Debug.Log("Rigidbodyがアタッチされています");
+           // Debug.Log("Rigidbodyがアタッチされています");
             // Rigidbodyの速度ベクトルの大きさを取得
             float speed = rb.velocity.magnitude;
 

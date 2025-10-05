@@ -78,6 +78,12 @@ public class Boss : MonoBehaviour
     int attackCounter = 0;
     bool isAnger = false;
 
+    HammerController _hammer;//ハンマー
+    HammerState _hammerState;
+
+    BowlingNokonokoController _bowling;//のこのこボーリング
+    BowlingNokonokoState _bowlingState;
+
 
     // Start is called before the first frame update
     void Start()
@@ -86,6 +92,10 @@ public class Boss : MonoBehaviour
         _attackGhost = GameObject.Find("RedGhostF").GetComponent<AttackGhost>();
         _attackGhost2 = GameObject.Find("RedGhostS").GetComponent<AttackGhost>();
         _mimic = GameObject.Find("Mimic").GetComponent<BossFakeMove>();
+
+        //繋ぎ用
+        _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
+        _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
     }
 
     // Update is called once per frame
@@ -100,7 +110,7 @@ public class Boss : MonoBehaviour
 
         //攻撃パターンランダム3回→
         //移動
-        Debug.Log("attackCounter" + attackCounter);
+      //  Debug.Log("attackCounter" + attackCounter);
        if (!isAnger)//通常時
         {
             if (timer > moveInterval && !isMovingBoss)//攻撃
@@ -344,25 +354,48 @@ public class Boss : MonoBehaviour
         //ハンマーをあてられた場合
         if (other.CompareTag("Hammer"))
         {
-            //ヒット喰らい処理
+            _hammer = other.GetComponent<HammerController>();
+            if (_hammer.currentState == HammerState.thrown)
+            {
+                //ヒット喰らい処理
 
-            //ダメージ処理
-            _hp.TakeDamage(5000);
+                //ダメージ処理
+                _hp.TakeDamage(50);
+            }
+            
 
         }
         //ボーリングのこのこをあてられた場合
         else if (other.CompareTag("Bowling"))
         {
-            //ヒット喰らい処理
-            //ダメージ処理
-            _hp.TakeDamage(100);
+            _bowling = other.GetComponent<BowlingNokonokoController>();
+            if (_bowling.currentState == BowlingNokonokoState.thrownzerogravity)
+            {
+                //ヒット喰らい処理
+
+                //ダメージ処理
+                _hp.TakeDamage(5000);
+            }
+            
         }
-        //重力なしのこのこをあてられた場合
-        else if (other.CompareTag("Nokonoko"))
-        {
-            //ヒット喰らい処理
-            //ダメージ処理
-            _hp.TakeDamage(400);
-        }
+        ////重力なしのこのこをあてられた場合
+        //else if (other.CompareTag("Nokonoko"))
+        //{
+        //    //ヒット喰らい処理
+        //    //ダメージ処理
+        //    _hp.TakeDamage(400);
+        //}
+    }
+    //繋げ用
+    public void SetHammer(HammerController hammer)
+    {
+        _hammer = hammer;
+    }
+
+  
+
+    public void SetBowling(BowlingNokonokoController bowling)
+    {
+        _bowling = bowling;
     }
 }

@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isGround)//ƒWƒƒƒ“ƒv
         {
-            Debug.Log("”ò‚ñ‚Å‚¢‚Ü‚·");
+          // Debug.Log("”ò‚ñ‚Å‚¢‚Ü‚·");
             rb.AddForce(JumpPower,ForceMode.Impulse);
             isGround = false;
             if (_state != PlayerState.Hold)

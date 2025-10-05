@@ -44,6 +44,8 @@ public class BowlingNokonokoController : MonoBehaviour
     public GameObject boss;
     Vector3 throwDirBoss;//ìäÇ∞ÇÈå¸Ç´
     Transform bossTransform;//É{ÉXÇÃTransform
+    float timer = 0;
+    bool isBossThrow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +114,16 @@ public class BowlingNokonokoController : MonoBehaviour
                 break;
 
         }
-
+        if (isBossThrow)
+        {
+            timer += Time.fixedDeltaTime;
+            if (timer > 1.0f)
+            {
+                currentState = BowlingNokonokoState.pop;
+                timer = 0;
+                isBossThrow = false;
+            }
+        }
         //Debug_akasaki();
     }
 
@@ -211,6 +222,7 @@ public class BowlingNokonokoController : MonoBehaviour
       
         if (!isThrowBowling)
         {
+            isBossThrow = true;
             col.enabled = true;
             rb.useGravity = true; // èdóÕèÛë‘
             rb.isKinematic = false;

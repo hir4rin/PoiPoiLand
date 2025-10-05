@@ -55,7 +55,7 @@ public class magicball : MonoBehaviour
         if (isMoving)
         {
 
-            Debug.Log("ˆÚ“®’†");
+          //  Debug.Log("ˆÚ“®’†");
             transform.position += moveDir * moveSpeed;
 
 
