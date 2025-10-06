@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+
+    [SerializeField] private AudioMixer audioMixer;
 
     private AudioSource audioSource;
 
@@ -39,13 +42,20 @@ public class SoundManager : MonoBehaviour
         lastVolume = currentVolume;
     }
 
+    public void SetMasterVolume(float volume)
+    {
+        audioMixer.SetFloat("Master", volume);
+    }
+
     public void SetBGMVolume(float volume)
     {
-        audioSource.volume = volume;
+        //audioSource.volume = volume;
+        audioMixer.SetFloat("BGM", volume);
     }
 
     public void SetSEVolume(float volume)
     {
-        seAudioSource.volume = volume;
+        //seAudioSource.volume = volume;
+        audioMixer.SetFloat("SE", volume);
     }
 }

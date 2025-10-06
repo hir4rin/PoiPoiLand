@@ -59,6 +59,8 @@ public class HammerController : MonoBehaviour
     //自分がどこのハンマーか
     public int posNum = 0;
 
+    [SerializeField] GameObject hitEffectPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -118,8 +120,7 @@ public class HammerController : MonoBehaviour
         //地面に当たったら
         if (collision.gameObject.CompareTag("Ground"))
         {
-            //再度pop状態にする
-            currentState = HammerState.pop;
+            
         }
     }
 
@@ -128,21 +129,23 @@ public class HammerController : MonoBehaviour
         if (!other.CompareTag("Ground"))
         {
             isColHit = true;
+
+            //再度pop状態にする
+            currentState = HammerState.pop;
         }
-        // 敵に当たったら
-        if (other.CompareTag("Enemy")) //雑魚
+       
+        if(other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             //破壊する
             Debug.Log("敵に当たった");
             Destroy(this.gameObject);
-        }
-        if (other.CompareTag("Boss")) //ボス
-        {
-            //生成
-            _hG.HammerSpawn(posNum);
-            //破壊
-            Destroy(this.gameObject);
-           // Debug.Log("ボスに当たった");
+
+            //衝突位置を敵の位置にする
+            Vector3 hitPos = other.ClosestPoint(transform.position);
+
+            //エフェクトを生成
+            GameObject effect = Instantiate(hitEffectPrefab,hitPos,Quaternion.identity);
+            Destroy(effect, 2f);
         }
     }
 
