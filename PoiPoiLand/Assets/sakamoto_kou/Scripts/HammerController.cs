@@ -80,9 +80,11 @@ public class HammerController : MonoBehaviour
 
     private void Update()
     {
+
         playerTransform = transform.root;//親オブジェクト(player)のTransformを取得
 
         throwDir = playerTransform.forward + transform.up * 0.7f;//投げる向きはプレイヤーの向き＋少し上
+
     }
 
     // Update is called once per frame
@@ -120,18 +122,23 @@ public class HammerController : MonoBehaviour
         //地面に当たったら
         if (collision.gameObject.CompareTag("Ground"))
         {
-            
+         
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Ground"))
+        {
+            //再度pop状態にする
+            currentState = HammerState.pop;
+        }
+
         if (!other.CompareTag("Ground"))
         {
             isColHit = true;
 
-            //再度pop状態にする
-            currentState = HammerState.pop;
+           
         }
        
         if(other.CompareTag("Enemy") || other.CompareTag("Boss"))
@@ -144,8 +151,8 @@ public class HammerController : MonoBehaviour
             Vector3 hitPos = other.ClosestPoint(transform.position);
 
             //エフェクトを生成
-            GameObject effect = Instantiate(hitEffectPrefab,hitPos,Quaternion.identity);
-            Destroy(effect, 2f);
+          GameObject effect = Instantiate(hitEffectPrefab,hitPos,Quaternion.identity);
+          Destroy(effect, 2f);
         }
     }
 
@@ -222,6 +229,7 @@ public class HammerController : MonoBehaviour
     }
     public void QuitHold() //離したとき
     {
+
         this.transform.SetParent(null);
         col.enabled = true;
         isReset = false;
@@ -229,6 +237,9 @@ public class HammerController : MonoBehaviour
     }
     public void UpdateThrow()//なげたとき
     {
+        col.enabled = true;
+        rb.useGravity = true;
+        rb.isKinematic = false;
         //最初だけ回転を0にする
         if (!isInclination)
         {
@@ -237,11 +248,11 @@ public class HammerController : MonoBehaviour
 
         if (!isThrowHammer)
         {
+          
+        
             this.transform.rotation = throwForward;
             this.transform.SetParent(null);
-            col.enabled = true;
-            rb.useGravity = true;
-            rb.isKinematic = false;
+           
             rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
             isReset = false;
             isThrowHammer = true;

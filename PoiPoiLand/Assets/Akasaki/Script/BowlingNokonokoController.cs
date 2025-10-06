@@ -118,10 +118,10 @@ public class BowlingNokonokoController : MonoBehaviour
             case BowlingNokonokoState.thrownzerogravity://なげられている状態
                 UpdateThrow(throwDir);
                 break;
-            case BowlingNokonokoState.Boss:
+            case BowlingNokonokoState.Boss://ボスの攻撃
                 BossThrow(throwDirBoss);
                 break;
-            case BowlingNokonokoState.NoGraThrow:
+            case BowlingNokonokoState.NoGraThrow://ボス戦での自分の投げ
                 UpdateThrowZero(throwDir);
                 break;
 
@@ -246,13 +246,16 @@ public class BowlingNokonokoController : MonoBehaviour
     // 投げる
     public void UpdateThrowZero(Vector3 direction)
     {
+
+        Debug.Log("無重力です");
+        col.enabled = true;
+        rb.useGravity = false; // 無重力状態
+        rb.isKinematic = false;
         if (!isThrowBowling)
         {
            
             this.transform.SetParent(null);
-            col.enabled = true;
-            rb.useGravity = false; // 無重力状態
-            rb.isKinematic = false;
+          
             rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
             isThrowBowling = true;
         }

@@ -20,6 +20,9 @@ public class RedGostMove : MonoBehaviour
     public float moveSpeed = 5.0f;
     private bool isChasingBoss = false;
 
+    //ハンマー
+    HammerController _hammer;//ハンマー
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -42,6 +45,8 @@ public class RedGostMove : MonoBehaviour
                 boss = objBoss.transform;
             }
         }
+        //ハンマー用
+        _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
     }
 
     // Update is called once per frame
@@ -49,8 +54,16 @@ public class RedGostMove : MonoBehaviour
     {
 
         //キャラクターの方を向く
-        LookAtPlayerQuaternion();
-        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (!isChasingBoss)
+        {
+            LookAtPlayerQuaternion();
+        }
+        else if (isChasingBoss)
+        {
+            LookAtBossQuaternion();
+        }
+
+            float distance = Vector3.Distance(transform.position, playerTransform.position);
 
        
 
@@ -78,13 +91,23 @@ public class RedGostMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(
-              transform.position,
-              playerTransform.position,
-              //new Vector3(playerTransform.position.x, playerTransform.position.y),
-              speed * Time.deltaTime);
+        if (!isChasingBoss)
+        {
+            transform.position = Vector3.MoveTowards(
+           transform.position,
+           playerTransform.position,
+           //new Vector3(playerTransform.position.x, playerTransform.position.y),
+           speed * Time.deltaTime);
 
-        Vector3 pos = transform.position;
+            Vector3 pos = transform.position;
+        }
+        else if (isChasingBoss)
+        {
+            Vector3 toBoss = boss.position - transform.position;
+            transform.position += toBoss.normalized * speed * Time.deltaTime * 2;
+
+        }
+     
     }
     void LookAtPlayerQuaternion()
     {
@@ -96,14 +119,29 @@ public class RedGostMove : MonoBehaviour
             transform.rotation = targetRotation;
         }
     }
+    void LookAtBossQuaternion()
+    {
+        Vector3 dir = boss.position - transform.position;
+        dir.y = 0;//y軸は動かさない
+        if (dir.sqrMagnitude > 0.01f)//向く方向がある場合のみ
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
+            transform.rotation = targetRotation;
+        }
+    }
 
     //ハンマーがRedGostに当たったらボスの方向に向かう
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Hammer"))
+        if (other.CompareTag("Hammer"))//ハンマーのタグが投げるだったら
         {
-            isChasingBoss = true;
-            Debug.Log("ハンマーに当たったからボスに突撃ー！");
+             _hammer = other.GetComponent<HammerController>();
+            if (_hammer.currentState == HammerState.thrown)
+            {
+                isChasingBoss = true;
+                Debug.Log("ハンマーに当たったからボスに突撃ー！");
+            }
+            
 
         }
         if (other.CompareTag("Boss"))
