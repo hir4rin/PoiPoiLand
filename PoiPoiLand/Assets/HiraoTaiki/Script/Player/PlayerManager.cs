@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -17,6 +18,8 @@ public class PlayerManager : MonoBehaviour
     BowlingNokonokoController _bowling;//のこのこボーリング
     BowlingNokonokoState _bowlingState;
 
+    Warp_Controller _check;
+
     bool isHaving = false;
 
     // Start is called before the first frame update
@@ -27,6 +30,7 @@ public class PlayerManager : MonoBehaviour
         _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         _nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
         _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
+        _check = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
     }
 
     // Update is called once per frame
@@ -52,6 +56,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
+
         //ノコノコ
         if (_holdManager.isColHit && _nokonoko.isColHit)
         {
@@ -132,16 +137,32 @@ public class PlayerManager : MonoBehaviour
                 isHaving = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//ここが変
+            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//チェックポイントがボス以上の時、無重力で行くようにする(未完)
             {
-                Debug.Log("_player._state:" + _player._state);
-                _player._animator.SetTrigger("TriggerThrow");
-                _bowling.isThrowBowling = false;
-                _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
-                _player._state = PlayerState.Idle;
-               
-                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
-                isHaving = false;
+                if (PlayerPrefs.GetInt("PointNum") == 5)
+                {
+                 
+                    //Debug.Log("_player._state:" + _player._state);
+                    _player._animator.SetTrigger("TriggerThrow");
+                    _bowling.isThrowBowling = false;
+                    _bowling.currentState = BowlingNokonokoState.NoGraThrow;
+                    _player._state = PlayerState.Idle;
+
+                    StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
+                    isHaving = false;
+                }
+                else
+                {
+                    //Debug.Log("_player._state:" + _player._state);
+                    _player._animator.SetTrigger("TriggerThrow");
+                    _bowling.isThrowBowling = false;
+                    _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
+                    _player._state = PlayerState.Idle;
+
+                    StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
+                    isHaving = false;
+                }
+              
             }
 
         }

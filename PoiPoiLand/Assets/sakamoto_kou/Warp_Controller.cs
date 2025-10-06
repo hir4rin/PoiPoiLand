@@ -12,9 +12,9 @@ public class Warp_Controller : MonoBehaviour
     public Vector3 warpToFirstStage = new Vector3(100.0f, 21.5f, 2.5f); // ステージ1に移動
     public Vector3 warpToMapFirst = new Vector3(-36.0f, 13.5f, 10.1f); // ステージ1からマップに戻ってくる
     public Vector3 warpToSecondStage = new Vector3(152.5f, 5.3f, -2.5f); // ステージ2に移動
-    public Vector3 warpToMapSecond = new Vector3(-91.0f, 15.0f, 15.5f); // ステージ2
-    public Vector3 warpToThirdStage = new Vector3(225.0f, 4.0f, -4.0f);
-    public Vector3 warpToMapThird = new Vector3(-65.5f, 15.8f, -3.5f);
+    public Vector3 warpToMapSecond = new Vector3(-91.0f, 15.0f, 15.5f); // ステージ2から帰ってくる
+    public Vector3 warpToThirdStage = new Vector3(225.0f, 4.0f, -4.0f);//ステージ3移動
+    public Vector3 warpToMapThird = new Vector3(-65.5f, 15.8f, -3.5f);//ステージ3から帰ってくる
 
 
     // Start is called before the first frame update
@@ -34,26 +34,32 @@ public class Warp_Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayerPrefs.SetInt("PointNum", 1);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha2))
         {
             PlayerPrefs.SetInt("PointNum", 2);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha3))
         {
             PlayerPrefs.SetInt("PointNum", 3);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha4))
         {
             PlayerPrefs.SetInt("PointNum", 4);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha5))
         {
             PlayerPrefs.SetInt("PointNum", 5);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha6))
         {
             PlayerPrefs.SetInt("PointNum", 6);
+            Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
 
     }

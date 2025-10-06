@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public enum BowlingNokonokoState
     throwngravity,//重力付き
     move,//移動中
     Boss,//ボス用
+    NoGraThrow
 
 }
 
@@ -46,6 +48,13 @@ public class BowlingNokonokoController : MonoBehaviour
     Transform bossTransform;//ボスのTransform
     float timer = 0;
     bool isBossThrow = false;
+    //一度だけ発生するフラグ
+    bool isInclination = false;
+    bool isReset = false; // 回転をゼロに戻したかどうか
+    Quaternion popInclination = Quaternion.AngleAxis(21.0f, Vector3.forward);
+    Quaternion popRotation = Quaternion.AngleAxis(5, Vector3.up);
+    Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,8 +82,8 @@ public class BowlingNokonokoController : MonoBehaviour
     {
         playerTransform = transform.root;//親オブジェクト(player)のTransformを取得
 
-        throwDir = playerTransform.forward;//投げる向きはプレイヤーの向き＋少し上
-
+        throwDir = playerTransform.forward;//投げる向きはプレイヤーの向き
+        throwDir.y = 0;
         //Boss用
         if (boss == null)
         {
@@ -112,6 +121,10 @@ public class BowlingNokonokoController : MonoBehaviour
             case BowlingNokonokoState.Boss:
                 BossThrow(throwDirBoss);
                 break;
+            case BowlingNokonokoState.NoGraThrow:
+                UpdateThrowZero(throwDir);
+                break;
+
 
         }
         if (isBossThrow)
@@ -176,12 +189,25 @@ public class BowlingNokonokoController : MonoBehaviour
 
     void UpdatePop() //Pop中のUpdate
     {
-       // Debug.Log("Pop中");
-        //現在の自身の回転の情報を取得する。
+        //  Debug.Log(isReset);
+        if (!isReset)
+        {
+            ResetRotate();
+            //少し傾ける
+            this.transform.rotation = popInclination;
+            isReset = true;
+            this.transform.localScale = size;
+        }
+
+        //Debug.Log("Pop中");
+        //どのくらい回転するか
         Quaternion q = this.transform.rotation;
         //合成して自身に設定
+        this.transform.rotation = popRotation * q;
         rb.useGravity = false;
         rb.isKinematic = true;
+        isInclination = false;
+        isThrowBowling = false;
     }
 
     public void UpdateHold() //掴んでる状態
@@ -217,6 +243,20 @@ public class BowlingNokonokoController : MonoBehaviour
             isThrowBowling = true;
         }
     }
+    // 投げる
+    public void UpdateThrowZero(Vector3 direction)
+    {
+        if (!isThrowBowling)
+        {
+           
+            this.transform.SetParent(null);
+            col.enabled = true;
+            rb.useGravity = false; // 無重力状態
+            rb.isKinematic = false;
+            rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
+            isThrowBowling = true;
+        }
+    }
     public void BossThrow(Vector3 direction)
     {
       
@@ -233,5 +273,11 @@ public class BowlingNokonokoController : MonoBehaviour
     public void SetTarget(Transform target)
     {
         bossTransform = target;
+    }
+    private void ResetRotate()
+    {
+        this.transform.rotation = Quaternion.identity;
+        isInclination = true;
+        // Debug.Log("リセット");
     }
 }
