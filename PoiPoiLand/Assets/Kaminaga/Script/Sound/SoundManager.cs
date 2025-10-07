@@ -44,18 +44,19 @@ public class SoundManager : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("Master", volume);
+        float db = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20f;
+        audioMixer.SetFloat("Master", db);
     }
 
     public void SetBGMVolume(float volume)
     {
-        //audioSource.volume = volume;
-        audioMixer.SetFloat("BGM", volume);
+        float db = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20f;
+        audioMixer.SetFloat("BGM", db);
     }
 
     public void SetSEVolume(float volume)
     {
-        //seAudioSource.volume = volume;
-        audioMixer.SetFloat("SE", volume);
+        float db = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20f;
+        audioMixer.SetFloat("SE", db);
     }
 }
