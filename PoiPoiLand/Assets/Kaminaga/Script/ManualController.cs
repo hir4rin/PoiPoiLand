@@ -1,32 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ManualController : MonoBehaviour
 {
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private Image page1;
-    [SerializeField] private Image page2;
+    [SerializeField] private GameObject soundUI;
+    [SerializeField] private GameObject tutorialUI;
+    [SerializeField] private List<Sprite> sprites;
+    [SerializeField] private Image pageDisplay;
+    public int pageNum;
     // Start is called before the first frame update
     void Start()
     {
-        canvas.SetActive(false);
+        soundUI.SetActive(false);
+        tutorialUI.SetActive(false);
+        pageNum = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        Debug.Log(pageNum);
+        if (tutorialUI.activeSelf)
         {
-            page1.enabled = false;
+            pageDisplay.sprite = sprites[pageNum];
         }
-        if(Input.GetKeyDown(KeyCode.S))
-            { page2.enabled = false; }
+
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            OnPreviousPage();
+        }
+        if( Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            OnNextPage();
+        }
+
     }
 
-    public void SetUI()
+    public void SetTutorialUI()
     {
-        canvas.SetActive(true);
+        if (!soundUI.activeSelf)
+        {
+            tutorialUI.SetActive(!tutorialUI.activeSelf);
+        }
+    }
+
+    public void SetSoundUI()
+    {
+        if (!tutorialUI.activeSelf)
+        {
+            soundUI.SetActive(!soundUI.activeSelf);
+        }
+    }
+
+    public void OnNextPage()
+    {
+        if(pageNum < sprites.Count - 1)
+        {
+            pageNum++;
+        }
+    }
+
+    public void OnPreviousPage()
+    {
+        if (pageNum > 0)
+        {
+            pageNum--;
+        }
     }
 }
