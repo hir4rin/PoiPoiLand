@@ -19,11 +19,8 @@ public class magicball : MonoBehaviour
 
     float stopDistance = 10f;
 
-   
-
     //ƒvƒŒƒCƒ„[
     public Transform _player;
-
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +51,6 @@ public class magicball : MonoBehaviour
 
         if (isMoving)
         {
-
           //  Debug.Log("ˆÚ“®’†");
             transform.position += moveDir * moveSpeed;
 

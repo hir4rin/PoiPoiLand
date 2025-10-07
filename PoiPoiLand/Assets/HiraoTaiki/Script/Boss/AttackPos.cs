@@ -14,7 +14,8 @@ public class AttackPos : MonoBehaviour
     public Transform _player;//弾に渡す用
     public Transform boss;//亀に渡す用
 
-
+    [SerializeField] GameObject shotTurtleEffect;   //亀を放ったときのeffect
+    [SerializeField] GameObject shotMagicEffect;    //弾を放った時のeffect
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,8 @@ public class AttackPos : MonoBehaviour
         magicball ball = ballobj.GetComponent<magicball>();
         ball.SetTarget(_player);
 
+        //エフェクトを生成
+        GameObject effect = Instantiate(shotMagicEffect, firePoint.position, firePoint.rotation);
     }
     public void TurtleAttack()
     {
@@ -51,5 +54,7 @@ public class AttackPos : MonoBehaviour
         TurtleFakeMove _fake = turtleobj.GetComponentInChildren<TurtleFakeMove>();
         _fake.Init(turtleRb);
 
+        //エフェクトを生成
+        GameObject effect = Instantiate(shotTurtleEffect, firePoint.position, Quaternion.identity);
     }
 }

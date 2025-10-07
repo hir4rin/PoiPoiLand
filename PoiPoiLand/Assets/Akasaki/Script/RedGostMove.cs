@@ -23,6 +23,10 @@ public class RedGostMove : MonoBehaviour
     //ハンマー
     HammerController _hammer;//ハンマー
 
+    //ボス追尾時のエフェクト
+    [SerializeField] GameObject trackingBossEffect; //effectのプレハブ
+    private GameObject currentEffect;   //生成したエフェクトの実態を保持
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -140,15 +144,30 @@ public class RedGostMove : MonoBehaviour
             {
                 isChasingBoss = true;
                 Debug.Log("ハンマーに当たったからボスに突撃ー！");
-            }
-            
 
+                //自身にエフェクトをまとわせる
+                Vector3 effectPos = this.transform.position;
+
+                //エフェクトを生成
+                if(currentEffect == null)
+                {
+                    GameObject effect = Instantiate(trackingBossEffect, effectPos, Quaternion.identity);
+
+                    //effectをゴーストの子オブジェクトにする
+                    effect.transform.SetParent(transform);
+                }
+            }
         }
         if (other.CompareTag("Boss"))
         {
-
             Debug.Log("ボスに当たったら消える");
             Destroy(gameObject);
+
+            //effectを削除する
+            if (currentEffect != null)
+            {
+                Destroy(currentEffect);
+            }
         }
 
         if (other.CompareTag("Player"))

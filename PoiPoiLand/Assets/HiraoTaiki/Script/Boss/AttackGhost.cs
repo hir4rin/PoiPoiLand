@@ -8,6 +8,10 @@ public class AttackGhost : MonoBehaviour
     [SerializeField] private GameObject RedGhost;//ghostのプレハブ
     public Transform _player;//色違いゴーストに渡す用
     public Transform boss;//色違いゴーストに渡す用
+
+    //レッドゴーストをボスが出すときのエフェクト
+    [SerializeField] GameObject shotRedGhost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +30,7 @@ public class AttackGhost : MonoBehaviour
         //playerとbossをsetする
          ghost.SetTarget(_player);
         ghost.SetBoss(boss);
+
+        Instantiate(shotRedGhost,transform.position, Quaternion.identity);
     }
 }

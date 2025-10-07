@@ -112,6 +112,8 @@ public class HammerController : MonoBehaviour
         //‚‚³‚ª’n–Ê‚ğ’´‚¦‚½ê‡‚Í”j‰ó‚·‚é
         if (transform.position.y < 0.0f)
         {
+            //ŒÄ‚Ño‚µ
+            _hG.HammerSpawn(posNum);
             Destroy(gameObject);
             Debug.Log("”j‰ó");
         }
@@ -143,9 +145,15 @@ public class HammerController : MonoBehaviour
        
         if(other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            //ŒÄ‚Ño‚µ
+            _hG.HammerSpawn(posNum);
+
+
             //”j‰ó‚·‚é
             Debug.Log("“G‚É“–‚½‚Á‚½");
             Destroy(this.gameObject);
+
+
 
             //Õ“ËˆÊ’u‚ğ“G‚ÌˆÊ’u‚É‚·‚é
             Vector3 hitPos = other.ClosestPoint(transform.position);

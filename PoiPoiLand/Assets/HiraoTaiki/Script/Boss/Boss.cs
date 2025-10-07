@@ -84,7 +84,6 @@ public class Boss : MonoBehaviour
     BowlingNokonokoController _bowling;//のこのこボーリング
     BowlingNokonokoState _bowlingState;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -174,15 +173,8 @@ public class Boss : MonoBehaviour
         throwTimer += Time.fixedDeltaTime;
         ghostTimer += Time.fixedDeltaTime;
 
-
-
-
-
-
-
         if (isMoving)//Playerの後ろに行くやつ
         {
-
             Debug.Log("移動中");
             transform.position += moveDir * moveSpeed;
 
@@ -340,7 +332,6 @@ public class Boss : MonoBehaviour
         if (name == "turtle")
         {
             _attackPos.TurtleAttack();
-
         }
         if (name == "ghost")
         {

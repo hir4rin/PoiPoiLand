@@ -103,6 +103,7 @@ MonoBehaviour:
   wanderRange: 1
   boss: {fileID: 0}
   moveSpeed: 5
+  trackingBossEffect: {fileID: 2073476506232970321, guid: 8f0d3d24f33a4204697a1c6b4eda33dd, type: 3}
 --- !u!1001 &3746173781118273657
 PrefabInstance:
   m_ObjectHideFlags: 0
