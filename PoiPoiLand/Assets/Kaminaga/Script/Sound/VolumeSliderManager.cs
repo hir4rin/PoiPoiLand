@@ -9,6 +9,7 @@ public class VolumeSliderManager : MonoBehaviour
     void Start()
     {
         // Œ»İ‚Ìƒ{ƒŠƒ…[ƒ€‚ğæ“¾‚·‚é
+
     }
 
     // Update is called once per frame
