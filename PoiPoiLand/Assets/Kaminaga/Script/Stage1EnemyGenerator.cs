@@ -139,6 +139,7 @@ public class Stage1EnemyGenerator : MonoBehaviour
 
     private void SpawnEnemyAll()
     {
+        stage1Manager.enemyNum += 4;
         Instantiate(enemyPrefab, spawnPoint1.transform.position, Quaternion.identity);
         Instantiate(enemyPrefab, spawnPoint2.transform.position, Quaternion.identity);
         Instantiate(enemyPrefab, spawnPoint3.transform.position, Quaternion.identity);
@@ -146,18 +147,22 @@ public class Stage1EnemyGenerator : MonoBehaviour
     }
     private void SpawnEnemyPoint1()
     {
+        stage1Manager.enemyNum++;
         Instantiate(enemyPrefab, spawnPoint1.transform.position, Quaternion.identity);
     }
     private void SpawnEnemyPoint2()
     {
+        stage1Manager.enemyNum++;
         Instantiate(enemyPrefab, spawnPoint2.transform.position, Quaternion.identity);
     }
     private void SpawnEnemyPoint3()
     {
+        stage1Manager.enemyNum++;
         Instantiate(enemyPrefab, spawnPoint3.transform.position, Quaternion.identity);
     }
     private void SpawnEnemyPoint4()
     {
+        stage1Manager.enemyNum++;
         Instantiate(enemyPrefab, spawnPoint4.transform.position, Quaternion.identity);
     }
 }

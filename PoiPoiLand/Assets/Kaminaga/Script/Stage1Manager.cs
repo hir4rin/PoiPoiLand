@@ -23,7 +23,8 @@ public class Stage1Manager : MonoBehaviour
     private GameObject player;
     private Player playerScript;
     private bool isWait;
-    private float stageTime; 
+    private float stageTime;
+    public int enemyNum;
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +35,15 @@ public class Stage1Manager : MonoBehaviour
         playerScript = player.GetComponent<Player>();
         isWait = false;
         stageTime = 0;
+        enemyNum = 0;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(state);
-        if(PlayerPrefs.GetInt("PointNum") == 1 || Input.GetKeyDown(KeyCode.P))
+        Debug.Log("stage1の状態は " + state);
+        Debug.Log("enemyの数" + enemyNum.ToString());
+        if (PlayerPrefs.GetInt("PointNum") == 1 || Input.GetKeyDown(KeyCode.P))
         {
             if (!isWait)
             {
@@ -48,22 +51,36 @@ public class Stage1Manager : MonoBehaviour
                 isWait = true;
             }
         }
-        if (state == Stage1State.Start)
+        
+        switch (state)
         {
-            stageTime += Time.deltaTime;
-            //Debug.Log(stageTime);
-            if (stageTime > 30.0f)
-            {
-                state = Stage1State.Cleared;
-            }
-        }
-        if(state == Stage1State.Failed && Input.GetKeyDown(KeyCode.S))
-        {
-            state = Stage1State.Wait;
-        }
-        if(state == Stage1State.Cleared)
-        {
-            warpPoint.SetActive(true);
+            case Stage1State.Idle:
+
+                break;
+            case Stage1State.Wait:
+
+                break;
+            case Stage1State.Start:
+                stageTime += Time.deltaTime;
+                //Debug.Log(stageTime);
+                if (stageTime > 30.0f && enemyNum <= 0)
+                {
+                    state = Stage1State.Cleared;
+                }
+                break;
+            case Stage1State.Cleared:
+                warpPoint.SetActive(true);
+                break;
+            case Stage1State.Failed:
+                if (Input.GetKeyDown(KeyCode.S)) // リセットの処理をどうするか考え中
+                {
+                    stageTime = 0.0f;
+                    state = Stage1State.Start;
+                }
+                break;
+            default:
+
+                break;
         }
     }
 }
