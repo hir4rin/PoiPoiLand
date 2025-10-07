@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class ManualController : MonoBehaviour
 {
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private GameObject soundCanvas;
+    [SerializeField] private GameObject soundUI;
+    [SerializeField] private GameObject tutorialUI;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Image pageDisplay;
     public int pageNum;
     // Start is called before the first frame update
     void Start()
     {
-        canvas.SetActive(false);
-        soundCanvas.SetActive(false);
+        soundUI.SetActive(false);
+        tutorialUI.SetActive(false);
         pageNum = 0;
     }
 
@@ -23,7 +23,7 @@ public class ManualController : MonoBehaviour
     void FixedUpdate()
     {
         Debug.Log(pageNum);
-        if (canvas.activeSelf)
+        if (tutorialUI.activeSelf)
         {
             pageDisplay.sprite = sprites[pageNum];
         }
@@ -39,19 +39,19 @@ public class ManualController : MonoBehaviour
 
     }
 
-    public void SetUI()
+    public void SetTutorialUI()
     {
-        if (!soundCanvas.activeSelf)
+        if (!soundUI.activeSelf)
         {
-            canvas.SetActive(!canvas.activeSelf);
+            tutorialUI.SetActive(!tutorialUI.activeSelf);
         }
     }
 
     public void SetSoundUI()
     {
-        if (!canvas.activeSelf)
+        if (!tutorialUI.activeSelf)
         {
-            soundCanvas.SetActive(!soundCanvas.activeSelf);
+            soundUI.SetActive(!soundUI.activeSelf);
         }
     }
 
