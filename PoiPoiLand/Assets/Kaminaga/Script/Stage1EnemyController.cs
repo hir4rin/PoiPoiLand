@@ -27,6 +27,7 @@ public class Stage1EnemyController : MonoBehaviour
         stage1State = stage1Manager.State;
         if(stage1State != Stage1State.Start)
         {
+            stage1Manager.enemyNum--;
             Destroy(this.gameObject);
         }
         else
@@ -42,10 +43,12 @@ public class Stage1EnemyController : MonoBehaviour
     {
         if (other.gameObject.name == "Stone")
         {
+            stage1Manager.enemyNum--;
             Destroy(this.gameObject);
         }
         if(other.gameObject.tag == "Hammer")
         {
+            stage1Manager.enemyNum--;
             Destroy(this.gameObject);
         }
     }
