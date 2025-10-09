@@ -139,10 +139,19 @@ public class BowlingNokonokoController : MonoBehaviour
         }
         //Debug_akasaki();
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("’n–Ê‚É’…’n‚µ‚½‚æ");
+            // Y•ûŒü‚ðŒÅ’è
+            rb.constraints |= RigidbodyConstraints.FreezePositionY;
+        }
+    }
 
 
 
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))

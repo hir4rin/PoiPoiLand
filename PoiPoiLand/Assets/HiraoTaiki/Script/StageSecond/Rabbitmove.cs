@@ -14,11 +14,15 @@ public class Rabbitmove : MonoBehaviour
     float speed = 1.8f;
 
     public RabbitJenerator _RJ;
+    //‰‰o—p
+    private Rigidbody _rb;
+    bool isKnockedOver = false;
 
     // Start is called before the first frame update
     void Start()
     {
       _RJ = GameObject.Find("RabbitJenerator").GetComponent<RabbitJenerator>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -60,11 +64,32 @@ public class Rabbitmove : MonoBehaviour
         }
         if (other.CompareTag("Bowling"))
         {
-            Destroy(gameObject);
+            if (!isKnockedOver)
+            {
+                isKnockedOver = true;
+                _rb.isKinematic = false;//•¨——LŒø‰»
+                _rb.useGravity = true;
+                _rb.constraints = RigidbodyConstraints.None;//Freeze‰ğœ
+
+                //Õ“Ë•ûŒü
+                Vector3 dir = (transform.position - other.transform.position).normalized;
+
+                _rb.AddForce(dir * 10f + Vector3.up * 25f,ForceMode.Impulse);
+
+                //‰ñ“]
+                _rb.AddTorque(Random.insideUnitSphere * 200f);
+
+                //”•bŒã‚ÉÁ‚¦‚é
+                Destroy(gameObject, 3f);
+            }
+            
+
+           // Destroy(gameObject);
             _RJ.rabbitCount++;
         }
 
     }
+    
     public void AllDeath()
     {
         Destroy(gameObject);
