@@ -8,7 +8,7 @@ public class RabbitJenerator : MonoBehaviour
 
     const int count = 10;//ê∂ê¨êî
 
-    [SerializeField] GameObject _rabbit;
+    private GameObject _rabbit;
     GameObject _arriveRabbit;
     List<Rabbitmove> rabbits = new List<Rabbitmove>();
 
@@ -26,7 +26,7 @@ public class RabbitJenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rabbit = (GameObject)Resources.Load("Rabbit");
         RabbitSporn();
 
     }

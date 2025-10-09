@@ -9,7 +9,7 @@ public class TurtleJenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //turtleSpawn();
+        turtleSpawn();
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class TurtleJenerator : MonoBehaviour
     }
     public void turtleSpawn()
     {
-        Vector3 pos = new Vector3(151.4f, 33.8f, -3.2f);
+        Vector3 pos = new Vector3(151.4f, 32.8f, -3.2f);
 
         GameObject obj = Instantiate(_graTurtlePrefab, pos, Quaternion.identity);
         BowlingNokonokoController _skr = obj.GetComponent<BowlingNokonokoController>();

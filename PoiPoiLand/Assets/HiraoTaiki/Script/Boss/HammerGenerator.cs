@@ -13,7 +13,8 @@ public class HammerGenerator : MonoBehaviour
     Vector3 leftDown = new Vector3(214, 20, -9.3f);//2番
     Vector3 rightDown = new Vector3(238, 20, -9.1f);//3番
     Vector3 center = new Vector3(222, 20, -5.1f);//4番
-
+    Vector3 stage1Left = new Vector3(95.0f, 21.0f, 4.0f); // ステージ1用の位置
+    Vector3 stage1Right = new Vector3(110.0f, 21.0f, 4.0f); // ステージ1用の位置
 
 
 
@@ -53,6 +54,12 @@ public class HammerGenerator : MonoBehaviour
                 break;
             case 4:
                 pos = center;
+                break;
+            case 5:
+                pos = stage1Left;
+                break;
+            case 6:
+                pos = stage1Right;
                 break;
             default:
                 break;

@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
                 _hammer.currentState =  HammerState.thrown;
                 _hammer.isThrowHammer = false;
                 _player._state = PlayerState.Idle;
-                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
+                StartCoroutine(WaitAndRelease(0.2f)); // 1.2秒後にisHoldをfalseに
                 isHaving = false;
             }
             //のこのこ
@@ -123,7 +123,7 @@ public class PlayerManager : MonoBehaviour
                 
                 _nokonoko.currentState = NokonokoState.thrownzerogravity;
                 _player._state = PlayerState.Idle;
-                StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに
+                StartCoroutine(WaitAndRelease(0.2f)); // 1.2秒後にisHoldをfalseに
                 isHaving = false;
             }
 
@@ -148,7 +148,7 @@ public class PlayerManager : MonoBehaviour
                     _bowling.currentState = BowlingNokonokoState.NoGraThrow;
                     _player._state = PlayerState.Idle;
 
-                    StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
+                    StartCoroutine(WaitAndRelease(0.2f)); // 1.2秒後にisHoldをfalseに//Playerの処理
                     isHaving = false;
                 }
                 else
@@ -159,7 +159,7 @@ public class PlayerManager : MonoBehaviour
                     _bowling.currentState = BowlingNokonokoState.thrownzerogravity;
                     _player._state = PlayerState.Idle;
 
-                    StartCoroutine(WaitAndRelease(0.5f)); // 1.2秒後にisHoldをfalseに//Playerの処理
+                    StartCoroutine(WaitAndRelease(0.2f)); // 1.2秒後にisHoldをfalseに//Playerの処理
                     isHaving = false;
                 }
               

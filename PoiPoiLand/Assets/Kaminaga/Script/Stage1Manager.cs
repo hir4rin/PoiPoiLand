@@ -43,6 +43,10 @@ public class Stage1Manager : MonoBehaviour
     {
         Debug.Log("stage1‚Ìó‘Ô‚Í " + state);
         Debug.Log("enemy‚Ì”" + enemyNum.ToString());
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            state = Stage1State.Cleared;
+        }
         if (PlayerPrefs.GetInt("PointNum") == 1 || Input.GetKeyDown(KeyCode.P))
         {
             if (!isWait)
@@ -63,7 +67,7 @@ public class Stage1Manager : MonoBehaviour
             case Stage1State.Start:
                 stageTime += Time.deltaTime;
                 //Debug.Log(stageTime);
-                if (stageTime > 30.0f && enemyNum <= 0)
+                if (stageTime > 30.0f)
                 {
                     state = Stage1State.Cleared;
                 }
