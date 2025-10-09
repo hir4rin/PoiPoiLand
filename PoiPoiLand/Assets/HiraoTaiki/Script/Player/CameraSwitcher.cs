@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
-
     [SerializeField] private CinemachineFreeLook behindCam;
     [SerializeField] private CinemachineFreeLook sidecam;
     [SerializeField] private CinemachineFreeLook _secondBehind;
     [SerializeField] private CinemachineFreeLook _secondSide;
-    public CinemachineFreeLook currentCamera;
+    [SerializeField] private CinemachineVirtualCamera _stage2Cam;
+    [SerializeField] private CinemachineFreeLook _stage3Cam;
+    //public CinemachineFreeLook currentCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentCamera = behindCam;
+        //currentCamera = behindCam;
     }
 
     // Update is called once per frame
@@ -26,31 +27,66 @@ public class CameraSwitcher : MonoBehaviour
         {
             Debug.Log("変わった");
             behindCam.Priority = 10;
+            _secondBehind.Priority = 10;
+            _secondSide.Priority = 10;
             sidecam.Priority = 20;//横が有効
-            currentCamera = sidecam;
+            //currentCamera = sidecam;
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             sidecam.Priority = 10;
+            behindCam.Priority = 10;
+            _secondSide.Priority = 10;
             _secondBehind.Priority = 20;//後ろが有効
-            currentCamera = _secondBehind;
+            //currentCamera = _secondBehind;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             _secondBehind.Priority = 10;
+            behindCam.Priority = 10;
+            sidecam.Priority = 10;
             _secondSide.Priority = 20;//横が有効
-            currentCamera = _secondSide;
+            //currentCamera = _secondSide;
         }
 
         if(Input.GetKeyDown(KeyCode.Y))
         {
             _secondSide.Priority = 10;
+            sidecam.Priority = 10;
+            _secondBehind.Priority = 10;
             behindCam.Priority = 20;//後ろが有効
-            currentCamera = behindCam;
+            //currentCamera = behindCam;
         }
 
+        if(PlayerPrefs.GetInt("PointNum") == 3)
+        {
+            behindCam.Priority = 10;
+            sidecam.Priority = 10;
+            _secondBehind.Priority = 10;
+            _secondSide.Priority = 10;
+            _stage2Cam.Priority = 20;
+            //currentCamera = _stage2Cam;
+        }
+        if(PlayerPrefs.GetInt("PointNum") == 4)
+        {
+            _stage2Cam.Priority = 10;
+            behindCam.Priority = 20;
+            //currentCamera = behindCam;
+        }
+        if (PlayerPrefs.GetInt("PointNum") == 5)
+        {
+            behindCam.Priority = 10;
+            _stage3Cam.Priority = 20;
+            //currentCamera = _stage3Cam;
+        }
+        if (PlayerPrefs.GetInt("PointNum") == 6)
+        {
+            _stage3Cam.Priority = 10;
+            behindCam.Priority = 20;
+            //currentCamera = behindCam;
+        }
     }
     private void FixedUpdate()
     {
@@ -60,6 +96,6 @@ public class CameraSwitcher : MonoBehaviour
     {
         behindCam.Priority = 10;
         sidecam.Priority = 20;//横が有効
-        currentCamera = sidecam;
+        //currentCamera = sidecam;
     }
 }

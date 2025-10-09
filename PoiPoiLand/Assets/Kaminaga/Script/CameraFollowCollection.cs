@@ -31,7 +31,7 @@ public class CameraFollowCollection : MonoBehaviour
         // (今のフレームのY座標 - 前回のフレームのY座標)の大きさが1.0未満なら更新しない
         if (player.isGround)
         {
-            Debug.Log("xの変化量" + Mathf.Abs(targetPos.x - lastPlayerPos.x).ToString());
+            //Debug.Log("xの変化量" + Mathf.Abs(targetPos.x - lastPlayerPos.x).ToString());
             if (Mathf.Abs(targetPos.x - lastPlayerPos.x) < threshold.x)
             {
                 targetPos.x = lastPlayerPos.x;
