@@ -6,7 +6,7 @@ public class playerMovie : MonoBehaviour
 {
 
     //移動スピード
-    float speed = 0.08f;
+    float speed = 0.06f;
     Animator animator;
     [SerializeField] movieManager _movieManager;
 

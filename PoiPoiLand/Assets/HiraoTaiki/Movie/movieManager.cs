@@ -19,9 +19,13 @@ public class movieManager : MonoBehaviour
    public  Animator animator2;         // Animatorコンポーネントを保持
     bool animEndFlag2 = false; // アニメが終わったかどうか
     string endStateName2 = "anim_Mimic_BattleStand"; // Animator上のステート名
+    bool _fade = false;
 
     [SerializeField] GameObject _line;
     [SerializeField] CinemachineVirtualCamera lastCam;
+    //Fade用
+    [SerializeField] FadeController fadeController;
+    float fadetimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +69,8 @@ public class movieManager : MonoBehaviour
                 Debug.Log("aaaaaaaaaaaaaaaaaa");
                 animEndFlag2 = true;
                 lastCam.Priority = 30;
+                _fade = true;
+                fadetimer = 0;
             }
         }
         else
@@ -79,6 +85,14 @@ public class movieManager : MonoBehaviour
             _mimic.SetActive(true);
             _line.SetActive(true) ;
             
+        }
+        if (_fade)
+        {
+            fadetimer += Time.deltaTime;
+            if (fadetimer > 1)
+            {
+                StartCoroutine(fadeController.FadeOut());
+            }
         }
         Debug.Log("現在のアニメステート: " + stateInfo2.IsName("anim_Mimic_BattleStand"));
     }
