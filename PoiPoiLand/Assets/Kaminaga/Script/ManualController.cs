@@ -70,4 +70,9 @@ public class ManualController : MonoBehaviour
             pageNum--;
         }
     }
+
+    public void GameStart()
+    {
+        SceneManager.Instance.SceneChange("GameScene");
+    }
 }
