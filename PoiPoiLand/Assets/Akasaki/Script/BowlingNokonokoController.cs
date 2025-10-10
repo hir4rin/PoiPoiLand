@@ -85,16 +85,20 @@ public class BowlingNokonokoController : MonoBehaviour
         throwDir = playerTransform.forward;//投げる向きはプレイヤーの向き
         throwDir.y = 0;
         //Boss用
-        if (boss == null)
+        if (PlayerPrefs.GetInt("PointNum") == 5)
         {
-            GameObject obj = GameObject.FindWithTag("Boss"); // ボスタグのオブジェクトを探す
-            if (obj != null)
+            if (boss == null)
             {
-                boss = obj;
+                GameObject obj = GameObject.FindWithTag("Boss"); // ボスタグのオブジェクトを探す
+                if (obj != null)
+                {
+                    boss = obj;
+                }
             }
+            bossTransform = boss.transform;
+            throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
         }
-        bossTransform = boss.transform;
-        throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
+       
 
 
         //y座標10以下で消去
