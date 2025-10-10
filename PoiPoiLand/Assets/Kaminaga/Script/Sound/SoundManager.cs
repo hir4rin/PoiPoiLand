@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     float lastVolume;
     [SerializeField] private AudioSource seAudioSource;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -30,6 +30,10 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         currentVolume = 0.0f;
         lastVolume = 0.0f;
+    }
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
