@@ -18,7 +18,7 @@ public class RedGostMove : MonoBehaviour
     // ボスエネミーに突撃する
     public Transform boss; // Inspectorでボスを設定
     public float moveSpeed = 5.0f;
-    private bool isChasingBoss = false;
+    public bool isChasingBoss = false;
 
     //ハンマー
     HammerController _hammer;//ハンマー
@@ -26,6 +26,9 @@ public class RedGostMove : MonoBehaviour
     //ボス追尾時のエフェクト
     [SerializeField] GameObject trackingBossEffect; //effectのプレハブ
     private GameObject currentEffect;   //生成したエフェクトの実態を保持
+
+
+    public bool isDestroyed = false;//破壊されているか
 
     // Start is called before the first frame update
     private void Start()
@@ -50,13 +53,16 @@ public class RedGostMove : MonoBehaviour
             }
         }
         //ハンマー用
-        _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
+        //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
+        isChasingBoss = false;
+        isDestroyed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+   //     Debug.Log("isChasingBoss" + isChasingBoss);
         //キャラクターの方を向く
         if (!isChasingBoss)
         {
@@ -95,6 +101,9 @@ public class RedGostMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // ★破壊フラグチェック
+        if (isDestroyed) return;
+
         if (!isChasingBoss)
         {
             transform.position = Vector3.MoveTowards(
@@ -133,35 +142,54 @@ public class RedGostMove : MonoBehaviour
             transform.rotation = targetRotation;
         }
     }
+    public void HammerHit(Collider other)
+    {
+        // ★既に破壊されているか、ボスを追いかけている場合は何もしない
+        if (isDestroyed || isChasingBoss)
+        {
+            return;
+        }
 
+        HammerController _hammer = other.GetComponent<HammerController>();
+        if ( (_hammer == null))//重くならないように
+        {
+            return;
+        }
+        if (_hammer.currentState == HammerState.thrown)
+        {
+            isChasingBoss = true;
+            Debug.Log("ハンマーに当たったからボスに突撃ー！");
+
+            //自身にエフェクトをまとわせる
+            Vector3 effectPos = this.transform.position;
+
+            //エフェクトを生成
+            if (currentEffect == null)
+            {
+                GameObject effect = Instantiate(trackingBossEffect, effectPos, Quaternion.identity);
+
+                //effectをゴーストの子オブジェクトにする
+                effect.transform.SetParent(transform);
+            }
+        }
+    }
     //ハンマーがRedGostに当たったらボスの方向に向かう
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Hammer"))//ハンマーのタグが投げるだったら
-        {
-             _hammer = other.GetComponent<HammerController>();
-            if (_hammer.currentState == HammerState.thrown)
-            {
-                isChasingBoss = true;
-                Debug.Log("ハンマーに当たったからボスに突撃ー！");
-
-                //自身にエフェクトをまとわせる
-                Vector3 effectPos = this.transform.position;
-
-                //エフェクトを生成
-                if(currentEffect == null)
-                {
-                    GameObject effect = Instantiate(trackingBossEffect, effectPos, Quaternion.identity);
-
-                    //effectをゴーストの子オブジェクトにする
-                    effect.transform.SetParent(transform);
-                }
-            }
-        }
+        // ★既に破壊されている場合は何もしない
+        if (isDestroyed) return;
+        //if (other.CompareTag("Hammer"))//ハンマーのタグが投げるだったら
+        //{
+        //    HammerHit(other);
+        //}
         if (other.CompareTag("Boss"))
         {
-            Debug.Log("ボスに当たったら消える");
-            Destroy(gameObject);
+            if (isChasingBoss)
+            {
+              //  Debug.Log("ボスに当たったら消える");
+                DestroyGhost();
+            }
+            
 
             //effectを削除する
             if (currentEffect != null)
@@ -169,13 +197,23 @@ public class RedGostMove : MonoBehaviour
                 Destroy(currentEffect);
             }
         }
-
-        if (other.CompareTag("Player"))
-        {
-         //   Debug.Log("プレイヤーに当たったら消える");
-            Destroy(gameObject);
-        }
     }
+
+    // ★破壊処理を一箇所にまとめる
+    public void DestroyGhost()
+    {
+        if (isDestroyed) return;
+
+        isDestroyed = true;
+
+        if (currentEffect != null)
+        {
+            Destroy(currentEffect);
+        }
+
+        Destroy(gameObject);
+    }
+
     public void SetTarget(Transform target)
     {
         playerTransform = target;

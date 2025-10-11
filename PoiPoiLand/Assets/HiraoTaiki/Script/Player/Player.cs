@@ -65,6 +65,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+             Debug.Log($"_stateÇÕ{_state}Ç≈Ç∑");
+        }
         //Forward = Camera.main.transform.forward.normalized;
         //Forward.y = 0;
         //Back = -Forward;
@@ -76,7 +80,7 @@ public class Player : MonoBehaviour
         moveDirection = playerVelocity;
         moveDirection.y = 0;//yé≤Ç0Ç…ÇµÇƒÅAêÖïΩñ ÇÃÇ›âÒì]Ç∑ÇÈÇÊÇ§Ç…Ç∑ÇÈ
         moveDirection.Normalize();
-        // Debug.Log($"_stateÇÕ{_state}Ç≈Ç∑");
+        
         //Debug.Log($"movedirectionÇÕ{moveDirection}");
     
 

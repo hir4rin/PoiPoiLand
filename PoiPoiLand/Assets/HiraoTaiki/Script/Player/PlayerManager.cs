@@ -38,6 +38,29 @@ public class PlayerManager : MonoBehaviour
     {
         _playerState = _player._state;//_playerStateの更新
 
+        //バグったとき用
+        if (Input.GetKey(KeyCode.R))
+        {
+            _player._state = PlayerState.Idle;
+            isHaving = false;
+            _player._animator.SetBool("isHold", false);
+            if (_hammer.currentState == HammerState.held)
+            {
+                _hammer.QuitHold();
+            }
+            else if(_bowling.currentState == BowlingNokonokoState.held)
+            {
+                _bowling.QuitHoldTurtle();
+            }
+            else
+            {
+                return;
+            }
+
+                
+        }
+
+
        // Debug.Log($"PlayerStateは{_playerState}です");
        // Debug.Log($"GravityTuttleは{_bowling.currentState}です");
        //持つとき----------------------------------------------------------
@@ -91,16 +114,17 @@ public class PlayerManager : MonoBehaviour
         if (_player._state == PlayerState.Hold)//持っている状態のとき
         {
             //ハンマー
-            if (Input.GetKeyDown(KeyCode.K) && _hammer.currentState == HammerState.held)//ものを落とすとき
-            {
-                _hammer.QuitHold();
-                _player._state = PlayerState.Idle;
-                _player._animator.SetBool("isHold", false);
-                isHaving = false;
-            }
+            //if (Input.GetKeyDown(KeyCode.K) && _hammer.currentState == HammerState.held)//ものを落とすとき
+            //{
+            //    _hammer.QuitHold();
+            //    _player._state = PlayerState.Idle;
+            //    _player._animator.SetBool("isHold", false);
+            //    isHaving = false;
+            //}
             
             if (Input.GetKeyDown(KeyCode.L) && _hammer.currentState == HammerState.held)//ものを投げるとき
             {
+                Debug.Log("ハンマーを投げた");
                 _player._animator.SetTrigger("TriggerThrow");
                 _hammer.currentState =  HammerState.thrown;
                 _hammer.isThrowHammer = false;
@@ -109,13 +133,13 @@ public class PlayerManager : MonoBehaviour
                 isHaving = false;
             }
             //のこのこ
-            if (Input.GetKeyDown(KeyCode.K) && _nokonoko.currentState == NokonokoState.held)//ものを落とすとき
-            {
-                _nokonoko.currentState = NokonokoState.pop;
-                _player._state = PlayerState.Idle;
-                _player._animator.SetBool("isHold", false);
-                isHaving = false;
-            }
+            //if (Input.GetKeyDown(KeyCode.K) && _nokonoko.currentState == NokonokoState.held)//ものを落とすとき
+            //{
+            //    _nokonoko.currentState = NokonokoState.pop;
+            //    _player._state = PlayerState.Idle;
+            //    _player._animator.SetBool("isHold", false);
+            //    isHaving = false;
+            //}
 
             if (Input.GetKeyDown(KeyCode.L) && _nokonoko.currentState == NokonokoState.held)//ものを投げるとき
             {
@@ -128,14 +152,14 @@ public class PlayerManager : MonoBehaviour
             }
 
             //ボーリング
-            if (Input.GetKeyDown(KeyCode.K) && _bowling.currentState == BowlingNokonokoState.held)//ものを落とすとき
-            {
-                Debug.Log("_player._state:" + _player._state);
-                _bowling.currentState = BowlingNokonokoState.pop;
-                _player._state = PlayerState.Idle;
-                _player._animator.SetBool("isHold", false);
-                isHaving = false;
-            }
+            //if (Input.GetKeyDown(KeyCode.K) && _bowling.currentState == BowlingNokonokoState.held)//ものを落とすとき
+            //{
+            //    Debug.Log("_player._state:" + _player._state);
+            //    _bowling.currentState = BowlingNokonokoState.pop;
+            //    _player._state = PlayerState.Idle;
+            //    _player._animator.SetBool("isHold", false);
+            //    isHaving = false;
+            //}
 
             if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//チェックポイントがボス以上の時、無重力で行くようにする(未完)
             {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -84,6 +85,9 @@ public class Boss : MonoBehaviour
     BowlingNokonokoController _bowling;//のこのこボーリング
     BowlingNokonokoState _bowlingState;
 
+    RedGostMove _redGhost;//赤いゴースト
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +99,7 @@ public class Boss : MonoBehaviour
         //繋ぎ用
         _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
+        _redGhost = Resources.Load<GameObject>("RedGhost").GetComponent<RedGostMove>();
     }
 
     // Update is called once per frame
@@ -340,43 +345,48 @@ public class Boss : MonoBehaviour
 
         }
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        //ハンマーをあてられた場合
-        if (other.CompareTag("Hammer"))
-        {
-            _hammer = other.GetComponent<HammerController>();
-            if (_hammer.currentState == HammerState.thrown)
-            {
-                //ヒット喰らい処理
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    //ハンマーをあてられた場合
+    //    if (other.CompareTag("Hammer"))
+    //    {
+    //        _hammer = other.GetComponent<HammerController>();
+    //        if (_hammer.currentState == HammerState.thrown)
+    //        {
+    //            //ヒット喰らい処理
 
-                //ダメージ処理
-                _hp.TakeDamage(50);
-            }
+    //            //ダメージ処理
+    //            _hp.TakeDamage(100);
+    //        }
             
 
-        }
-        //ボーリングのこのこをあてられた場合
-        else if (other.CompareTag("Bowling"))
-        {
-            _bowling = other.GetComponent<BowlingNokonokoController>();
-            if (_bowling.currentState == BowlingNokonokoState.thrownzerogravity)
-            {
-                //ヒット喰らい処理
-
-                //ダメージ処理
-                _hp.TakeDamage(5000);
-            }
+    //    }
+    //    //ボーリングのこのこをあてられた場合
+    //    else if (other.CompareTag("Bowling"))
+    //    {
+    //        _bowling = other.GetComponent<BowlingNokonokoController>();
+    //        if (_bowling.currentState == BowlingNokonokoState.NoGraThrow)
+    //        {
+    //            //ヒット喰らい処理
+    //            Debug.Log("亀");
+    //            //ダメージ処理
+    //            _hp.TakeDamage(1500);
+    //        }
             
-        }
-        ////重力なしのこのこをあてられた場合
-        //else if (other.CompareTag("Nokonoko"))
-        //{
-        //    //ヒット喰らい処理
-        //    //ダメージ処理
-        //    _hp.TakeDamage(400);
-        //}
-    }
+    //    }
+    //    else if (other.CompareTag("RedGhost"))
+    //    {
+    //        _redGhost = other.GetComponent<RedGostMove>();
+    //        if (_redGhost.isChasingBoss)
+    //        {
+    //            //ヒット喰らい処理
+
+    //            //ダメージ処理
+    //            _hp.TakeDamage(1000);
+    //        }
+    //    }
+        
+    //}
     //繋げ用
     public void SetHammer(HammerController hammer)
     {

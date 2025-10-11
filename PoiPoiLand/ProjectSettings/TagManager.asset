@@ -12,6 +12,9 @@ TagManager:
   - Nokonoko
   - Bowling
   - Stone
+  - RedGhost
+  - HitBoss
+  - HitRedGhost
   layers:
   - Default
   - TransparentFX

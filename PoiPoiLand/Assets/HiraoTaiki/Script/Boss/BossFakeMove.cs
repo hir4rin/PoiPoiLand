@@ -62,4 +62,10 @@ public class BossFakeMove : MonoBehaviour
         
 
     }
+    public void HeavyDamage()
+    {
+        Debug.Log("aaaaaaaaaaaaaaaaaaa");
+
+        _animator.SetTrigger("isTriggerDamage");
+    }
 }

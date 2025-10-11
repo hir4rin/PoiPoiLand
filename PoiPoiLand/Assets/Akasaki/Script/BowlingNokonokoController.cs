@@ -162,6 +162,14 @@ public class BowlingNokonokoController : MonoBehaviour
         {
             isColHit = true;
         }
+        if (other.CompareTag("Boss"))
+        {
+            if (currentState == BowlingNokonokoState.NoGraThrow)
+            {
+                Destroy(gameObject);
+            }
+            
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -222,6 +230,14 @@ public class BowlingNokonokoController : MonoBehaviour
         isInclination = false;
         isThrowBowling = false;
     }
+    public void QuitHoldTurtle() //ó£ÇµÇΩÇ∆Ç´
+    {
+
+        this.transform.SetParent(null);
+        col.enabled = true;
+        isReset = false;
+        currentState = BowlingNokonokoState.pop;
+    }
 
     public void UpdateHold() //íÕÇÒÇ≈ÇÈèÛë‘
     {
@@ -260,7 +276,7 @@ public class BowlingNokonokoController : MonoBehaviour
     public void UpdateThrowZero(Vector3 direction)
     {
 
-        Debug.Log("ñ≥èdóÕÇ≈Ç∑");
+      //  Debug.Log("ñ≥èdóÕÇ≈Ç∑");
         col.enabled = true;
         rb.useGravity = false; // ñ≥èdóÕèÛë‘
         rb.isKinematic = false;

@@ -8,11 +8,11 @@ public class HammerGenerator : MonoBehaviour
     List<HammerController> _hammers = new List<HammerController>();
 
     //左上、右上、左下、右上の4つ
-    Vector3 leftUp = new Vector3(215, 20, -1.5f);//0番
-    Vector3 rightUp = new Vector3(238, 20, -1.5f);//1番
-    Vector3 leftDown = new Vector3(214, 20, -9.3f);//2番
-    Vector3 rightDown = new Vector3(238, 20, -9.1f);//3番
-    Vector3 center = new Vector3(222, 20, -5.1f);//4番
+    Vector3 leftUp = new Vector3(215, 18.9f, -1.5f);//0番
+    Vector3 rightUp = new Vector3(238, 18.9f, -1.5f);//1番
+    Vector3 leftDown = new Vector3(214, 18.9f, -9.3f);//2番
+    Vector3 rightDown = new Vector3(238, 18.9f, -9.1f);//3番
+    Vector3 center = new Vector3(222, 18.9f, -5.1f);//4番
     Vector3 stage1Left = new Vector3(95.0f, 21.0f, 4.0f); // ステージ1用の位置
     Vector3 stage1Right = new Vector3(110.0f, 21.0f, 4.0f); // ステージ1用の位置
 

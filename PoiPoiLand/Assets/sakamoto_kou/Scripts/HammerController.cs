@@ -107,7 +107,7 @@ public class HammerController : MonoBehaviour
                 break;
         }
 
-        Debug_sakamoto();
+      //  Debug_sakamoto();
 
         //高さが地面を超えた場合は破壊する
         if (transform.position.y < 0.0f)
@@ -124,7 +124,8 @@ public class HammerController : MonoBehaviour
         //地面に当たったら
         if (collision.gameObject.CompareTag("Ground"))
         {
-         
+            //再度pop状態にする
+            currentState = HammerState.pop;
         }
     }
 
@@ -132,8 +133,7 @@ public class HammerController : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            //再度pop状態にする
-            currentState = HammerState.pop;
+         
         }
 
         if (!other.CompareTag("Ground"))
@@ -143,15 +143,20 @@ public class HammerController : MonoBehaviour
            
         }
        
-        if(other.CompareTag("Enemy") || other.CompareTag("Boss"))
+        if(other.CompareTag("Enemy") || other.CompareTag("HitBoss"))
         {
-            //呼び出し
-            _hG.HammerSpawn(posNum);
+          
 
 
-            //破壊する
-            Debug.Log("敵に当たった");
-            Destroy(this.gameObject);
+            if (currentState == HammerState.thrown)
+            {
+                //呼び出し
+                _hG.HammerSpawn(posNum);
+                //破壊する
+                Debug.Log("敵に当たった");
+                Destroy(this.gameObject);
+            }
+            
 
 
 
@@ -161,6 +166,20 @@ public class HammerController : MonoBehaviour
             //エフェクトを生成
           GameObject effect = Instantiate(hitEffectPrefab,hitPos,Quaternion.identity);
           Destroy(effect, 2f);
+        }
+        if (other.CompareTag("HitRedGhost"))
+        {
+            if (currentState == HammerState.thrown)
+            {
+                //呼び出し
+                _hG.HammerSpawn(posNum);
+
+
+                //破壊する
+                // Debug.Log("敵に当たった");
+                Destroy(this.gameObject);
+            }
+                
         }
     }
 
