@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera goalCam;
     [SerializeField] private CinemachineFreeLook behindCam;
     [SerializeField] private CinemachineFreeLook sidecam;
     [SerializeField] private CinemachineFreeLook _secondBehind;
@@ -22,6 +23,11 @@ public class CameraSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            goalCam.Priority *= -100;
+            behindCam.Priority *= -100;
+        }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
