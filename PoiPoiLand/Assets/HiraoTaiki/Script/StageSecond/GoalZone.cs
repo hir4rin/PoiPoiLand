@@ -8,7 +8,7 @@ public class GoalZone : MonoBehaviour
     [SerializeField] TurtleJenerator _TJ;
     [SerializeField] GameObject _warp2;
 
-    bool isNext = false;
+    public bool isNext = false;
     float timer = 0;
     // Start is called before the first frame update
     void Start()

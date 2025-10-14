@@ -54,6 +54,8 @@ public class BowlingNokonokoController : MonoBehaviour
     Quaternion popInclination = Quaternion.AngleAxis(21.0f, Vector3.forward);
     Quaternion popRotation = Quaternion.AngleAxis(5, Vector3.up);
     Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
+    float turtletimer = 0;//亀の滞在時間
+    [SerializeField] GoalZone _respawn;//亀のリスポーン用
 
 
     // Start is called before the first frame update
@@ -76,6 +78,7 @@ public class BowlingNokonokoController : MonoBehaviour
         }
       
         boss = GameObject.Find("Boss");
+        _respawn = GameObject.Find("GoalZone").GetComponent<GoalZone>();
     }
 
     private void Update()
@@ -141,7 +144,17 @@ public class BowlingNokonokoController : MonoBehaviour
                 isBossThrow = false;
             }
         }
+
         //Debug_akasaki();
+        if (turtletimer > 10.0f)//10fになったらリセット気味
+        {
+            //Debug.Log("時間です");
+           // if (_respawn != null) return;
+            _respawn.isNext = true;
+            turtletimer = 0.0f;
+            Destroy(gameObject);
+          
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -270,7 +283,9 @@ public class BowlingNokonokoController : MonoBehaviour
             rb.isKinematic = false;
             rb.AddForce(throwDir.normalized * 20f, ForceMode.Impulse);
             isThrowBowling = true;
+            turtletimer = 0;
         }
+        turtletimer += Time.deltaTime;
     }
     // 投げる
     public void UpdateThrowZero(Vector3 direction)

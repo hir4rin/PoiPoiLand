@@ -48,7 +48,7 @@ public class Rabbitmove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("êGÇÍÇΩ");
+       // Debug.Log("êGÇÍÇΩ");
         if (other.CompareTag("Wall"))
         {
             isColHit = true;
