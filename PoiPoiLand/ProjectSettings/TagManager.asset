@@ -23,9 +23,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Turtle
+  - PassTurtle
   - 
   - 
   - 
@@ -52,4 +52,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3380457875
+    locked: 0
+  - name: Tuttle
+    uniqueID: 146068017
     locked: 0
