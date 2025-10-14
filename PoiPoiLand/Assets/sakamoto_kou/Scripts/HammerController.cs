@@ -5,8 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-
-
 //ハンマーのステート
 public enum HammerState
 {
@@ -36,8 +34,6 @@ public class HammerController : MonoBehaviour
 
     Vector3 size = new Vector3(70.0f, 70.0f, 70.0f);
 
-    //初期位置を設定
-    private Vector3 startPos = new Vector3(0.0f, 2.5f, 0.0f);
     //一度だけ発生するフラグ
     bool isInclination = false;
     bool isReset = false; // 回転をゼロに戻したかどうか
@@ -145,9 +141,6 @@ public class HammerController : MonoBehaviour
        
         if(other.CompareTag("Enemy") || other.CompareTag("HitBoss"))
         {
-          
-
-
             if (currentState == HammerState.thrown)
             {
                 //呼び出し
@@ -157,15 +150,15 @@ public class HammerController : MonoBehaviour
                 Destroy(this.gameObject);
             }
             
-
-
-
             //衝突位置を敵の位置にする
             Vector3 hitPos = other.ClosestPoint(transform.position);
 
-            //エフェクトを生成
-          GameObject effect = Instantiate(hitEffectPrefab,hitPos,Quaternion.identity);
-          Destroy(effect, 2f);
+            if (currentState != HammerState.pop)
+            {
+                //エフェクトを生成
+                GameObject effect = Instantiate(hitEffectPrefab, hitPos, Quaternion.identity);
+                Destroy(effect, 2f);
+            }
         }
         if (other.CompareTag("HitRedGhost"))
         {
@@ -229,6 +222,7 @@ public class HammerController : MonoBehaviour
             this.transform.rotation = popInclination;
             isReset = true;
             this.transform.localScale = size;
+            this.transform.localPosition = new Vector3(this.transform.position.x, 19.0f, this.transform.position.z);
         }
 
         //Debug.Log("Pop中");

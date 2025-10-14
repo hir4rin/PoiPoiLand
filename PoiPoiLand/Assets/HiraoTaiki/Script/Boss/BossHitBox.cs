@@ -38,7 +38,7 @@ public class BossHitBox : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         //ƒnƒ“ƒ}[‚ğ‚ ‚Ä‚ç‚ê‚½ê‡
-        if (other.CompareTag("Hammer"))
+        if (other.CompareTag("Hammer") && _hammerState == HammerState.pop)
         {
             _hammer = other.GetComponent<HammerController>();
             if (_hammer.currentState == HammerState.thrown)

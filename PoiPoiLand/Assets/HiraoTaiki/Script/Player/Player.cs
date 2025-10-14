@@ -261,6 +261,10 @@ public class Player : MonoBehaviour
             isGround = true;
             velocity.y = 0;
         }
+        if(collision.gameObject.CompareTag("Warp"))
+        {
+
+        }
     }
     public void Death()
     {

@@ -153,9 +153,6 @@ public class Boss : MonoBehaviour
 
             }
         }
-      
-        
-
 
         if (Input.GetKeyDown(KeyCode.M))//ˆÚ“®
         {
@@ -168,8 +165,6 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
-
-       
     }
     private void FixedUpdate()
     {
