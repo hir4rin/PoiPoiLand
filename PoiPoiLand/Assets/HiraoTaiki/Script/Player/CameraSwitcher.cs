@@ -12,21 +12,41 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineFreeLook _secondSide;
     [SerializeField] private CinemachineVirtualCamera _stage2Cam;
     [SerializeField] private CinemachineFreeLook _stage3Cam;
+    [SerializeField] private CameraRotate cameraRotate;
+    private bool _isGameStart;
+    private int _goalLookCount;
     //public CinemachineFreeLook currentCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         //currentCamera = behindCam;
+        ResetPriority();
+        _isGameStart = false;
+        _goalLookCount = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.M))
+        if (cameraRotate.IsOpened)
         {
-            goalCam.Priority *= -100;
-            behindCam.Priority *= -100;
+            if (!_isGameStart)
+            {
+                LookGoal();
+                _goalLookCount++;
+            }
+            if(_goalLookCount == 250)
+            {
+                _isGameStart = true;
+            }
+        }
+
+        if (_isGameStart)
+        {
+            Debug.Log("•Ï‚í‚Á‚½");
+            goalCam.Priority = 10;
+            behindCam.Priority = 20;
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -57,7 +77,7 @@ public class CameraSwitcher : MonoBehaviour
             //currentCamera = _secondSide;
         }
 
-        if(Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             _secondSide.Priority = 10;
             sidecam.Priority = 10;
@@ -66,7 +86,7 @@ public class CameraSwitcher : MonoBehaviour
             //currentCamera = behindCam;
         }
 
-        if(PlayerPrefs.GetInt("PointNum") == 3)
+        if (PlayerPrefs.GetInt("PointNum") == 3)
         {
             behindCam.Priority = 10;
             sidecam.Priority = 10;
@@ -75,7 +95,7 @@ public class CameraSwitcher : MonoBehaviour
             _stage2Cam.Priority = 20;
             //currentCamera = _stage2Cam;
         }
-        if(PlayerPrefs.GetInt("PointNum") == 4)
+        if (PlayerPrefs.GetInt("PointNum") == 4)
         {
             _stage2Cam.Priority = 10;
             behindCam.Priority = 20;
@@ -94,14 +114,27 @@ public class CameraSwitcher : MonoBehaviour
             //currentCamera = behindCam;
         }
     }
-    private void FixedUpdate()
-    {
-        
-    }
+
     public void SwitchSide()
     {
         behindCam.Priority = 10;
         sidecam.Priority = 20;//‰¡‚ª—LŒø
         //currentCamera = sidecam;
+    }
+
+    private void ResetPriority()
+    {
+        goalCam.Priority = 10;
+        behindCam.Priority = 10;
+        sidecam.Priority = 10;
+        _secondBehind.Priority = 10;
+        _secondSide.Priority = 10;
+        _stage2Cam.Priority = 10;
+        _stage3Cam.Priority = 10;
+    }
+
+    private void LookGoal()
+    {
+        goalCam.Priority = 20;
     }
 }
