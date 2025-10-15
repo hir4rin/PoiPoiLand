@@ -78,6 +78,7 @@ public class BowlingNokonokoController : MonoBehaviour
         }
       
         boss = GameObject.Find("Boss");
+        
         _respawn = GameObject.Find("GoalZone").GetComponent<GoalZone>();
     }
 

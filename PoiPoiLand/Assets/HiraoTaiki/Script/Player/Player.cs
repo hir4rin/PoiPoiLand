@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
 
     //Å‰‚ÌƒvƒŒƒCƒ„[‚Ìó‘Ô
     public PlayerState _state = PlayerState.Idle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -260,10 +261,6 @@ public class Player : MonoBehaviour
         {
             isGround = true;
             velocity.y = 0;
-        }
-        if(collision.gameObject.CompareTag("Warp"))
-        {
-
         }
     }
     public void Death()
