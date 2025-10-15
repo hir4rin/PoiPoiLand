@@ -32,7 +32,7 @@ public class Stage1EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(waveTimer);
+        //Debug.Log(waveTimer);
         stageState = stage1Manager.State;
         if (stageState != Stage1State.Start)
         {
