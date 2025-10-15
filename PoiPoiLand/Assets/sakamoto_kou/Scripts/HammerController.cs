@@ -250,7 +250,7 @@ public class HammerController : MonoBehaviour
     }
     public void QuitHold() //—£‚µ‚½‚Æ‚«
     {
-
+        Debug.Log("—£‚µ‚Ü‚µ‚½");
         this.transform.SetParent(null);
         col.enabled = true;
         isReset = false;

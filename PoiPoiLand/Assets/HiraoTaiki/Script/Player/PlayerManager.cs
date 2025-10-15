@@ -46,11 +46,14 @@ public class PlayerManager : MonoBehaviour
             _player._animator.SetBool("isHold", false);
             if (_hammer.currentState == HammerState.held)
             {
+                Debug.Log("ハンマーリセット");
                 _hammer.QuitHold();
+                return;
             }
             else if(_bowling.currentState == BowlingNokonokoState.held)
             {
                 _bowling.QuitHoldTurtle();
+                return;
             }
             else
             {
@@ -67,15 +70,18 @@ public class PlayerManager : MonoBehaviour
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
-            if(!isHaving)
+            if(_hammer.currentState == HammerState.pop)
             {
-                if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                if (!isHaving)
                 {
-                    Debug.Log("持ちました");
-                    _player._state = PlayerState.Hold;
-                    _hammer.currentState = HammerState.held;
-                    _player._animator.SetBool("isHold", true);
-                    isHaving = true;
+                    if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                    {
+                        Debug.Log("持ちました");
+                        _player._state = PlayerState.Hold;
+                        _hammer.currentState = HammerState.held;
+                        _player._animator.SetBool("isHold", true);
+                        isHaving = true;
+                    }
                 }
             }
         }
