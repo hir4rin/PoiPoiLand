@@ -13,8 +13,8 @@ public class HammerGenerator : MonoBehaviour
     Vector3 leftDown = new Vector3(214, 18.9f, -9.3f);//2番
     Vector3 rightDown = new Vector3(238, 18.9f, -9.1f);//3番
     Vector3 center = new Vector3(222, 18.9f, -5.1f);//4番
-    Vector3 stage1Left = new Vector3(95.0f, 21.0f, 4.0f); // ステージ1用の位置
-    Vector3 stage1Right = new Vector3(110.0f, 21.0f, 4.0f); // ステージ1用の位置
+    Vector3 stage1Left = new Vector3(96.5f, 19.0f, 5.0f); // ステージ1用の位置
+    Vector3 stage1Right = new Vector3(103.5f, 19.0f, 5.0f); // ステージ1用の位置
 
 
 
@@ -37,6 +37,7 @@ public class HammerGenerator : MonoBehaviour
     /// <param name="num"></param>
     public void HammerSpawn(int num)
     {
+        Debug.Log("リスポーンしました");
         Vector3 pos = Vector3.zero;
         switch (num)
         {

@@ -41,8 +41,8 @@ public class Stage1Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("stage1‚Ìó‘Ô‚Í " + state);
-        Debug.Log("enemy‚Ì”" + enemyNum.ToString());
+        //Debug.Log("stage1‚Ìó‘Ô‚Í " + state);
+        //Debug.Log("enemy‚Ì”" + enemyNum.ToString());
         if(Input.GetKeyDown(KeyCode.Q))
         {
             state = Stage1State.Cleared;
