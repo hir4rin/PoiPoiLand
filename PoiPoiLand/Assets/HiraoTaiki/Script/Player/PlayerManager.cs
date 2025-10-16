@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (!isHaving)
                 {
-                    if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                    if (Input.GetButton("Grab") || Input.GetAxis("Grab") > 0.5f)//現在、結構ラグがある感じ
                     {
                         Debug.Log("持ちました");
                         _player._state = PlayerState.Hold;
@@ -106,7 +106,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (!isHaving)
             {
-                if (Input.GetKeyDown(KeyCode.J))//現在、結構ラグがある感じ
+                if (Input.GetButton("Grab") || Input.GetAxis("Grab") > 0.5f)//現在、結構ラグがある感じ
                 {
                     _player._state = PlayerState.Hold;
                     Debug.Log("_player._state:" + _player._state);
@@ -128,7 +128,7 @@ public class PlayerManager : MonoBehaviour
             //    isHaving = false;
             //}
             
-            if (Input.GetKeyDown(KeyCode.L) && _hammer.currentState == HammerState.held)//ものを投げるとき
+            if ((Input.GetButtonDown("Throw") || Input.GetAxis("Throw") > 0.5f) && _hammer.currentState == HammerState.held)//ものを投げるとき
             {
                 Debug.Log("ハンマーを投げた");
                 _player._animator.SetTrigger("TriggerThrow");
@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour
             //    isHaving = false;
             //}
 
-            if (Input.GetKeyDown(KeyCode.L) && _nokonoko.currentState == NokonokoState.held)//ものを投げるとき
+            if ((Input.GetButtonDown("Throw") || Input.GetAxis("Throw") > 0.5f) && _nokonoko.currentState == NokonokoState.held)//ものを投げるとき
             {
                 _player._animator.SetTrigger("TriggerThrow");
                 
@@ -167,7 +167,7 @@ public class PlayerManager : MonoBehaviour
             //    isHaving = false;
             //}
 
-            if (Input.GetKeyDown(KeyCode.L) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//チェックポイントがボス以上の時、無重力で行くようにする(未完)
+            if ((Input.GetButtonDown("Throw") || Input.GetAxis("Throw") > 0.5f) && _bowling.currentState == BowlingNokonokoState.held)//ものを投げるとき//チェックポイントがボス以上の時、無重力で行くようにする(未完)
             {
                 if (PlayerPrefs.GetInt("PointNum") == 5)
                 {
