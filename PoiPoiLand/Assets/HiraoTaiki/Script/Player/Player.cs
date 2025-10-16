@@ -70,6 +70,23 @@ public class Player : MonoBehaviour
         {
              Debug.Log($"_stateは{_state}です");
         }
+
+
+        if (Input.GetButtonDown("Jump") && isGround)//ジャンプ
+        {
+            // Debug.Log("飛んでいます");
+            rb.AddForce(JumpPower, ForceMode.Impulse);
+            isGround = false;
+            if (_state != PlayerState.Hold)
+            {
+                _animator.SetTrigger("TriggerJump");
+            }
+            if (_state == PlayerState.Hold)
+            {
+                _animator.SetTrigger("TriggerJumpHold");
+            }
+        }
+
         //Forward = Camera.main.transform.forward.normalized;
         //Forward.y = 0;
         //Back = -Forward;
@@ -89,6 +106,12 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Pad対応
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+
+
         //if (playerVelocity.magnitude == 0 && _state != PlayerState.Hold)
         //{
         //    _state = PlayerState.Idle;
@@ -112,7 +135,7 @@ public class Player : MonoBehaviour
         bool isHorizontalX = Mathf.Abs(camRight.x) > Mathf.Abs(camRight.z);
         //ジャンプの重力計算
         //verticalSpeed += gravity * Time.deltaTime;
-        if (Input.GetKey(KeyCode.W))//前移動
+        if (Input.GetKey(KeyCode.W) || v > 0.1f)//前移動
         {
             Vector3 move = Forward;
             if (isHorizontalX)
@@ -126,7 +149,7 @@ public class Player : MonoBehaviour
             playerVelocity += move.normalized * speed;
            // Debug.Log("前に移動しています");
         }
-        if (Input.GetKey(KeyCode.S))//後ろ移動
+        if (Input.GetKey(KeyCode.S) || v < -0.1f)//後ろ移動
         {
             Vector3 move = Back;
             if (isHorizontalX)
@@ -140,7 +163,7 @@ public class Player : MonoBehaviour
             playerVelocity += move.normalized * speed;
 
         }
-        if (Input.GetKey(KeyCode.A))//左移動
+        if (Input.GetKey(KeyCode.A) || h < -0.1f)//左移動
         {
             Vector3 move = Left;
             if (isHorizontalX)
@@ -154,7 +177,7 @@ public class Player : MonoBehaviour
             playerVelocity += move.normalized * speed;
 
         }
-        if (Input.GetKey(KeyCode.D))//右移動
+        if (Input.GetKey(KeyCode.D) || h > 0.1f)//右移動
         {
             Vector3 move = Right;
             if (isHorizontalX)
@@ -169,20 +192,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.Space) && isGround)//ジャンプ
-        {
-          // Debug.Log("飛んでいます");
-            rb.AddForce(JumpPower,ForceMode.Impulse);
-            isGround = false;
-            if (_state != PlayerState.Hold)
-            {
-                _animator.SetTrigger("TriggerJump");
-            }
-            if (_state == PlayerState.Hold)
-            {
-                _animator.SetTrigger("TriggerJumpHold");
-            }
-        }
+     
 
         //持ち歩き
         if (playerVelocity.magnitude != 0 && _state == PlayerState.Hold)
@@ -213,7 +223,7 @@ public class Player : MonoBehaviour
 
 
         //走る
-        if (Input.GetKey(KeyCode.LeftShift) && playerVelocity.magnitude != 0)
+        if (Input.GetButton("Dash") && playerVelocity.magnitude != 0)
         {
          //   Debug.Log("走る");
             playerVelocity *= 1.5f;
