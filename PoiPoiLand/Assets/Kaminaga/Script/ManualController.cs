@@ -8,7 +8,6 @@ public class ManualController : MonoBehaviour
 {
     [SerializeField] private GameObject soundUI;
     [SerializeField] private GameObject tutorialUI;
-    [SerializeField] private GameObject selectUI;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Image pageDisplay;
     public int pageNum;
@@ -17,7 +16,6 @@ public class ManualController : MonoBehaviour
     {
         soundUI.SetActive(false);
         tutorialUI.SetActive(false);
-        selectUI.SetActive(true);
         pageNum = 0;
     }
 
@@ -43,7 +41,6 @@ public class ManualController : MonoBehaviour
 
     public void SetTutorialUI()
     {
-        selectUI.SetActive(false);
         if (!soundUI.activeSelf)
         {
             // 操作説明画面の表示フラグを反転させる
@@ -53,7 +50,6 @@ public class ManualController : MonoBehaviour
 
     public void SetSoundUI()
     {
-        selectUI.SetActive(false);
         if (!tutorialUI.activeSelf)
         {
             // 音量設定画面の表示フラグを反転させる
@@ -87,11 +83,11 @@ public class ManualController : MonoBehaviour
         {
             soundUI.SetActive(false);
         }
-        selectUI.SetActive(true);
     }
 
     public void GameStart()
     {
         SceneManager.Instance.SceneChange("GameScene");
     }
+
 }

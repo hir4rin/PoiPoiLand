@@ -45,6 +45,11 @@ public class SceneManager : MonoBehaviour
 
     public void SceneChange(string sceneName)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
+
+    //public void GameStart()
+    //{
+    //    UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+    //}
 }
