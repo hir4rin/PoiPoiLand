@@ -4,28 +4,29 @@ using UnityEngine;
 
 public class WarpEffectScript : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
     //ワープ時のエフェクト
-    [SerializeField] GameObject Effect;
+    [SerializeField] GameObject effect;
+
+    //ボスを参照
+    BossHp boss;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Instantiate(effect, this.transform.position, Quaternion.identity);
+        effect.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
+        if (PlayerPrefs.GetInt("PointNum") == 5)
         {
-            GameObject effect = Instantiate(Effect, this.transform.position, Quaternion.identity);
-            Destroy(effect, 2f);
+            effect.SetActive(false);
+        }
+        if (boss.isDieBoss )
+        {
+            effect.SetActive(true);
         }
     }
 }
