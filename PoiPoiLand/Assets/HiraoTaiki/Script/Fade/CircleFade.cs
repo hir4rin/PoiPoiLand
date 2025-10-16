@@ -33,7 +33,7 @@ public class CircleFade : MonoBehaviour
         if (isFadingIn)
         {
             maskRect.localScale = Vector3.Lerp(maskRect.localScale, Vector3.zero, Time.fixedDeltaTime * fadespeed);
-            if (maskRect.localScale.magnitude < 0.05f)
+            if (maskRect.localScale.x < 0.05f)
             {
                 maskRect.localScale = Vector3.zero;
                 isFadingIn = false;
