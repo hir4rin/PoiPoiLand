@@ -10,9 +10,9 @@ public class BossHp : MonoBehaviour
 
     public Image hpBar;
 
-
     [SerializeField] GameObject _warp3;//ƒNƒŠƒAğŒ
 
+    public bool isDieBoss;
 
     // Start is called before the first frame update
     void Start()

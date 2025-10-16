@@ -26,16 +26,16 @@ public class ManualController : MonoBehaviour
         if (tutorialUI.activeSelf)
         {
             pageDisplay.sprite = sprites[pageNum];
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                OnPreviousPage();
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                OnNextPage();
+            }
         }
-
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            OnPreviousPage();
-        }
-        if( Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            OnNextPage();
-        }
+        
 
     }
 
@@ -43,6 +43,7 @@ public class ManualController : MonoBehaviour
     {
         if (!soundUI.activeSelf)
         {
+            // 操作説明画面の表示フラグを反転させる
             tutorialUI.SetActive(!tutorialUI.activeSelf);
         }
     }
@@ -51,6 +52,7 @@ public class ManualController : MonoBehaviour
     {
         if (!tutorialUI.activeSelf)
         {
+            // 音量設定画面の表示フラグを反転させる
             soundUI.SetActive(!soundUI.activeSelf);
         }
     }
@@ -71,8 +73,21 @@ public class ManualController : MonoBehaviour
         }
     }
 
+    public void BackSelect()
+    {
+        if(tutorialUI.activeSelf)
+        {
+            tutorialUI.SetActive(false);
+        }
+        if(soundUI.activeSelf)
+        {
+            soundUI.SetActive(false);
+        }
+    }
+
     public void GameStart()
     {
         SceneManager.Instance.SceneChange("GameScene");
     }
+
 }
