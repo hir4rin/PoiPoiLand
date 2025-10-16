@@ -8,6 +8,7 @@ public class ManualController : MonoBehaviour
 {
     [SerializeField] private GameObject soundUI;
     [SerializeField] private GameObject tutorialUI;
+    [SerializeField] private GameObject selectUI;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Image pageDisplay;
     public int pageNum;
@@ -16,6 +17,7 @@ public class ManualController : MonoBehaviour
     {
         soundUI.SetActive(false);
         tutorialUI.SetActive(false);
+        selectUI.SetActive(true);
         pageNum = 0;
     }
 
@@ -26,31 +28,35 @@ public class ManualController : MonoBehaviour
         if (tutorialUI.activeSelf)
         {
             pageDisplay.sprite = sprites[pageNum];
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                OnPreviousPage();
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                OnNextPage();
+            }
         }
-
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            OnPreviousPage();
-        }
-        if( Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            OnNextPage();
-        }
+        
 
     }
 
     public void SetTutorialUI()
     {
+        selectUI.SetActive(false);
         if (!soundUI.activeSelf)
         {
+            // 操作説明画面の表示フラグを反転させる
             tutorialUI.SetActive(!tutorialUI.activeSelf);
         }
     }
 
     public void SetSoundUI()
     {
+        selectUI.SetActive(false);
         if (!tutorialUI.activeSelf)
         {
+            // 音量設定画面の表示フラグを反転させる
             soundUI.SetActive(!soundUI.activeSelf);
         }
     }
@@ -69,6 +75,19 @@ public class ManualController : MonoBehaviour
         {
             pageNum--;
         }
+    }
+
+    public void BackSelect()
+    {
+        if(tutorialUI.activeSelf)
+        {
+            tutorialUI.SetActive(false);
+        }
+        if(soundUI.activeSelf)
+        {
+            soundUI.SetActive(false);
+        }
+        selectUI.SetActive(true);
     }
 
     public void GameStart()
