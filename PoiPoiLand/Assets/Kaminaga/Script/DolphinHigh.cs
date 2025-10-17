@@ -20,7 +20,7 @@ public class DolphinHigh : MonoBehaviour
     {
         Debug.Log(m_animTime);
         m_animTime += Time.deltaTime;
-        if (m_animTime >= 3.0f)
+        if (m_animTime >= 3.5f)
         {
             if (!m_animator.GetBool("isMove"))
             {
