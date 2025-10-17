@@ -99,8 +99,13 @@ public class BowlingNokonokoController : MonoBehaviour
                     boss = obj;
                 }
             }
-            bossTransform = boss.transform;
-            throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
+            if (boss != null)
+            {
+                bossTransform = boss.transform;
+                throwDirBoss = bossTransform.forward + Vector3.down * 0.5f;//投げる向きはボスの向き+少し下
+            }
+            
+            
         }
        
 
