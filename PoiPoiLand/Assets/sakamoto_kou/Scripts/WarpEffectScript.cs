@@ -1,32 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class WarpEffectScript : MonoBehaviour
 {
+    //ボスステージのワープ
+    [SerializeField] GameObject bossStage_warp;
+    //ほかのステージのワープ
+    [SerializeField] GameObject[] usually_warps;
     //ワープ時のエフェクト
-    [SerializeField] GameObject effect;
+    [SerializeField] GameObject bossStageEffect;
+    [SerializeField] GameObject usuallyStageEffect;
 
     //ボスを参照
-    BossHp boss;
+    public BossHp boss;
 
     // Start is called before the first frame update
+
     void Start()
     {
-        Instantiate(effect, this.transform.position, Quaternion.identity);
-        effect.SetActive(false);
+        //ボスステージのワープのエフェクト
+        Instantiate(bossStageEffect, bossStage_warp.transform.position, Quaternion.identity);
+        //ほかのステージのワープエフェクト
+        foreach (GameObject effect in usually_warps)
+        {
+            Instantiate(usuallyStageEffect, effect.transform.position, Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("PointNum") == 5)
+        if (boss == null)
         {
-            effect.SetActive(false);
+            bossStageEffect.SetActive(true);
         }
-        if (boss.isDieBoss )
+        else
         {
-            effect.SetActive(true);
+            bossStageEffect.SetActive(false);
         }
     }
 }
