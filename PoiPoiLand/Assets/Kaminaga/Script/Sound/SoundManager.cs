@@ -10,11 +10,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
 
-    private AudioSource audioSource;
 
-    float currentVolume;
-    float lastVolume;
-    [SerializeField] private AudioSource seAudioSource;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,9 +24,6 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        audioSource = GetComponent<AudioSource>();
-        currentVolume = 0.0f;
-        lastVolume = 0.0f;
     }
     void Start()
     {
@@ -39,11 +33,7 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentVolume = seAudioSource.volume;
-        if (currentVolume != lastVolume)
-        {
-        }
-        lastVolume = currentVolume;
+        
     }
 
     public void SetMasterVolume(float volume)
@@ -62,5 +52,10 @@ public class SoundManager : MonoBehaviour
     {
         float db = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20f;
         audioMixer.SetFloat("SE", db);
+    }
+
+    public void PlaySE(AudioSource source)
+    {
+        source.PlayOneShot(source.clip);
     }
 }

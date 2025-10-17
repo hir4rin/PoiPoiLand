@@ -11,12 +11,16 @@ public class ManualController : MonoBehaviour
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Image pageDisplay;
     public int pageNum;
+    [SerializeField] private List<AudioSource> audioSources;
+    [SerializeField] private Dictionary<string, AudioSource> spritesDictionary;
+    private AudioSource clickSe;
     // Start is called before the first frame update
     void Start()
     {
         soundUI.SetActive(false);
         tutorialUI.SetActive(false);
         pageNum = 0;
+        clickSe = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -87,7 +91,7 @@ public class ManualController : MonoBehaviour
 
     public void GameStart()
     {
+        SoundManager.Instance.PlaySE(clickSe);
         SceneManager.Instance.SceneChange("GameScene");
     }
-
 }
