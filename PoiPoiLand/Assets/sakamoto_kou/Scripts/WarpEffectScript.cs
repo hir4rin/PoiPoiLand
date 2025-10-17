@@ -12,6 +12,7 @@ public class WarpEffectScript : MonoBehaviour
     //ワープ時のエフェクト
     [SerializeField] GameObject bossStageEffect;
     [SerializeField] GameObject usuallyStageEffect;
+    GameObject effect;
 
     //ボスを参照
     public BossHp boss;
@@ -21,7 +22,7 @@ public class WarpEffectScript : MonoBehaviour
     void Start()
     {
         //ボスステージのワープのエフェクト
-        Instantiate(bossStageEffect, bossStage_warp.transform.position, Quaternion.identity);
+        effect = Instantiate(bossStageEffect, bossStage_warp.transform.position, Quaternion.identity);
         //ほかのステージのワープエフェクト
         foreach (GameObject effect in usually_warps)
         {
@@ -34,11 +35,13 @@ public class WarpEffectScript : MonoBehaviour
     {
         if (boss == null)
         {
-            bossStageEffect.SetActive(true);
+            Debug.Log("a");
+            effect.SetActive(true);
         }
         else
         {
-            bossStageEffect.SetActive(false);
+            Debug.Log("b");
+            effect.SetActive(false);
         }
     }
 }
