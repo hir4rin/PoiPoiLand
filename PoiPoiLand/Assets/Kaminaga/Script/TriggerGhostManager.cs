@@ -20,8 +20,8 @@ public class TriggerGhostManager : MonoBehaviour
         manager = stage1Manager.GetComponent<Stage1Manager>();
         ghostMove = new Vector3(0.01f, 0.0f, 0.0f);
         firstPos = this.transform.position;
-        maxPos = firstPos + new Vector3(10.0f,0.0f,0.0f);
-        minPos = firstPos - new Vector3(10.0f,0.0f,0.0f);
+        maxPos = firstPos + new Vector3(6.0f,0.0f,0.0f);
+        minPos = firstPos - new Vector3(7.0f,0.0f,0.0f);
         lookPlayer = Vector3.zero;
         isRight = true;
     }
