@@ -264,13 +264,21 @@ public class Player : MonoBehaviour
     }
 
     //ínñ Ç…êGÇÍÇΩÇÁíÖínÇ∆îªíË
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
 
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
             velocity.y = 0;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = false;
+
         }
     }
     public void Death()
