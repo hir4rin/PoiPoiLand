@@ -10,6 +10,7 @@ public class Rabbitmove : MonoBehaviour
     [SerializeField] bool isRightMove = true;
     [SerializeField] bool isColHit = false;
     Vector3 Velocity = Vector3.zero;
+    [SerializeField] GameObject hitEffect;
 
     float speed = 1.8f;
 
@@ -81,6 +82,9 @@ public class Rabbitmove : MonoBehaviour
 
                 //êîïbå„Ç…è¡Ç¶ÇÈ
                 Destroy(gameObject, 3f);
+
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 2f);
             }
             
 

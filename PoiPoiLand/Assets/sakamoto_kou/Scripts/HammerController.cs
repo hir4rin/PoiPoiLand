@@ -55,7 +55,13 @@ public class HammerController : MonoBehaviour
     //自分がどこのハンマーか
     public int posNum = 0;
 
+    //ハンマーヒット時ヒットエフェクト
     [SerializeField] GameObject hitEffectPrefab;
+    //ポップ中のエフェクト
+    [SerializeField] GameObject popEffectPrefab;
+    GameObject popEffectInstance;
+    //エフェクトが出ているかどうか　
+    bool isEffect = false;
 
     // Start is called before the first frame update
     void Start()
@@ -223,6 +229,13 @@ public class HammerController : MonoBehaviour
             isReset = true;
             this.transform.localScale = size;
             this.transform.localPosition = new Vector3(this.transform.position.x, 19.0f, this.transform.position.z);
+
+            //ポップ中のエフェクト
+            if(!isEffect)
+            {
+                popEffectInstance = Instantiate(popEffectPrefab, transform.position, Quaternion.identity);
+                isEffect = true;
+            }
         }
 
         //Debug.Log("Pop中");
@@ -238,6 +251,13 @@ public class HammerController : MonoBehaviour
 
     public void UpdateHold() //掴んでる状態
     {
+        //エフェクトが出現しているならエフェクトを消す
+        if (isEffect)
+        {
+            Destroy(popEffectInstance);
+            isEffect = false;
+        }
+
         this.transform.SetParent(_player.transform, false);
         this.transform.localPosition = new Vector3(0.5f, 1, 0.5f);
         this.transform.localScale = new Vector3(40.0f, 40.0f, 40.0f);

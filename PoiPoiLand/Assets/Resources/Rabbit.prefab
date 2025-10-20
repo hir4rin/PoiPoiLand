@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRightMove: 1
   isColHit: 0
+  hitEffect: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   _RJ: {fileID: 0}
 --- !u!1001 &1229086653771699531
 PrefabInstance:

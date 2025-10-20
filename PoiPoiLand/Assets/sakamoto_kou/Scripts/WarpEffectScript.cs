@@ -35,12 +35,10 @@ public class WarpEffectScript : MonoBehaviour
     {
         if (boss == null)
         {
-            Debug.Log("a");
             effect.SetActive(true);
         }
         else
         {
-            Debug.Log("b");
             effect.SetActive(false);
         }
     }
