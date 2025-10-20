@@ -285,11 +285,16 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //死ぬアニメーションとフェード
-        _animator.SetTrigger("TriggerDie");
-        StartCoroutine(DieSequence());
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _animator.SetTrigger("TriggerDie");
+            StartCoroutine(DieSequence());
+        }
+
     }
     private IEnumerator DieSequence()
     {
+        Debug.Log("イーなむれーた");
         yield return new WaitForSeconds(3f);
         Death();
     }
