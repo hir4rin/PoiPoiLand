@@ -11,6 +11,8 @@ public class Stage1StoneManager : MonoBehaviour
     [SerializeField] private Image burnHpGauge;
     [SerializeField] private GameObject stage1;
     private Stage1Manager stage1Manager;
+    private Stage1State stage1State;
+    private bool isReset;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +20,13 @@ public class Stage1StoneManager : MonoBehaviour
         hpGauge.fillAmount = stoneHealthPoint / 3.0f;
         burnHpGauge.fillAmount = stoneHealthPoint / 3.0f;
         stage1Manager = stage1.GetComponent<Stage1Manager>();
+        isReset = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        stage1State = stage1Manager.State;
         hpGauge.fillAmount = stoneHealthPoint / 3.0f;
         if (burnHpGauge.fillAmount > hpGauge.fillAmount)
         {
@@ -31,15 +35,28 @@ public class Stage1StoneManager : MonoBehaviour
         if (burnHpGauge.fillAmount <= 0)
         {
             stage1Manager.State = Stage1State.Failed;
-            Destroy(this.gameObject);
         }
-        hpGaugeBack.rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, this.transform.position + new Vector3(0.0f,2.0f,0.0f));
-        if (stage1Manager.State == Stage1State.Cleared)
+        hpGaugeBack.rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, this.transform.position + new Vector3(0.0f, 2.0f, 0.0f));
+
+        if (stage1State == Stage1State.Start)
+        {
+            if (isReset)
+            {
+                stoneHealthPoint = 3.0f;
+                isReset = false;
+            }
+        }
+
+        if (stage1State == Stage1State.Failed)
+        {
+            isReset = true;
+        }
+        if (stage1State == Stage1State.Cleared)
         {
             hpGaugeBack.enabled = false;
             hpGauge.enabled = false;
             burnHpGauge.enabled = false;
-            this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f,1.0f,0.0f));
+            this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
     private void OnTriggerEnter(Collider other)

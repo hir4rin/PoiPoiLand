@@ -18,7 +18,7 @@ public class Stage1EnemyController : MonoBehaviour
         stage1Manager = GameObject.Find("Stage1Manager").GetComponent<Stage1Manager>();
         pos = transform.position; // ‰ŠúˆÊ’u‚ğ•Û‘¶
         direction = (stonePos.transform.position - transform.position).normalized; // stone‚Ì•ûŒü‚ğŒü‚­
-        speed = 0.01f; // ˆÚ“®‘¬“x
+        speed = 0.02f; // ˆÚ“®‘¬“x
     }
 
     // Update is called once per frame
