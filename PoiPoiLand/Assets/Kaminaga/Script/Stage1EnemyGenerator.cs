@@ -37,6 +37,7 @@ public class Stage1EnemyGenerator : MonoBehaviour
         if (stageState != Stage1State.Start)
         {
             waveTimer = 0;
+            wave = Stage1Wave.Wave1;
             return;
         }
         else

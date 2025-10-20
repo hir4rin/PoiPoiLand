@@ -41,7 +41,7 @@ public class Stage1Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Debug.Log("stage1の状態は " + state);
+        Debug.Log("stage1の状態は " + state);
         //Debug.Log("enemyの数" + enemyNum.ToString());
         if(Input.GetKeyDown(KeyCode.Q))
         {
@@ -66,7 +66,7 @@ public class Stage1Manager : MonoBehaviour
                 break;
             case Stage1State.Start:
                 stageTime += Time.deltaTime;
-                //Debug.Log(stageTime);
+                Debug.Log("ステージの経過時間は" + stageTime.ToString());
                 if (stageTime > 30.0f)
                 {
                     state = Stage1State.Cleared;
