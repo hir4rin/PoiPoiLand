@@ -108,6 +108,7 @@ MonoBehaviour:
   currentState: 0
   posNum: 0
   hitEffectPrefab: {fileID: 479935670043228325, guid: 5b1a640d71f095e4bb7a470785d60574, type: 3}
+  popEffectPrefab: {fileID: 6532625474870085665, guid: 07a977963523b3b4dbcaa27119f6b469, type: 3}
 --- !u!136 &-7757869459448027376
 CapsuleCollider:
   m_ObjectHideFlags: 0

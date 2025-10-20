@@ -64,13 +64,22 @@ public class RedGostMove : MonoBehaviour
 
    //     Debug.Log("isChasingBoss" + isChasingBoss);
         //キャラクターの方を向く
-        if (!isChasingBoss)
+        if (boss != null)
         {
-            LookAtPlayerQuaternion();
+            if (!isChasingBoss)
+            {
+
+                LookAtPlayerQuaternion();
+            }
+            else if (isChasingBoss)
+            {
+                LookAtBossQuaternion();
+            }
         }
-        else if (isChasingBoss)
+        
+        if (boss == null)
         {
-            LookAtBossQuaternion();
+            Destroy(gameObject);
         }
 
             float distance = Vector3.Distance(transform.position, playerTransform.position);
