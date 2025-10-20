@@ -77,9 +77,16 @@ public class BowlingNokonokoController : MonoBehaviour
             rb.isKinematic = true;
         }
       
-        boss = GameObject.Find("Boss");
+        if (PlayerPrefs.GetInt("PointNum") == 5)
+        {
+            boss = GameObject.Find("Boss");
+        }
+
+        if (PlayerPrefs.GetInt("PointNum") == 3)
+        {
+            _respawn = GameObject.Find("GoalZone").GetComponent<GoalZone>();
+        }
         
-        _respawn = GameObject.Find("GoalZone").GetComponent<GoalZone>();
     }
 
     private void Update()

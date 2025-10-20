@@ -281,6 +281,18 @@ public class Player : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //死ぬアニメーションとフェード
+        _animator.SetTrigger("TriggerDie");
+        StartCoroutine(DieSequence());
+    }
+    private IEnumerator DieSequence()
+    {
+        yield return new WaitForSeconds(3f);
+        Death();
+    }
     public void Death()
     {
         //ここでチェックポイントによって座標を変える
