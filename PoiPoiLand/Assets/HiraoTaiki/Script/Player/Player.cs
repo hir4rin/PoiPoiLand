@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //プレイヤーの状態
@@ -49,6 +50,10 @@ public class Player : MonoBehaviour
     public Animator _animator;
 
     Warp_Controller _checkPoint;
+
+    Image fadeImage;//
+
+    float fadeDuration = 1.5f;
 
 
     //最初のプレイヤーの状態
@@ -287,7 +292,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
 
         //死ぬアニメーションとフェード
@@ -303,11 +308,41 @@ public class Player : MonoBehaviour
         Debug.Log("イーなむれーた");
         yield return new WaitForSeconds(3f);
         //ここでフェード
-
+        yield return StartCoroutine(FadeOut());
 
 
         Death();
+
+        yield return StartCoroutine(FadeIn());
     }
+
+    private IEnumerator FadeOut()
+    {
+        float elapsed = 0f;
+        Color c = fadeImage.color;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            c.a = Mathf.Clamp01(elapsed / fadeDuration); // 透明→黒
+            fadeImage.color = c;
+            yield return null;
+        }
+    }
+    private IEnumerator FadeIn()
+    {
+        float elapsed = 0f;
+        Color c = fadeImage.color;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            c.a = 1f - Mathf.Clamp01(elapsed / fadeDuration); // 黒→透明
+            fadeImage.color = c;
+            yield return null;
+        }
+    }
+
     public void Death()
     {
         //ここでチェックポイントによって座標を変える
