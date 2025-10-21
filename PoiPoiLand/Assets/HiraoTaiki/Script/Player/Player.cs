@@ -252,8 +252,13 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("‰ñ“]‚µ‚Ä‚¢‚Ü‚·");
             Quaternion rotation = Quaternion.LookRotation(moveDirection);
-            Matrix4x4 rotationMatrix = Matrix4x4.Rotate(rotation);
-            transform.rotation = rotationMatrix.rotation;
+            // Lerp‚Å‚È‚ß‚ç‚©‚É•âŠÔ
+            float rotationSpeed = 10f; // ‰ñ“]‘¬“xi’²®‰Âj
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,        // Œ»İ‚Ì‰ñ“]
+                rotation,            // –Ú•W‚Ì‰ñ“]
+                rotationSpeed * Time.deltaTime // •âŠÔŠ„‡
+                );
         }
 
         if (transform.position.y < 9)

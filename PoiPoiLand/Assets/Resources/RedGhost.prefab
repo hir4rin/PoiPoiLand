@@ -152,6 +152,7 @@ MonoBehaviour:
   moveSpeed: 5
   isChasingBoss: 0
   trackingBossEffect: {fileID: 2073476506232970321, guid: 8f0d3d24f33a4204697a1c6b4eda33dd, type: 3}
+  isDestroyed: 0
 --- !u!1 &5256102076380925516
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3664616006316601644
 Transform:
   m_ObjectHideFlags: 0

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
+
+    public GameObject[] Baria;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -14,13 +17,15 @@ public class BarrierController : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("PointNum") >= 1)
         {
-            this.gameObject.SetActive(false);
-
+            Baria[0].gameObject.SetActive(false);
         }
-        else
+        
+        if (PlayerPrefs.GetInt("PointNum") >= 5)
         {
-            this.gameObject.SetActive(true);
+            Baria[1].gameObject.SetActive(false);
+            Debug.Log("aaaaa");
         }
+        
 
 
 
