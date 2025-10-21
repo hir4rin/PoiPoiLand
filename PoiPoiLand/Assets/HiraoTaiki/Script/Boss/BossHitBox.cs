@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossHitBox : MonoBehaviour
@@ -19,6 +20,7 @@ public class BossHitBox : MonoBehaviour
     BowlingNokonokoState _bowlingState;
 
     RedGostMove _redGhost;//赤いゴースト
+    [SerializeField] GameObject hitTurtleEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +78,11 @@ public class BossHitBox : MonoBehaviour
                 //ダメージ処理
                 _hp.TakeDamage(1000);
                 _mimic.HeavyDamage();
+
+                //エフェクト
+                //エフェクトを生成
+                GameObject effect = Instantiate(hitTurtleEffect, this.transform.position, Quaternion.identity);
+                Destroy(effect, 5f);
             }
         }
 

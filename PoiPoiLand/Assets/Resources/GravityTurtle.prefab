@@ -79,6 +79,9 @@ MonoBehaviour:
   isColHit: 0
   currentState: 0
   boss: {fileID: 0}
+  _respawn: {fileID: 0}
+  popEffectPrefab: {fileID: 4823518202205099639, guid: cdc919a43bba95b4a8b6916b6aa5321d, type: 3}
+  hitBossEffect: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
 --- !u!114 &6335323965967374764
 MonoBehaviour:
   m_ObjectHideFlags: 0
