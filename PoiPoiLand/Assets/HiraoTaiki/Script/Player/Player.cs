@@ -289,6 +289,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         //死ぬアニメーションとフェード
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -301,6 +302,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("イーなむれーた");
         yield return new WaitForSeconds(3f);
+        //ここでフェード
+
+
+
         Death();
     }
     public void Death()
