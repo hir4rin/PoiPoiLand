@@ -76,7 +76,7 @@ public class Stage1Manager : MonoBehaviour
                 warpPoint.SetActive(true);
                 break;
             case Stage1State.Failed:
-                if (Input.GetKeyDown(KeyCode.S)) // リセットの処理をどうするか考え中
+                if (Input.GetKeyDown(KeyCode.M)) // リセットの処理をどうするか考え中
                 {
                     stageTime = 0.0f;
                     state = Stage1State.Start;
