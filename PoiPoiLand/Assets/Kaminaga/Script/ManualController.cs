@@ -11,16 +11,15 @@ public class ManualController : MonoBehaviour
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Image pageDisplay;
     public int pageNum;
-    [SerializeField] private List<AudioSource> audioSources;
+    [SerializeField] private List<AudioClip> audioClipList;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Dictionary<string, AudioSource> spritesDictionary;
-    private AudioSource clickSe;
     // Start is called before the first frame update
     void Start()
     {
         soundUI.SetActive(false);
         tutorialUI.SetActive(false);
         pageNum = 0;
-        clickSe = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -63,7 +62,8 @@ public class ManualController : MonoBehaviour
 
     public void OnNextPage()
     {
-        if(pageNum < sprites.Count - 1)
+        SoundManager.Instance.PlaySE(audioSource);
+        if (pageNum < sprites.Count - 1)
         {
             pageNum++;
         }
@@ -79,7 +79,9 @@ public class ManualController : MonoBehaviour
 
     public void BackSelect()
     {
-        if(tutorialUI.activeSelf)
+        ChangeSe();
+        SoundManager.Instance.PlaySE(audioSource);
+        if (tutorialUI.activeSelf)
         {
             tutorialUI.SetActive(false);
         }
@@ -91,7 +93,12 @@ public class ManualController : MonoBehaviour
 
     public void GameStart()
     {
-        SoundManager.Instance.PlaySE(clickSe);
+        SoundManager.Instance.PlaySE(audioSource);
         SceneManager.Instance.SceneChange("GameScene");
+    }
+
+    private void ChangeSe()
+    {
+        audioSource.clip = audioClipList[1];
     }
 }

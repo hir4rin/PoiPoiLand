@@ -741,7 +741,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3739,7 +3739,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c9cebe80e561b0b438494d6599f11a51, type: 3}
   pageDisplay: {fileID: 880068426}
   pageNum: 0
-  audioSources: []
+  audioClipList:
+  - {fileID: 8300000, guid: e457577e7a07e334b910564bf8891ddc, type: 3}
+  - {fileID: 8300000, guid: 618185df215b4f849ba8417e1c61bb27, type: 3}
+  - {fileID: 8300000, guid: 0d8485a7a35ac1b438a98916bf57dcdc, type: 3}
+  audioSource: {fileID: 1607109459}
 --- !u!4 &1607109458
 Transform:
   m_ObjectHideFlags: 0
