@@ -17,6 +17,11 @@ public class Stage1EnemyGenerator : MonoBehaviour
     private GameObject enemyPrefab;
     bool isSpawn = false;
     [SerializeField] private GameObject stage1;
+    [SerializeField] private GameObject spawnEffect;
+    private GameObject effectInstance1;
+    private GameObject effectInstance2;
+    private GameObject effectInstance3;
+    private GameObject effectInstance4;
     private Stage1Manager stage1Manager;
     private Stage1State stageState;
     private int waveTimer;
@@ -39,6 +44,10 @@ public class Stage1EnemyGenerator : MonoBehaviour
             waveTimer = 0;
             isSpawn = false;
             wave = Stage1Wave.Wave1;
+            
+            // ↓もしエフェクトが出ていたら消す処理を入れる
+
+
             return;
         }
         else
@@ -53,6 +62,10 @@ public class Stage1EnemyGenerator : MonoBehaviour
 
                         if (!isSpawn) // 初期スポーン
                         {
+                            effectInstance1 = Instantiate(spawnEffect, spawnPoint1.transform.position, Quaternion.identity);
+                            effectInstance2 = Instantiate(spawnEffect, spawnPoint2.transform.position, Quaternion.identity);
+                            effectInstance3 = Instantiate(spawnEffect, spawnPoint3.transform.position, Quaternion.identity);
+                            effectInstance4 = Instantiate(spawnEffect, spawnPoint4.transform.position, Quaternion.identity);
                             SpawnEnemyAll();
                             isSpawn = true;
                         }

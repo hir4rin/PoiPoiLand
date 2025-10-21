@@ -38,7 +38,7 @@ public class Stage1StoneManager : MonoBehaviour
         {
             if (!isFailed)
             {
-                stage1Manager.State = Stage1State.Failed; // こいつのせいでステートがおかしい
+                stage1Manager.State = Stage1State.Failed;
                 isFailed = true;
             }
         }
