@@ -27,7 +27,8 @@ public class RedGostMove : MonoBehaviour
     //ボス追尾時のエフェクト
     [SerializeField] GameObject trackingBossEffect; //effectのプレハブ
     private GameObject currentEffect;   //生成したエフェクトの実態を保持
-
+    private AudioSource audioSource; // SE再生用
+    private bool isPlayedSE;
 
     public bool isDestroyed = false;//破壊されているか
 
@@ -57,6 +58,8 @@ public class RedGostMove : MonoBehaviour
         //_hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         isChasingBoss = false;
         isDestroyed = false;
+        audioSource = GetComponent<AudioSource>();
+        isPlayedSE = false;
     }
 
     // Update is called once per frame
@@ -170,7 +173,11 @@ public class RedGostMove : MonoBehaviour
         {
             isChasingBoss = true;
             Debug.Log("ハンマーに当たったからボスに突撃ー！");
-
+            if(!isPlayedSE) // SE再生
+            {
+                SoundManager.Instance.PlaySE(audioSource);
+                isPlayedSE = true;
+            }
             //自身にエフェクトをまとわせる
             Vector3 effectPos = this.transform.position;
 

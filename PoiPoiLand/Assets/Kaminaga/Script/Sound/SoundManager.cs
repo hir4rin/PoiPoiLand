@@ -27,7 +27,9 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
-        
+        audioMixer.SetFloat("Master", 0.0f);
+        audioMixer.SetFloat("SE", 0.0f);
+        audioMixer.SetFloat("BGM", 0.0f);
     }
 
     // Update is called once per frame

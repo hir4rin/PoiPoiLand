@@ -11,6 +11,7 @@ public class Rabbitmove : MonoBehaviour
     [SerializeField] bool isColHit = false;
     Vector3 Velocity = Vector3.zero;
     [SerializeField] GameObject hitEffect;
+    AudioSource audioSource;
 
     float speed = 1.8f;
 
@@ -24,6 +25,7 @@ public class Rabbitmove : MonoBehaviour
     {
       _RJ = GameObject.Find("RabbitJenerator").GetComponent<RabbitJenerator>();
         _rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -67,6 +69,7 @@ public class Rabbitmove : MonoBehaviour
         {
             if (!isKnockedOver)
             {
+                SoundManager.Instance.PlaySE(audioSource);
                 isKnockedOver = true;
                 _rb.isKinematic = false;//ï®óùóLå¯âª
                 _rb.useGravity = true;

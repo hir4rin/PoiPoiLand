@@ -8,14 +8,14 @@ public class AttackGhost : MonoBehaviour
     [SerializeField] private GameObject RedGhost;//ghostのプレハブ
     public Transform _player;//色違いゴーストに渡す用
     public Transform boss;//色違いゴーストに渡す用
-
+    private AudioSource audioSource;
     //レッドゴーストをボスが出すときのエフェクト
     [SerializeField] GameObject shotRedGhost;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -25,6 +25,7 @@ public class AttackGhost : MonoBehaviour
     }
     public void GhostAttack()
     {
+        SoundManager.Instance.PlaySE(audioSource);
         GameObject ghostobj = Instantiate(RedGhost, transform.position, transform.rotation);
         RedGostMove ghost = ghostobj.GetComponent<RedGostMove>();
         //playerとbossをsetする

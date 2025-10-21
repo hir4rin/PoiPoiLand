@@ -10,6 +10,8 @@ public class Stage1StoneManager : MonoBehaviour
     [SerializeField] private Image hpGauge;
     [SerializeField] private Image burnHpGauge;
     [SerializeField] private GameObject stage1;
+    [SerializeField] private GameObject warpEffect;
+    private GameObject warpEffectInstance;
     private Stage1Manager stage1Manager;
     private Stage1State stage1State;
     private bool isReset;
@@ -65,7 +67,12 @@ public class Stage1StoneManager : MonoBehaviour
             hpGaugeBack.enabled = false;
             hpGauge.enabled = false;
             burnHpGauge.enabled = false;
-            this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f, 1.0f, 0.0f));
+            if (warpEffectInstance == null)
+            {
+                warpEffectInstance = Instantiate(warpEffect, this.transform.position, Quaternion.identity);
+            }
+            // ワープポータルの回転(いらないかもしれない)
+            //this.transform.rotation *= Quaternion.AngleAxis(1.0f, new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
     private void OnTriggerEnter(Collider other)
