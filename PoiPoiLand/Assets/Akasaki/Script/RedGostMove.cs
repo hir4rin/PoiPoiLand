@@ -10,6 +10,7 @@ public class RedGostMove : MonoBehaviour
 
     public Transform playerTransform; //プレイヤーのトランスフォーム
     [SerializeField] float speed = 2; // 敵の動くスピード
+    float vet = 2;//ボスに向かうスピードの倍率
     [SerializeField] float followRange = 2.0f; // 追従距離
     [SerializeField] float floatHeight = 0.5f; //幽霊っぽい縦の挙動
     [SerializeField] float floatSpeed = 2.0f;  //幽霊っぽい動きのスピード
@@ -79,6 +80,7 @@ public class RedGostMove : MonoBehaviour
         
         if (boss == null)
         {
+            Debug.Log("ボスがいなくなりました");
             Destroy(gameObject);
         }
 
@@ -126,7 +128,7 @@ public class RedGostMove : MonoBehaviour
         else if (isChasingBoss)
         {
             Vector3 toBoss = boss.position - transform.position;
-            transform.position += toBoss.normalized * speed * Time.deltaTime * 2;
+            transform.position += toBoss.normalized * speed * vet * Time.deltaTime * 2;
 
         }
      
