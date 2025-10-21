@@ -13,6 +13,7 @@ public class Stage1StoneManager : MonoBehaviour
     private Stage1Manager stage1Manager;
     private Stage1State stage1State;
     private bool isReset;
+    private bool isFailed;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class Stage1StoneManager : MonoBehaviour
         burnHpGauge.fillAmount = stoneHealthPoint / 3.0f;
         stage1Manager = stage1.GetComponent<Stage1Manager>();
         isReset = false;
+        isFailed = false;
     }
 
     // Update is called once per frame
@@ -34,7 +36,11 @@ public class Stage1StoneManager : MonoBehaviour
         }
         if (burnHpGauge.fillAmount <= 0)
         {
-            stage1Manager.State = Stage1State.Failed;
+            if (!isFailed)
+            {
+                stage1Manager.State = Stage1State.Failed; // こいつのせいでステートがおかしい
+                isFailed = true;
+            }
         }
         hpGaugeBack.rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, this.transform.position + new Vector3(0.0f, 2.0f, 0.0f));
 
@@ -43,7 +49,10 @@ public class Stage1StoneManager : MonoBehaviour
             if (isReset)
             {
                 stoneHealthPoint = 3.0f;
+                hpGauge.fillAmount = stoneHealthPoint / 3.0f;
+                burnHpGauge.fillAmount = stoneHealthPoint / 3.0f;
                 isReset = false;
+                isFailed = false;
             }
         }
 

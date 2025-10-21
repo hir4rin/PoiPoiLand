@@ -55,10 +55,10 @@ public class TriggerGhostManager : MonoBehaviour
             {
                 transform.position -= ghostMove;
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                manager.State = Stage1State.Start;
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    manager.State = Stage1State.Start;
+            //}
         }
     }
 
