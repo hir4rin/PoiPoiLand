@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum Stage1State
 {
@@ -20,6 +21,7 @@ public class Stage1Manager : MonoBehaviour
         set { state = value; }
     }
     [SerializeField] private GameObject warpPoint;
+    [SerializeField] private Image timeUI;
     private GameObject player;
     private Player playerScript;
     private bool isWait;

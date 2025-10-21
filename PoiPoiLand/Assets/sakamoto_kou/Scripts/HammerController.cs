@@ -63,6 +63,12 @@ public class HammerController : MonoBehaviour
     //エフェクトが出ているかどうか　
     bool isEffect = false;
 
+    // SE再生用
+    private AudioSource audioSource;
+    // SEリスト
+    // 0: pop音 1: 投げる音 2: ヒット音 3: ヒット音別バージョン
+    [SerializeField] private List<AudioClip> audioClips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +84,7 @@ public class HammerController : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         rb.useGravity = false;
         _hG = GameObject.Find("HammerGenerator").GetComponent<HammerGenerator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -126,6 +133,8 @@ public class HammerController : MonoBehaviour
         //地面に当たったら
         if (collision.gameObject.CompareTag("Ground"))
         {
+            ChangeSE(0); // ポップ音に変更
+            SoundManager.Instance.PlaySE(audioSource);
             //再度pop状態にする
             currentState = HammerState.pop;
         }
@@ -149,6 +158,8 @@ public class HammerController : MonoBehaviour
         {
             if (currentState == HammerState.thrown)
             {
+                ChangeSE(2); // ヒット音に変更 
+                SoundManager.Instance.PlaySE(audioSource);
                 //呼び出し
                 _hG.HammerSpawn(posNum);
                 //破壊する
@@ -295,7 +306,8 @@ public class HammerController : MonoBehaviour
 
         if (!isThrowHammer)
         {
-          
+            ChangeSE(1); // 使う音を投げる音に変更 
+            SoundManager.Instance.PlaySE(audioSource);
         
             this.transform.rotation = throwForward;
             this.transform.SetParent(null);
@@ -311,5 +323,10 @@ public class HammerController : MonoBehaviour
         this.transform.rotation = Quaternion.identity;
         isInclination = true;
        // Debug.Log("リセット");
+    }
+
+    private void ChangeSE(int index)
+    {
+        audioSource.clip = audioClips[index];
     }
 }

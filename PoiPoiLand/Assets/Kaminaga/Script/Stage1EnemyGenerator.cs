@@ -46,7 +46,22 @@ public class Stage1EnemyGenerator : MonoBehaviour
             wave = Stage1Wave.Wave1;
             
             // ↓もしエフェクトが出ていたら消す処理を入れる
-
+            if(effectInstance1 != null)
+            {
+                Destroy(effectInstance1);
+            }
+            if (effectInstance2 != null)
+            {
+                Destroy(effectInstance2);
+            }
+            if (effectInstance3 != null)
+            {
+                Destroy(effectInstance3);
+            }
+            if (effectInstance4 != null)
+            {
+                Destroy(effectInstance4);
+            }
 
             return;
         }

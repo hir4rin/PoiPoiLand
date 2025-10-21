@@ -53,6 +53,13 @@ public class Player : MonoBehaviour
 
     Image fadeImage;//
 
+    // プレイヤーが鳴らす音のリスト 0: ジャンプ音 1: 投げる音 2: 持つ音
+    [SerializeField] private List<AudioClip> _audioClips;
+    // 音再生用AudioSource
+    private AudioSource _audioSource;
+    private bool isPlayThrowSE;
+    private bool isPlayHoldSE;
+
     float fadeDuration = 1.5f;
 
 
@@ -65,7 +72,10 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _checkPoint = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
-
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _audioClips[0];
+        isPlayThrowSE = false;
+        isPlayHoldSE = false;
     }
 
     // Update is called once per frame
@@ -80,6 +90,10 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGround)//ジャンプ
         {
             // Debug.Log("飛んでいます");
+            // ジャンプ音再生
+            ChangeSE(0);
+            SoundManager.Instance.PlaySE(_audioSource);
+
             rb.AddForce(JumpPower, ForceMode.Impulse);
             isGround = false;
             if (_state != PlayerState.Hold)
@@ -115,7 +129,38 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
+        // -------------------------------------
+        // ステート変更時に音を再生する用の処理
+        if (_state == PlayerState.Hold)
+        {
+            if(!isPlayHoldSE)
+            {
+                // 持つ音再生
+                ChangeSE(2);
+                SoundManager.Instance.PlaySE(_audioSource);
+                isPlayHoldSE = true;
+            }
+        }
+        else
+        {
+            isPlayHoldSE = false;
+        }
 
+        if(_state == PlayerState.Throw)
+        {
+            if (!isPlayThrowSE)
+            {
+                // 投げる音再生
+                ChangeSE(1);
+                SoundManager.Instance.PlaySE(_audioSource);
+                isPlayThrowSE = true;
+            }
+        }
+        else
+        {
+            isPlayThrowSE = false;
+        }
+        // -------------------------------------
 
         //if (playerVelocity.magnitude == 0 && _state != PlayerState.Hold)
         //{
@@ -373,5 +418,10 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void ChangeSE(int index)
+    {
+        _audioSource.clip = _audioClips[index];
     }
 }

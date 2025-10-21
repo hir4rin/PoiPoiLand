@@ -17,10 +17,14 @@ public class AttackPos : MonoBehaviour
     [SerializeField] GameObject shotTurtleEffect;   //亀を放ったときのeffect
     [SerializeField] GameObject shotMagicEffect;    //弾を放った時のeffect
 
+    // SE関連
+    [SerializeField] List<AudioClip> audioClips; // 0:魔法弾発射ボイス 1:亀発射ボイス
+    private AudioSource audioSource; // SE再生用
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,6 +39,10 @@ public class AttackPos : MonoBehaviour
     }
     public void MagicAttack()
     {
+        // SE再生処理
+        ChangeSE(0);
+        SoundManager.Instance.PlaySE(audioSource);
+
         GameObject ballobj = Instantiate(magicballPrefab, firePoint.position, firePoint.rotation);
         magicball ball = ballobj.GetComponent<magicball>();
         ball.SetTarget(_player);
@@ -44,6 +52,10 @@ public class AttackPos : MonoBehaviour
     }
     public void TurtleAttack()
     {
+        // SE再生処理
+        ChangeSE(1);
+        SoundManager.Instance.PlaySE(audioSource);
+
         GameObject turtleobj = Instantiate(_gravityTurtle, firePoint.position, firePoint.rotation);
         BowlingNokonokoController turtle = turtleobj.GetComponent<BowlingNokonokoController>();
         turtle.currentState = BowlingNokonokoState.Boss;
@@ -56,5 +68,9 @@ public class AttackPos : MonoBehaviour
 
         //エフェクトを生成
         GameObject effect = Instantiate(shotTurtleEffect, firePoint.position, Quaternion.identity);
+    }
+    private void ChangeSE(int index)
+    {
+        audioSource.clip = audioClips[index];
     }
 }
