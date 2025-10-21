@@ -233,7 +233,13 @@ public class HammerController : MonoBehaviour
             //ポップ中のエフェクト
             if(!isEffect)
             {
-                popEffectInstance = Instantiate(popEffectPrefab, transform.position, Quaternion.identity);
+                Vector3 effectPos = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
+
+                popEffectInstance = Instantiate(
+                                    popEffectPrefab,
+                                    effectPos, 
+                                    Quaternion.identity);
+
                 isEffect = true;
             }
         }

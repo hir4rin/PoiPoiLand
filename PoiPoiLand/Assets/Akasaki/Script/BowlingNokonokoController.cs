@@ -56,7 +56,13 @@ public class BowlingNokonokoController : MonoBehaviour
     Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
     float turtletimer = 0;//亀の滞在時間
     [SerializeField] GoalZone _respawn;//亀のリスポーン用
+    //ポップ中のエフェクト
+    [SerializeField] GameObject popEffectPrefab;
+    GameObject popEffectInstance;
+    //エフェクトが出ているかどうか　
+    bool isEffect = false;
 
+    [SerializeField] GameObject hitBossEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -193,8 +199,10 @@ public class BowlingNokonokoController : MonoBehaviour
             if (currentState == BowlingNokonokoState.NoGraThrow)
             {
                 Destroy(gameObject);
+                //エフェクトを生成
+                GameObject effect = Instantiate(hitBossEffect, boss.transform.position, Quaternion.identity);
+                Destroy(effect, 7f);
             }
-            
         }
     }
 
@@ -244,6 +252,13 @@ public class BowlingNokonokoController : MonoBehaviour
             this.transform.rotation = popInclination;
             isReset = true;
             this.transform.localScale = size;
+
+            //ポップ中のエフェクト
+            if (!isEffect)
+            {
+                popEffectInstance = Instantiate(popEffectPrefab, transform.position, Quaternion.identity);
+                isEffect = true;
+            }
         }
 
         //Debug.Log("Pop中");
@@ -267,6 +282,13 @@ public class BowlingNokonokoController : MonoBehaviour
 
     public void UpdateHold() //掴んでる状態
     {
+        //エフェクトが出現しているならエフェクトを消す
+        if (isEffect)
+        {
+            Destroy(popEffectInstance);
+            isEffect = false;
+        }
+
         //Debug.Log("つかみぎゃん");
         this.transform.SetParent(_player.transform, false);
         this.transform.localPosition = new Vector3(0.5f, 0.2f, 0.5f);
