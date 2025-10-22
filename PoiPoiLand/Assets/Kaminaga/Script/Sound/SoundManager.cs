@@ -117,7 +117,7 @@ public class SoundManager : MonoBehaviour
     {
         source.PlayOneShot(source.clip);
     }
-
+    
     public void ChangeBGMClip(int index)
     {
         AudioClip selectedClip = bgmClipList[index];

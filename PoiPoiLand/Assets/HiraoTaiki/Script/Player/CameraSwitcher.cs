@@ -57,6 +57,10 @@ public class CameraSwitcher : MonoBehaviour
             }
             
         }
+        else if(PlayerPrefs.GetInt("PointNum") == 5)
+        {
+            cameraRotate.SetPriority(10);
+        }
 
         if (_isGameStart && PlayerPrefs.GetInt("PointNum") == 0)
         {
@@ -146,7 +150,7 @@ public class CameraSwitcher : MonoBehaviour
         _secondBehind.Priority = 10;
         _secondSide.Priority = 10;
         _stage2Cam.Priority = 10;
-        _stage3Cam.Priority = 10;
+        //_stage3Cam.Priority = 10;
     }
 
     private void LookGoal()

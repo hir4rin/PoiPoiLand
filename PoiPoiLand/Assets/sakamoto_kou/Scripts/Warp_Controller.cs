@@ -52,6 +52,11 @@ public class Warp_Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha4))
         {
             PlayerPrefs.SetInt("PointNum", 4);
+            if (!isMovieStart)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
+                isMovieStart = true;
+            }
             Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha5))
@@ -80,6 +85,8 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("case0");
                     break;
                 case 1:
+                    SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
+                    SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
                     player.transform.position = warpToMapFirst;
                     PlayerPrefs.SetInt("PointNum", 2);
                     Debug.Log("case1");
@@ -96,6 +103,8 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("case2");
                     break;
                 case 3:
+                    SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
+                    SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
                     player.transform.position = warpToMapSecond;
                     PlayerPrefs.SetInt("PointNum", 4);
                     Debug.Log("case3");
@@ -103,6 +112,7 @@ public class Warp_Controller : MonoBehaviour
                 case 4:
                     if (!isMovieStart)
                     {
+                        // ここでmovie用の音に変更したい
                         UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
                         isMovieStart = true;
                     }
@@ -116,6 +126,8 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("case5");
                     break;
                 case 6:
+                    SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
+                    SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
                     player.transform.position = warpToMapThird;
                     Debug.Log("case6");
                     break;

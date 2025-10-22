@@ -28,6 +28,7 @@ public class Stage1Manager : MonoBehaviour
     private GameObject player;
     private Player playerScript;
     private bool isWait;
+    private bool isClear;
     private float stageTime;
     public int enemyNum;
 
@@ -42,6 +43,7 @@ public class Stage1Manager : MonoBehaviour
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<Player>();
         isWait = false;
+        isClear = false;
         stageTime = 0;
         enemyNum = 0;
     }
@@ -86,12 +88,18 @@ public class Stage1Manager : MonoBehaviour
                 }
                 break;
             case Stage1State.Cleared:
-                warpPoint.SetActive(true);
-                uiManager.FadeInImage(1, 2.0f); // ステージクリアUIをフェードイン
+                if (!isClear)
+                {
+                    warpPoint.SetActive(true);
+                    uiManager.SetGameSceneUI(1, true); // ステージクリアUIを表示
+                    uiManager.FadeInImage(1, 2.0f); // ステージクリアUIをフェードイン
+                    isClear = true;
+                }
                 if (PlayerPrefs.GetInt("PointNum") >= 2) // クリア状態からワープした後にUIを消す
                 {
                     uiManager.FadeOutImage(1, 2.0f);
                     stage1UI.SetActive(false);
+                    state = Stage1State.Idle;
                 }
                 break;
             case Stage1State.Failed:

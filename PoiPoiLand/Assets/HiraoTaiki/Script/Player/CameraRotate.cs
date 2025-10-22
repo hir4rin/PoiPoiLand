@@ -30,4 +30,9 @@ public class CameraRotate : MonoBehaviour
             IsOpened = true;
         }
     }
+
+    public void SetPriority(int priority)
+    {
+        introCam.Priority = priority;
+    }
 }

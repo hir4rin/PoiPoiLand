@@ -195,7 +195,7 @@ public class RedGostMove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // ★既に破壊されている場合は何もしない
-        if (isDestroyed) return;
+        //if (isDestroyed) return;
         //if (other.CompareTag("Hammer"))//ハンマーのタグが投げるだったら
         //{
         //    HammerHit(other);
@@ -204,7 +204,7 @@ public class RedGostMove : MonoBehaviour
         {
             if (isChasingBoss)
             {
-              //  Debug.Log("ボスに当たったら消える");
+                Debug.Log("ボスに当たったら消える");
                 DestroyGhost();
             }
             

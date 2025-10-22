@@ -7,6 +7,8 @@ public class GoalZone : MonoBehaviour
     [SerializeField] RabbitJenerator _RJ;
     [SerializeField] TurtleJenerator _TJ;
     [SerializeField] GameObject _warp2;
+    [SerializeField] GameObject _UIObj;
+    private UIManager _UIManager;
 
     public bool isNext = false;
     float timer = 0;
@@ -14,6 +16,7 @@ public class GoalZone : MonoBehaviour
     void Start()
     {
         _warp2.SetActive(false);
+        _UIManager = _UIObj.GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -55,6 +58,9 @@ public class GoalZone : MonoBehaviour
             {
                 //ワープの出現]
                 _warp2.SetActive(true);
+                _UIManager.FadeOutImage(3, 0.50f);
+                _UIManager.SetGameSceneUI(1, true); // クリアUI表示
+                _UIManager.FadeInImage(1, 2.0f);
                 if (_RJ.rabbitCount == 10)
                 {
                     //パーフェクトのえんしゅつなり音なり

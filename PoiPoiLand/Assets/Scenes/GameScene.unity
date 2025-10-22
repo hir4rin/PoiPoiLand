@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2fb1741660847246a9b095fbce8d321, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2628bdf3cf48b541b681cd875f5d8fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7045,6 +7045,7 @@ MonoBehaviour:
   _stage1: {fileID: 215604610}
   _stage2: {fileID: 1030720799}
   _stage3: {fileID: 568244089}
+  _uiObj: {fileID: 1834464716}
 --- !u!4 &706666916
 Transform:
   m_ObjectHideFlags: 0
@@ -7927,7 +7928,7 @@ RectTransform:
   m_GameObject: {fileID: 775535205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 212195402}
@@ -9047,7 +9048,7 @@ RectTransform:
   m_GameObject: {fileID: 933926807}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 969498255}
@@ -9212,7 +9213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940619698}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.030193679, y: -0.6724447, z: 0.027473617, w: 0.7390208}
+  m_LocalRotation: {x: 0.03019368, y: -0.6724447, z: 0.027473623, w: 0.7390208}
   m_LocalPosition: {x: 6.5300217, y: 28.559998, z: 0.099999905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10849,6 +10850,7 @@ MonoBehaviour:
   _RJ: {fileID: 1494413065}
   _TJ: {fileID: 1563652447}
   _warp2: {fileID: 756235709}
+  _UIObj: {fileID: 1834464716}
   isNext: 0
 --- !u!65 &1104060275
 BoxCollider:
@@ -12387,7 +12389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259744674}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.030193679, y: -0.6724447, z: 0.027473617, w: 0.7390208}
+  m_LocalRotation: {x: 0.03019368, y: -0.6724447, z: 0.027473623, w: 0.7390208}
   m_LocalPosition: {x: -186.40952, y: -63.705383, z: 6.4783645}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12909,6 +12911,7 @@ MonoBehaviour:
   _RJ: {fileID: 1494413065}
   _TJ: {fileID: 1563652447}
   _warp2: {fileID: 756235709}
+  _UIObj: {fileID: 1834464716}
   isNext: 0
 --- !u!65 &1327423449
 BoxCollider:
@@ -16915,7 +16918,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 20
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 1816748844}
   m_Follow: {fileID: 1816748844}
@@ -21165,7 +21168,7 @@ RectTransform:
   m_GameObject: {fileID: 1986399457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 359622332}
