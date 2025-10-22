@@ -59,5 +59,13 @@ public class StageManager : MonoBehaviour
             }
             _stage3.SetActive(true);
         }
+        if(PlayerPrefs.GetInt("PointNum") == 6)
+        {
+            if (_isStage3Active)
+            {
+                _UIManager.FadeOutImage(1, 2.0f);
+                _isStage3Active = false;
+            }
+        }
     }
 }

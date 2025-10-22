@@ -12,6 +12,9 @@ public class BossHp : MonoBehaviour
 
     [SerializeField] GameObject _warp3;//クリア条件
     [SerializeField] Boss _boss;//boss
+    [SerializeField] GameObject _UIManagerObj; // UI管理用
+    UIManager _UIManager; // UI管理用
+    private bool isUISet; // ゲームクリアのUI表示フラグ
 
     public bool isDieBoss;
 
@@ -20,6 +23,8 @@ public class BossHp : MonoBehaviour
     {
         currentHp = maxHp;
         _warp3.SetActive(false);
+        _UIManager = _UIManagerObj.GetComponent<UIManager>();
+        isUISet = false;
     }
 
     // Update is called once per frame
@@ -54,6 +59,13 @@ public class BossHp : MonoBehaviour
     public void Die()
     {
         _warp3.SetActive(true);
+        if (!isUISet)
+        {
+            _UIManager.FadeOutImage(4, 3.0f); // すでに出ているUIをフェードアウト
+            _UIManager.SetGameSceneUI(1, true);
+            _UIManager.FadeInImage(1, 2.0f);
+            isUISet = true;
+        }
         Debug.Log("Boss Defeated");
         //ボス死亡処理
         _boss.StartShrink();
