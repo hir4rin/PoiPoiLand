@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9008289143883137497, guid: 9f740f1f8d30c544f96f19c6289c984d, type: 3}
       propertyPath: m_Name
-      value: dolphin Variant 1
+      value: dolphin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77,3 +77,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2774804d9426f2b4e90be33ef5e236ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interval: 6
+  DolphinEffect: {fileID: 4033412786151888123, guid: 49057b33ea71fbb4da4e8f02a8db9f28, type: 3}

@@ -24081,7 +24081,7 @@ GameObject:
   - component: {fileID: 3806039598199004522}
   - component: {fileID: 3806039598199004523}
   m_Layer: 0
-  m_Name: FX_Fire_03_2
+  m_Name: MagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

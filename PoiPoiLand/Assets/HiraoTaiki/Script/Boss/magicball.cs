@@ -106,8 +106,13 @@ public class magicball : MonoBehaviour
             Debug.Log("“–‚½‚Á‚½");
             Destroy(this.gameObject);
         }
-
     }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            //Destroy(this.gameObject);
+        }
+    }
 }

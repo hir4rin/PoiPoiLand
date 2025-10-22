@@ -10,19 +10,11 @@ public class DolphinController : MonoBehaviour
     private float offset;           // 個体ごとのズレ
     private bool lastState = false;
 
-    //イルカのエフェクト
-    [SerializeField] GameObject DolphinEffect;
-
     void Start()
     {
         m_animator = GetComponent<Animator>();
         m_animTime = 0.0f;
         offset = Random.Range(0f,interval);//開始タイミングをランダムにずらす
-
-        //エフェクトをまとわせる
-        GameObject effect = Instantiate(DolphinEffect, this.transform.position, Quaternion.identity);
-        //effectをゴーストの子オブジェクトにする
-        effect.transform.SetParent(transform);
     }
 
     // Update is called once per frame
