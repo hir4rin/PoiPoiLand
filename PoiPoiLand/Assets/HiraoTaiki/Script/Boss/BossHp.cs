@@ -11,6 +11,7 @@ public class BossHp : MonoBehaviour
     public Image hpBar;
 
     [SerializeField] GameObject _warp3;//クリア条件
+    [SerializeField] Boss _boss;//boss
 
     public bool isDieBoss;
 
@@ -55,7 +56,7 @@ public class BossHp : MonoBehaviour
         _warp3.SetActive(true);
         Debug.Log("Boss Defeated");
         //ボス死亡処理
-       Destroy(gameObject);
+        _boss.StartShrink();
 
     }
 }

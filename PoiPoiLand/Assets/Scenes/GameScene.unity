@@ -18576,7 +18576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785984772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19134533, y: 0.68345124, z: -0.19302244, w: 0.67751294}
+  m_LocalRotation: {x: 0.19134532, y: 0.68345124, z: -0.19302247, w: 0.6775129}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20807,6 +20807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 1865270755}
   _warp3: {fileID: 744952359}
+  _boss: {fileID: 1951705302}
   isDieBoss: 0
 --- !u!65 &1951705300
 BoxCollider:
