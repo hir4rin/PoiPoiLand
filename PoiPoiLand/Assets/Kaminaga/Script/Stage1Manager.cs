@@ -21,7 +21,8 @@ public class Stage1Manager : MonoBehaviour
         set { state = value; }
     }
     [SerializeField] private GameObject warpPoint;
-    [SerializeField] private Image timeUI;
+    [SerializeField] private GameObject stage1UI;
+    [SerializeField] private GameObject startUI;
     private GameObject player;
     private Player playerScript;
     private bool isWait;
@@ -33,6 +34,8 @@ public class Stage1Manager : MonoBehaviour
     {
         state = Stage1State.Idle;
         warpPoint.SetActive(false);
+        stage1UI.SetActive(false);
+        startUI.SetActive(false);
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<Player>();
         isWait = false;
@@ -53,6 +56,7 @@ public class Stage1Manager : MonoBehaviour
         {
             if (!isWait)
             {
+                stage1UI.SetActive(true);
                 state = Stage1State.Wait;
                 isWait = true;
             }
@@ -67,6 +71,7 @@ public class Stage1Manager : MonoBehaviour
 
                 break;
             case Stage1State.Start:
+                startUI.SetActive(true);
                 stageTime += Time.deltaTime;
                 Debug.Log("ステージの経過時間は" + stageTime.ToString());
                 if (stageTime > 30.0f)
@@ -76,6 +81,10 @@ public class Stage1Manager : MonoBehaviour
                 break;
             case Stage1State.Cleared:
                 warpPoint.SetActive(true);
+                if(PlayerPrefs.GetInt("PointNum") >= 2) // クリア状態からワープした後にUIを消す
+                {
+                    stage1UI.SetActive(false);
+                }
                 break;
             case Stage1State.Failed:
                 if (Input.GetKeyDown(KeyCode.M)) // リセットの処理をどうするか考え中
