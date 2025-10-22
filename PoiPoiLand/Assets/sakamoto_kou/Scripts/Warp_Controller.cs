@@ -17,11 +17,13 @@ public class Warp_Controller : MonoBehaviour
     public Vector3 warpToMapThird = new Vector3(-65.5f, 15.8f, -3.5f);//ステージ3から帰ってくる
 
     private bool isMovieStart;
+    private bool isBGMChange;
 
     // Start is called before the first frame update
     void Start()
     {
         isMovieStart = false;
+        isBGMChange = false;
     }
 
     // Update is called once per frame
@@ -55,11 +57,6 @@ public class Warp_Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha5))
         {
             PlayerPrefs.SetInt("PointNum", 5);
-            if (!isMovieStart)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
-                isMovieStart = true;
-            }
             Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha6))
@@ -88,6 +85,12 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("case1");
                     break;
                 case 2:
+                    if(!isBGMChange)
+                    {
+                        SoundManager.Instance.ChangeBGMClip(3); // ステージ2のBGMに変更
+                        SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
+                        isBGMChange = true;
+                    }
                     player.transform.position = warpToSecondStage;
                     PlayerPrefs.SetInt("PointNum", 3);
                     Debug.Log("case2");
@@ -98,6 +101,11 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("case3");
                     break;
                 case 4:
+                    if (!isMovieStart)
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
+                        isMovieStart = true;
+                    }
                     player.transform.position = warpToThirdStage;
                     PlayerPrefs.SetInt("PointNum", 5);
                     Debug.Log("case4");

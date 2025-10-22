@@ -93,7 +93,12 @@ public class ManualController : MonoBehaviour
 
     public void GameStart()
     {
+        //セーブデータを保存する処理
+        PlayerPrefs.SetInt("PointNum", 0);
+        PlayerPrefs.Save();
         SoundManager.Instance.PlaySE(audioSource);
+        SoundManager.Instance.ChangeBGMClip(1);
+        SoundManager.Instance.PlayBGMWithCrossFade(3.0f);
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 

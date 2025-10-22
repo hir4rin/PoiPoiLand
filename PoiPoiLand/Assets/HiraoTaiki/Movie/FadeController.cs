@@ -41,4 +41,11 @@ public class FadeController : MonoBehaviour
         }
         fadeCanvasGroup.alpha = 1;
     }
+
+    public void SceneChange()
+    {
+        SoundManager.Instance.ChangeBGMClip(4); // ステージ3のBGMに変更
+        SoundManager.Instance.PlayBGMWithCrossFade(4.0f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+    }
 }

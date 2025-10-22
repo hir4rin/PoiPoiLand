@@ -92,6 +92,8 @@ public class movieManager : MonoBehaviour
             if (fadetimer > 1)
             {
                 StartCoroutine(fadeController.FadeOut());
+                fadeController.SceneChange();
+                _fade = false;
             }
         }
         Debug.Log("現在のアニメステート: " + stateInfo2.IsName("anim_Mimic_BattleStand"));
