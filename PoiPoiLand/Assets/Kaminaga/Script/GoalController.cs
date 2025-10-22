@@ -9,6 +9,8 @@ public class GoalController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("ゴール");
+            SoundManager.Instance.ChangeBGMClip(4); // ゲームクリアのBGMに変更
+            SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
             // ゴールしたらクリア画面に遷移
             UnityEngine.SceneManagement.SceneManager.LoadScene("ClearScene");
         }

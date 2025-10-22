@@ -4094,6 +4094,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 8e4ced71b8f5ac64ebbc4b885845bba6, type: 2}
+  currentBGMSource: {fileID: 0}
+  nextBGMSource: {fileID: 0}
+  bgmClipList: []
 --- !u!4 &1689103972
 Transform:
   m_ObjectHideFlags: 0

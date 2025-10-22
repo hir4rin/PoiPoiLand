@@ -13,6 +13,9 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _stage2Cam;
     [SerializeField] private CinemachineFreeLook _stage3Cam;
     [SerializeField] private CameraRotate cameraRotate;
+    [SerializeField] private GameObject _UIManager;
+    private UIManager _uiManager; // 0î‘ÇÃUIÇëÄçÏÇ∑ÇÈóp
+
     private bool _isGameStart;
     private int _goalLookCount;
     //public CinemachineFreeLook currentCamera;
@@ -24,6 +27,7 @@ public class CameraSwitcher : MonoBehaviour
         ResetPriority();
         _isGameStart = false;
         _goalLookCount = 0;
+        _uiManager = _UIManager.GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -31,18 +35,30 @@ public class CameraSwitcher : MonoBehaviour
     {
         if (cameraRotate.IsOpened)
         {
-            if (!_isGameStart)
+            if (!_isGameStart && PlayerPrefs.GetInt("PointNum") == 0)
             {
                 LookGoal();
+                if(_goalLookCount == 0)
+                {
+                    _uiManager.SetGameSceneUI(0, true);
+                    _uiManager.FadeInImage(0, 1.0f);
+                }
                 _goalLookCount++;
             }
-            if(_goalLookCount == 250)
+            else
             {
                 _isGameStart = true;
             }
+
+            if (_goalLookCount == 250)
+            {
+                _uiManager.FadeOutImage(0, 1.0f);
+                _isGameStart = true;
+            }
+            
         }
 
-        if (_isGameStart)
+        if (_isGameStart && PlayerPrefs.GetInt("PointNum") == 0)
         {
             Debug.Log("ïœÇÌÇ¡ÇΩ");
             goalCam.Priority = 10;
