@@ -94,7 +94,7 @@ public class ManualController : MonoBehaviour
     public void GameStart()
     {
         SoundManager.Instance.PlaySE(audioSource);
-        SceneManager.Instance.SceneChange("GameScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 
     private void ChangeSe()

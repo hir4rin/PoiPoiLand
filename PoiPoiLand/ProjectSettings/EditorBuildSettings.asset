@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ClearScene.unity
     guid: 66473e6a124aadb4aaee25000e8265a8
+  - enabled: 1
+    path: Assets/HiraoTaiki/Movie/BossMovieScene.unity
+    guid: 5b45336a96bdb1b438de03e258cf49e1
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: b4841364e2bb1d04cb48f195b7510ec3, type: 2}
