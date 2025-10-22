@@ -70,6 +70,9 @@ public class Boss : MonoBehaviour
 
     //bossのアニメーション用
     public BossFakeMove _mimic;
+    float shrinkSpeed = 1f; // 小さくなる速さ
+    float rotateSpeed = 180f;
+    bool isShrinking = false;
     //bossのHP管理
     [SerializeField] BossHp _hp;
 
@@ -165,6 +168,18 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
+        if (isShrinking)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * shrinkSpeed);
+            // 回転
+            transform.Rotate(new Vector3(0,0,1) * rotateSpeed * Time.deltaTime);
+            // ある程度小さくなったら削除
+            if (transform.localScale.magnitude < 0.2f)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
     private void FixedUpdate()
     {
@@ -340,48 +355,11 @@ public class Boss : MonoBehaviour
 
         }
     }
-    //public void OnTriggerEnter(Collider other)
-    //{
-    //    //ハンマーをあてられた場合
-    //    if (other.CompareTag("Hammer"))
-    //    {
-    //        _hammer = other.GetComponent<HammerController>();
-    //        if (_hammer.currentState == HammerState.thrown)
-    //        {
-    //            //ヒット喰らい処理
-
-    //            //ダメージ処理
-    //            _hp.TakeDamage(100);
-    //        }
-            
-
-    //    }
-    //    //ボーリングのこのこをあてられた場合
-    //    else if (other.CompareTag("Bowling"))
-    //    {
-    //        _bowling = other.GetComponent<BowlingNokonokoController>();
-    //        if (_bowling.currentState == BowlingNokonokoState.NoGraThrow)
-    //        {
-    //            //ヒット喰らい処理
-    //            Debug.Log("亀");
-    //            //ダメージ処理
-    //            _hp.TakeDamage(1500);
-    //        }
-            
-    //    }
-    //    else if (other.CompareTag("RedGhost"))
-    //    {
-    //        _redGhost = other.GetComponent<RedGostMove>();
-    //        if (_redGhost.isChasingBoss)
-    //        {
-    //            //ヒット喰らい処理
-
-    //            //ダメージ処理
-    //            _hp.TakeDamage(1000);
-    //        }
-    //    }
-        
-    //}
+   
+    public void StartShrink()
+    {
+        isShrinking = true;
+    }
     //繋げ用
     public void SetHammer(HammerController hammer)
     {
