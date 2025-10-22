@@ -16,11 +16,12 @@ public class Warp_Controller : MonoBehaviour
     public Vector3 warpToThirdStage = new Vector3(225.0f, 4.0f, -4.0f);//ステージ3移動
     public Vector3 warpToMapThird = new Vector3(-65.5f, 15.8f, -3.5f);//ステージ3から帰ってくる
 
+    private bool isMovieStart;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        isMovieStart = false;
     }
 
     // Update is called once per frame
@@ -54,6 +55,11 @@ public class Warp_Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha5))
         {
             PlayerPrefs.SetInt("PointNum", 5);
+            if (!isMovieStart)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
+                isMovieStart = true;
+            }
             Debug.Log("現在のcheckは" + PlayerPrefs.GetInt("PointNum"));
         }
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Alpha6))
