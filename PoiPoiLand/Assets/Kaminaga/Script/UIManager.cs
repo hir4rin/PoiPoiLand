@@ -11,8 +11,12 @@ public class UIManager : MonoBehaviour
     // UIの透明度とかをいじる用
     //private Dictionary<string, Image> uiImageDictionary;
 
+    // Imageの拡大縮小処理用
+    private Coroutine scaleCoroutine;
+
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -63,6 +67,10 @@ public class UIManager : MonoBehaviour
     /// <param name="duration">フェード時間</param>
     public void FadeOutImage(int index, float duration)
     {
+        if(scaleCoroutine != null)
+        {
+            StopCoroutine(scaleCoroutine);
+        }
         StartCoroutine(FadeOutCoroutine(index, duration));
     }
 
@@ -109,4 +117,37 @@ public class UIManager : MonoBehaviour
         uiImage.rectTransform.localScale += new Vector3(1.2f, 1.2f, 1.0f);
     }
 
+    public void ScaleAnimationImage(int index, float minScale, float maxScale, float speed)
+    {
+        if(scaleCoroutine != null)
+        {
+            StopCoroutine(scaleCoroutine);
+        }
+        scaleCoroutine = StartCoroutine(ScaleAnimationImageCoroutine(index, minScale, maxScale, speed));
+    }
+
+    /// <summary>
+    /// 画像の拡大縮小のループを行う処理
+    /// </summary>
+    /// <param name="index">画像番号</param>
+    /// <param name="minScale">最小サイズ</param>
+    /// <param name="maxScale">最大サイズ</param>
+    /// <param name="speed">ループの速さ</param>
+    /// <returns></returns>
+    private IEnumerator ScaleAnimationImageCoroutine(int index, float minScale, float maxScale, float speed)
+    {
+        // 画像の大きさを取得
+        RectTransform uiRectTransform = gameSceneUIList[index].GetComponentInChildren<RectTransform>();
+        // ループ計測用の時間を取得
+        float time = 0.0f;
+
+        while(true)
+        {
+            time += Time.deltaTime * speed; // 拡大縮小の時間を経過させる
+            float t = (Mathf.Sin(time) + 1.0f) / 2.0f; // 値が0.0f~1.0fを繰り返す処理
+            float scale = Mathf.Lerp(minScale, maxScale, t); // 0.0~1.0で補完
+            uiRectTransform.localScale = new Vector3(scale, scale, 1.0f); // 拡大縮小(zは必要ないので固定)
+            yield return null;
+        }
+    }
 }

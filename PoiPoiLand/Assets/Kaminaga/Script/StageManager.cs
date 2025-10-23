@@ -52,9 +52,9 @@ public class StageManager : MonoBehaviour
         {
             if (!_isStage3Active)
             {
-                _UIManager.SetGameSceneUI(4, true);
+                _UIManager.SetGameSceneUI(4, true); // ƒ{ƒX‚ğ‚½‚¨‚»‚¤‚ğƒZƒbƒg
                 _UIManager.FrameInFromRight(4, 1.0f);
-                // _UIManager.MoveUI(4, 1.0f); // ˆê’èŠÔŠu‚ÅŠg‘åk¬‚·‚é“®‚«‚ğ‚µ‚½‚¢
+                _UIManager.ScaleAnimationImage(4, 1.0f, 1.5f, 14.0f); // ‰æ‘œ‚ÌŠg‘åk¬‚ğs‚¤ˆ—(‚Ç‚±‚©‚Å~‚ß‚È‚¯‚ê‚Î‚È‚ç‚È‚¢)
                 _isStage3Active = true;
             }
             _stage3.SetActive(true);
