@@ -32,6 +32,7 @@ public class Stage1Manager : MonoBehaviour
     private bool isClear;
     private float stageTime;
     public int enemyNum;
+    const float maxStageTime = 60.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -80,10 +81,15 @@ public class Stage1Manager : MonoBehaviour
 
                 break;
             case Stage1State.Start:
-                startUI.SetActive(true);
+                if(!startUI.activeSelf)
+                {
+                    uiManager.SetGameSceneUI(2, false); // ステージ開始前UIを非表示
+                    startUI.SetActive(true);
+                }
                 stageTime += Time.deltaTime;
                 Debug.Log("ステージの経過時間は" + stageTime.ToString());
-                if (stageTime > 30.0f)
+                timeGauge.fillAmount = 1.0f - stageTime / maxStageTime;
+                if (stageTime > maxStageTime)
                 {
                     state = Stage1State.Cleared;
                 }
