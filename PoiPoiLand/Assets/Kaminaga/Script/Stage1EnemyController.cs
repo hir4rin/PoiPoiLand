@@ -14,6 +14,7 @@ public class Stage1EnemyController : MonoBehaviour
     private Vector3 pos; // 現在位置
     public float speed;
     private bool isSoundPlayed;
+    private HammerController hammerController; // ハンマーの情報取得用
 
     void Start()
     {
@@ -59,8 +60,12 @@ public class Stage1EnemyController : MonoBehaviour
         }
         if(other.gameObject.tag == "Hammer")
         {
-            stage1Manager.enemyNum--;
-            Destroy(this.gameObject);
+            hammerController = other.GetComponent<HammerController>();
+            if(hammerController.currentState == HammerState.thrown)
+            {
+                stage1Manager.enemyNum--;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
