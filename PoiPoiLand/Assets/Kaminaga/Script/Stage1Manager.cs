@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public enum Stage1State
 {
@@ -24,6 +24,7 @@ public class Stage1Manager : MonoBehaviour
     [SerializeField] private GameObject stage1UI;
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject uiObj;
+    [SerializeField] private Image timeGauge;
     private UIManager uiManager;
     private GameObject player;
     private Player playerScript;
