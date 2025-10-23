@@ -10224,6 +10224,7 @@ MonoBehaviour:
   _stage3Cam: {fileID: 1618265078}
   cameraRotate: {fileID: 1259744675}
   _UIManager: {fileID: 1834464716}
+  _isGameStart: 0
 --- !u!4 &1009218786
 Transform:
   m_ObjectHideFlags: 0
@@ -13966,6 +13967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc5dcda930b95d44a6599e9fe80504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalEffect: {fileID: 339158821923109191, guid: 108ca465382c11742bd2c91fe4fdb13f, type: 3}
+  cameraObj: {fileID: 1009218784}
 --- !u!1 &1369677452
 GameObject:
   m_ObjectHideFlags: 3
@@ -18579,7 +18582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785984772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19134533, y: 0.6834512, z: -0.19302243, w: 0.67751294}
+  m_LocalRotation: {x: 0.19134533, y: 0.68345124, z: -0.19302244, w: 0.67751294}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
