@@ -9,6 +9,7 @@ public class RedGostMove : MonoBehaviour
     Vector3 pos; //更新された位置
 
     public Transform playerTransform; //プレイヤーのトランスフォーム
+    Player _player;
     [SerializeField] float speed = 2; // 敵の動くスピード
     float vet = 2;//ボスに向かうスピードの倍率
     [SerializeField] float followRange = 2.0f; // 追従距離
@@ -36,6 +37,7 @@ public class RedGostMove : MonoBehaviour
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.Find("Player").GetComponent<Player>();
         //  basePos = transform.position;//Gostの初期位置
         if (playerTransform == null)
         {
@@ -115,6 +117,10 @@ public class RedGostMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_player.isMovie)
+        {
+            Destroy(gameObject);
+        }
         // ★破壊フラグチェック
         if (isDestroyed) return;
 

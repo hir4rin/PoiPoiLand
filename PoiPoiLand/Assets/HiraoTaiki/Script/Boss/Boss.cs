@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
 
     //ÉvÉåÉCÉÑÅ[
     public Transform _player;
-
+    public Player _player2;
 
 
 
@@ -108,7 +108,8 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log($"_player2: {_player2}, isMovie: {_player2.isMovie}");
+        if (_player2.isMovie) return; 
 
         if (!isRush)
         {

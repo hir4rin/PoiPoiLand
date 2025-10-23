@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 4265054581101238715}
   m_Layer: 0
   m_Name: HitBox
-  m_TagString: HitRedGhost
+  m_TagString: Hit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

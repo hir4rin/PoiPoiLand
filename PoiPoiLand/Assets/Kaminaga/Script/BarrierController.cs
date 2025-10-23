@@ -23,7 +23,7 @@ public class BarrierController : MonoBehaviour
         if (PlayerPrefs.GetInt("PointNum") >= 5)
         {
             Baria[1].gameObject.SetActive(false);
-            Debug.Log("aaaaa");
+          //  Debug.Log("aaaaa");
         }
         
 

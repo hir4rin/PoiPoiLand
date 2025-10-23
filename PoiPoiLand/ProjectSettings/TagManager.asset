@@ -16,6 +16,7 @@ TagManager:
   - HitBoss
   - HitRedGhost
   - Warp
+  - Hit
   layers:
   - Default
   - TransparentFX

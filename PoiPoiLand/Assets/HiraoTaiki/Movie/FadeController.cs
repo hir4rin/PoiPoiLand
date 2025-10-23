@@ -40,6 +40,7 @@ public class FadeController : MonoBehaviour
             yield return null;
         }
         fadeCanvasGroup.alpha = 1;
+        SceneChange();
     }
 
     public void SceneChange()

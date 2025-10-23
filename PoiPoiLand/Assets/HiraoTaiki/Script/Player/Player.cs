@@ -51,7 +51,9 @@ public class Player : MonoBehaviour
 
     Warp_Controller _checkPoint;
 
-    Image fadeImage;//
+    public Image fadeImage;//
+
+    public bool isMovie = false;
 
     // プレイヤーが鳴らす音のリスト 0: ジャンプ音 1: 投げる音 2: 持つ音
     [SerializeField] private List<AudioClip> _audioClips;
@@ -60,7 +62,8 @@ public class Player : MonoBehaviour
     private bool isPlayThrowSE;
     private bool isPlayHoldSE;
 
-    float fadeDuration = 1.5f;
+    float fadeDuration = 2f;
+    BowlingNokonokoController _bowling = null;//のこのこボーリング
 
 
     //最初のプレイヤーの状態
@@ -76,15 +79,20 @@ public class Player : MonoBehaviour
         _audioSource.clip = _audioClips[0];
         isPlayThrowSE = false;
         isPlayHoldSE = false;
+        Death();
+
+        if (fadeImage != null)
+        {
+            Color c = fadeImage.color;
+            c.a = 0f;
+            fadeImage.color = c;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-             Debug.Log($"_stateは{_state}です");
-        }
+        
 
 
         if (Input.GetButtonDown("Jump") && isGround)//ジャンプ
@@ -168,7 +176,8 @@ public class Player : MonoBehaviour
         //}
 
         playerVelocity = Vector3.zero;
-        
+       // Debug.Log(isMovie);
+        if (isMovie) return;
         if (!isGround)
         {
             transform.position += velocity * 2;//常にかかっている速度
@@ -337,29 +346,53 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-
+        if (isMovie) return;
         //死ぬアニメーションとフェード
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (other.CompareTag("Hit"))
         {
+            isMovie = true;
             _animator.SetTrigger("TriggerDie");
             StartCoroutine(DieSequence());
         }
+        //if (other.CompareTag("Enemy"))
+        //{
+        //    isMovie = true;
+        //    _animator.SetTrigger("TriggerDie");
+        //    StartCoroutine(DieSequence());
+        //}
+        if (other.CompareTag("Bowling"))
+        {
+
+            _bowling = other.GetComponent<BowlingNokonokoController>();
+            if (_bowling.currentState == BowlingNokonokoState.Boss)
+            {
+                isMovie = true;
+                _animator.SetTrigger("TriggerDie");
+                StartCoroutine(DieSequence());
+            }
+        }
+
 
     }
     private IEnumerator DieSequence()
     {
         Debug.Log("イーなむれーた");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut());
 
-
+        yield return new WaitForSeconds(1.3f);
         Death();
-
+       
         yield return StartCoroutine(FadeIn());
+        isMovie = false;
     }
+    //private IEnumerator DieSequence2()
+    //{
+        
+    //}
 
     private IEnumerator FadeOut()
     {
@@ -376,13 +409,15 @@ public class Player : MonoBehaviour
     }
     private IEnumerator FadeIn()
     {
+
+        Debug.Log("フェードイン中");
         float elapsed = 0f;
         Color c = fadeImage.color;
 
-        while (elapsed < fadeDuration)
+        while (elapsed < fadeDuration * 0.5f)
         {
             elapsed += Time.deltaTime;
-            c.a = 1f - Mathf.Clamp01(elapsed / fadeDuration); // 黒→透明
+            c.a = 1f - Mathf.Clamp01(elapsed / (fadeDuration *0.5f)); // 黒→透明
             fadeImage.color = c;
             yield return null;
         }
