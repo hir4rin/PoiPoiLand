@@ -66,6 +66,9 @@ public class Player : MonoBehaviour
     //最初のプレイヤーの状態
     public PlayerState _state = PlayerState.Idle;
 
+    //アイテムを持ったときのエフェクト
+    [SerializeField] GameObject haveItemEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,6 +142,9 @@ public class Player : MonoBehaviour
                 ChangeSE(2);
                 SoundManager.Instance.PlaySE(_audioSource);
                 isPlayHoldSE = true;
+                //エフェクトを生成
+                GameObject effect = Instantiate(haveItemEffect, this.transform.position, Quaternion.identity);
+                Destroy(effect, 7f);
             }
         }
         else
@@ -241,8 +247,6 @@ public class Player : MonoBehaviour
             playerVelocity += move.normalized * speed;
 
         }
-
-     
 
         //持ち歩き
         if (playerVelocity.magnitude != 0 && _state == PlayerState.Hold)
