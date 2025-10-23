@@ -32,7 +32,7 @@ public class Stage1Manager : MonoBehaviour
     private bool isClear;
     private float stageTime;
     public int enemyNum;
-    const float maxStageTime = 60.0f;
+    const float maxStageTime = 30.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -111,15 +111,21 @@ public class Stage1Manager : MonoBehaviour
                 }
                 break;
             case Stage1State.Failed:
-                if (Input.GetKeyDown(KeyCode.M)) // リセットの処理をどうするか考え中
-                {
-                    stageTime = 0.0f;
-                    state = Stage1State.Start;
-                }
+                //if (Input.GetKeyDown(KeyCode.M)) // リセットの処理をどうするか考え中(プレイヤーが死んだらorこのときに表示されるエフェクトに触れたら)
+                //{
+                //    stageTime = 0.0f;
+                //    state = Stage1State.Start;
+                //}
                 break;
             default:
 
                 break;
         }
+    }
+
+    public void RestartStage()
+    {
+        stageTime = 0.0f;
+        state = Stage1State.Start;
     }
 }

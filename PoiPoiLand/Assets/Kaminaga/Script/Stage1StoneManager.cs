@@ -111,6 +111,10 @@ public class Stage1StoneManager : MonoBehaviour
             stoneHealthPoint -= 0.25f;
             isMoving = true;
         }
+        if (other.gameObject.tag == "Player" && stage1State == Stage1State.Failed)
+        {
+            stage1Manager.RestartStage();
+        }
     }
     
 }
