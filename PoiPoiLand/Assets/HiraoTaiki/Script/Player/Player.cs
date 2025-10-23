@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
         _audioSource.clip = _audioClips[0];
         isPlayThrowSE = false;
         isPlayHoldSE = false;
+
         Death();
 
         if (fadeImage != null)
@@ -425,6 +426,7 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
+        _state = PlayerState.Idle;
         //ここでチェックポイントによって座標を変える
         Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
