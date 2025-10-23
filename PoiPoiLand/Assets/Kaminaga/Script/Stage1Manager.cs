@@ -98,6 +98,7 @@ public class Stage1Manager : MonoBehaviour
                 if (!isClear)
                 {
                     warpPoint.SetActive(true);
+                    startUI.SetActive(false);
                     uiManager.SetGameSceneUI(1, true); // ステージクリアUIを表示
                     uiManager.FadeInImage(1, 2.0f); // ステージクリアUIをフェードイン
                     isClear = true;

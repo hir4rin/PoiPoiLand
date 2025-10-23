@@ -145,7 +145,7 @@ public class UIManager : MonoBehaviour
         {
             time += Time.deltaTime * speed; // 拡大縮小の時間を経過させる
             float t = (Mathf.Sin(time) + 1.0f) / 2.0f; // 値が0.0f~1.0fを繰り返す処理
-            float scale = Mathf.Lerp(minScale, maxScale, t); // 0.0~1.0で補完
+            float scale = Mathf.Lerp(minScale, maxScale, t); // 最小値から最大値までの範囲を0.0f~1.0fで補間
             uiRectTransform.localScale = new Vector3(scale, scale, 1.0f); // 拡大縮小(zは必要ないので固定)
             yield return null;
         }

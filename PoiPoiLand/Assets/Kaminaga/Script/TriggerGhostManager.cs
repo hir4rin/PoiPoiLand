@@ -8,6 +8,7 @@ public class TriggerGhostManager : MonoBehaviour
     [SerializeField] private GameObject stage1Manager;
     [SerializeField] private GameObject player;
     private Stage1Manager manager;
+    private HammerController hammerController; // ハンマーの情報取得用
     private AudioSource audioSource;
     private Vector3 ghostMove;
     private Vector3 firstPos;
@@ -78,8 +79,12 @@ public class TriggerGhostManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Hammer")
         {
-            manager.State = Stage1State.Start;
-            Destroy(this.gameObject);
+            hammerController = other.gameObject.GetComponent<HammerController>();
+            if (hammerController.currentState == HammerState.thrown)
+            {
+                manager.State = Stage1State.Start;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
