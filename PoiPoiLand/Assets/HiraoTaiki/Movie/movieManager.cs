@@ -92,7 +92,7 @@ public class movieManager : MonoBehaviour
             if (fadetimer > 1)
             {
                 StartCoroutine(fadeController.FadeOut());
-                fadeController.SceneChange();
+               
                 _fade = false;
             }
         }

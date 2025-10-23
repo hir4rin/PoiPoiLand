@@ -165,7 +165,7 @@ public class BowlingNokonokoController : MonoBehaviour
         }
 
         //Debug_akasaki();
-        if (turtletimer > 10.0f)//10fになったらリセット気味
+        if (turtletimer > 4.0f)//10fになったらリセット気味
         {
             //Debug.Log("時間です");
            // if (_respawn != null) return;
