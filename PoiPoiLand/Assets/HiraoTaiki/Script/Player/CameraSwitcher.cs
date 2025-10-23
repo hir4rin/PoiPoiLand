@@ -16,7 +16,7 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private GameObject _UIManager;
     private UIManager _uiManager; // 0”Ô‚ÌUI‚ğ‘€ì‚·‚é—p
 
-    private bool _isGameStart;
+    public bool _isGameStart;
     private int _goalLookCount;
     //public CinemachineFreeLook currentCamera;
 

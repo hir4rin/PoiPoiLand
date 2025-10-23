@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GoalController : MonoBehaviour
 {
+    [SerializeField] private GameObject goalEffect;
+    [SerializeField] private GameObject cameraObj;
+    private GameObject effectInstance;
+    private CameraSwitcher cameraSwitcher;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -18,12 +22,18 @@ public class GoalController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cameraSwitcher = cameraObj.GetComponent<CameraSwitcher>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (!cameraSwitcher._isGameStart && PlayerPrefs.GetInt("PointNum") == 0)
+        {
+            if (effectInstance == null)
+            {
+                effectInstance = Instantiate(effectInstance, this.transform.position, Quaternion.identity);
+            }
+        }
     }
 }
