@@ -273,13 +273,13 @@ public class HammerController : MonoBehaviour
         {
             Destroy(popEffectInstance);
             isEffect = false;
-            this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-        }
 
+        }
         this.transform.SetParent(_player.transform, false);
-        this.transform.localPosition = new Vector3(0.19f, 0.5f, 0.0f);
+        this.transform.localPosition = new Vector3(0.5f, 0.5f, 0.0f);
         this.transform.localScale = new Vector3(40.0f, 40.0f, 40.0f);
-        this.transform.rotation = this.transform.rotation = _player.transform.rotation * Quaternion.Euler(20.0f, 90.0f, -35.0f);
+        //this.transform.rotation = this.transform.rotation = _player.transform.rotation * Quaternion.Euler(20.0f, 90.0f, -35.0f);
+        this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         col.enabled = false;
         rb.useGravity = false;
         rb.isKinematic = true;
