@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource currentBGMSource;
     [SerializeField] private AudioSource nextBGMSource;
-    // BGMのリスト 0:タイトル 1:ゲームシーン 2:ステージ1 3:ステージ2 4:ステージ3 5:ゲームクリア 
+    // BGMのリスト 0:タイトル 1:ゲームシーン 2:ステージ1 3:ステージ2 4:ステージ3 5:ゲームクリア 6:ボス戦前のムービー
     [SerializeField] private List<AudioClip> bgmClipList;
 
 

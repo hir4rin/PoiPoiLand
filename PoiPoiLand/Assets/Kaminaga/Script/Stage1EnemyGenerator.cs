@@ -128,18 +128,18 @@ public class Stage1EnemyGenerator : MonoBehaviour
                 case Stage1Wave.Wave3:
                     if (enemyPrefab != null)
                     {
-                        if (waveTimer == 50) // 21秒後にスポーン
-                        {
-                            SpawnEnemyPoint1();
-                        }
-                        if(waveTimer == 100)
-                        {
-                            SpawnEnemyPoint1();
-                        }
-                        if(waveTimer == 150)
-                        {
-                            SpawnEnemyPoint1();
-                        }
+                        //if (waveTimer == 50) // 21秒後にスポーン
+                        //{
+                        //    SpawnEnemyPoint1();
+                        //}
+                        //if(waveTimer == 100)
+                        //{
+                        //    SpawnEnemyPoint1();
+                        //}
+                        //if(waveTimer == 150)
+                        //{
+                        //    SpawnEnemyPoint1();
+                        //}
                         if (waveTimer == 250) // 25秒後にスポーン
                         {
                             SpawnEnemyPoint2();
@@ -148,11 +148,11 @@ public class Stage1EnemyGenerator : MonoBehaviour
                         {
                             SpawnEnemyPoint3();
                         }
-                        if (waveTimer == 500) // 30秒後にスポーン
-                        {
-                            SpawnEnemyPoint1();
-                            waveTimer = 0;
-                        }
+                        //if (waveTimer == 500) // 30秒後にスポーン
+                        //{
+                        //    SpawnEnemyPoint1();
+                        //    waveTimer = 0;
+                        //}
                     }
                     break;
                 default:

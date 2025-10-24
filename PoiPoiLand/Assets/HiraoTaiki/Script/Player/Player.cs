@@ -423,6 +423,8 @@ public class Player : MonoBehaviour
     private IEnumerator DieSequence()
     {
         Debug.Log("イーなむれーた");
+        ChangeSE(3);
+        SoundManager.Instance.PlaySE(_audioSource); // miss音再生
         yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut());
@@ -437,7 +439,8 @@ public class Player : MonoBehaviour
     }
     private IEnumerator DieSequence2()
     {
-        
+        ChangeSE(3);
+        SoundManager.Instance.PlaySE(_audioSource); // miss音再生
         //yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut2());
