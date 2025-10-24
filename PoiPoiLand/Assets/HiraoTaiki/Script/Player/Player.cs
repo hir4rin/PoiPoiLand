@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
     public Image fadeImage;//
 
     public bool isMovie = false;
+    [SerializeField] GameObject blackImage;//黒いImageで登録
+    float darkDuration = 1f;//暗転時間
 
     // プレイヤーが鳴らす音のリスト 0: ジャンプ音 1: 投げる音 2: 持つ音
     [SerializeField] private List<AudioClip> _audioClips;
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        blackImage.SetActive(false);
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _checkPoint = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
@@ -323,7 +326,8 @@ public class Player : MonoBehaviour
 
         if (transform.position.y < 9)
         {
-            Death();
+            
+            StartCoroutine(DarkenRoutine());
         }
 
     }
@@ -422,6 +426,13 @@ public class Player : MonoBehaviour
             fadeImage.color = c;
             yield return null;
         }
+    }
+    private IEnumerator DarkenRoutine()
+    {
+        blackImage.SetActive(true);
+        Death();
+        yield return new WaitForSeconds(darkDuration);
+        blackImage.SetActive(false);
     }
 
     public void Death()
