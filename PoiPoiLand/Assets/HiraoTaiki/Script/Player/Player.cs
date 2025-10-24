@@ -364,31 +364,32 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isMovie) return;
-        //死ぬアニメーションとフェード
-        if (other.CompareTag("Hit"))
-        {
-            isMovie = true;
-            _animator.SetTrigger("TriggerDie");
-            StartCoroutine(DieSequence());
-        }
-        //if (other.CompareTag("Enemy"))
+        //HitBoxに移して呼び出すように変更した
+        //if (isMovie) return;
+        ////死ぬアニメーションとフェード
+        //if (other.CompareTag("Hit"))
         //{
         //    isMovie = true;
         //    _animator.SetTrigger("TriggerDie");
         //    StartCoroutine(DieSequence());
         //}
-        if (other.CompareTag("Bowling"))
-        {
+        ////if (other.CompareTag("Enemy"))
+        ////{
+        ////    isMovie = true;
+        ////    _animator.SetTrigger("TriggerDie");
+        ////    StartCoroutine(DieSequence());
+        ////}
+        //if (other.CompareTag("Bowling"))
+        //{
 
-            _bowling = other.GetComponent<BowlingNokonokoController>();
-            if (_bowling.currentState == BowlingNokonokoState.Boss)
-            {
-                isMovie = true;
-                _animator.SetTrigger("TriggerDie");
-                StartCoroutine(DieSequence());
-            }
-        }
+        //    _bowling = other.GetComponent<BowlingNokonokoController>();
+        //    if (_bowling.currentState == BowlingNokonokoState.Boss)
+        //    {
+        //        isMovie = true;
+        //        _animator.SetTrigger("TriggerDie");
+        //        StartCoroutine(DieSequence());
+        //    }
+        //}
 
 
     }
