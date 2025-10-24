@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Warp_Controller : MonoBehaviour
 {
@@ -18,12 +19,24 @@ public class Warp_Controller : MonoBehaviour
 
     private bool isMovieStart;
     private bool isBGMChange;
+    float fadeDuration = 2f;
+
+    [SerializeField] Image whiteImage;//白いImageで登録
+    float whiteDuration = 1f;//暗転時間
 
     // Start is called before the first frame update
     void Start()
     {
         isMovieStart = false;
         isBGMChange = false;
+        // StartCoroutine(DarkenRoutine());
+        //  whiteImage.SetActive(false);
+        if (whiteImage != null)
+        {
+            Color c = whiteImage.color;
+            c.a = 0f;
+            whiteImage.color = c;
+        }
     }
 
     // Update is called once per frame
@@ -71,6 +84,58 @@ public class Warp_Controller : MonoBehaviour
         }
 
     }
+    private IEnumerator whiteRoutine(Vector3 map)
+    {
+       // whiteImage.SetActive(true);
+      player.transform.position = map;
+        yield return new WaitForSeconds(whiteDuration);
+        //whiteImage.SetActive(false);
+    }
+    private IEnumerator whiteSequence(Vector3 map)
+    {
+
+        //yield return new WaitForSeconds(0.5f);
+        //ここでフェード
+        yield return StartCoroutine(FadeOut2());
+
+        yield return new WaitForSeconds(1f);
+       player.transform.position = map;
+
+        yield return StartCoroutine(FadeIn2());
+
+    }
+    private IEnumerator FadeOut2()
+    {
+        float elapsed = 0f;
+        Color c = whiteImage.color;
+
+        while (elapsed < (fadeDuration * 0.1f))
+        {
+            elapsed += Time.deltaTime;
+            c.a = Mathf.Clamp01(elapsed / (fadeDuration * 0.1f)); // 透明→白
+            whiteImage.color = c;
+            yield return null;
+        }
+    }
+    private IEnumerator FadeIn2()
+    {
+
+        Debug.Log("フェードイン中");
+        float elapsed = 0f;
+        Color c = whiteImage.color;
+
+        while (elapsed < fadeDuration * 0.5f)
+        {
+            elapsed += Time.deltaTime;
+            c.a = 1f - Mathf.Clamp01(elapsed / (fadeDuration * 0.5f)); // 白→透明
+            whiteImage.color = c;
+            yield return null;
+            //isCoroutine = false;
+
+        }
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -80,14 +145,17 @@ public class Warp_Controller : MonoBehaviour
             switch (PlayerPrefs.GetInt("PointNum"))
             {
                 case 0:
-                    player.transform.position = warpToFirstStage;
+                    StartCoroutine(whiteSequence(warpToFirstStage));
+
+                   // player.transform.position = warpToFirstStage;
                     PlayerPrefs.SetInt("PointNum", 1);
                     Debug.Log("case0");
                     break;
                 case 1:
                     SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
                     SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
-                    player.transform.position = warpToMapFirst;
+                    StartCoroutine(whiteSequence(warpToMapFirst));
+                    //player.transform.position = warpToMapFirst;
                     PlayerPrefs.SetInt("PointNum", 2);
                     Debug.Log("case1");
                     break;
@@ -98,14 +166,16 @@ public class Warp_Controller : MonoBehaviour
                         SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
                         isBGMChange = true;
                     }
-                    player.transform.position = warpToSecondStage;
+                    StartCoroutine(whiteSequence(warpToSecondStage));
+                   // player.transform.position = warpToSecondStage;
                     PlayerPrefs.SetInt("PointNum", 3);
                     Debug.Log("case2");
                     break;
                 case 3:
                     SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
                     SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
-                    player.transform.position = warpToMapSecond;
+                    StartCoroutine(whiteSequence(warpToMapSecond));
+                    //player.transform.position = warpToMapSecond;
                     PlayerPrefs.SetInt("PointNum", 4);
                     Debug.Log("case3");
                     break;
@@ -116,19 +186,24 @@ public class Warp_Controller : MonoBehaviour
                         UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
                         isMovieStart = true;
                     }
-                    player.transform.position = warpToThirdStage;
+                    StartCoroutine(whiteSequence(warpToThirdStage));
+                   // player.transform.position = warpToThirdStage;
                     PlayerPrefs.SetInt("PointNum", 5);
                     Debug.Log("case4");
                     break;
                 case 5:
-                    player.transform.position = warpToThirdStage;
+                    StartCoroutine(whiteSequence(warpToThirdStage));
+                   // player.transform.position = warpToThirdStage;
                     PlayerPrefs.SetInt("PointNum", 6);
                     Debug.Log("case5");
                     break;
                 case 6:
                     SoundManager.Instance.ChangeBGMClip(1); // マップのBGMに変更
                     SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
-                    player.transform.position = warpToMapThird;
+
+                    StartCoroutine(whiteSequence(warpToMapThird));
+
+                   // player.transform.position = warpToMapThird;
                     Debug.Log("case6");
                     break;
                 default:
