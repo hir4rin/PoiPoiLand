@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     // ListでUIを管理、表示非表示用
+    // 1:ゴールを目指そう 2:ステージクリア 3:ゴーストをたおそう 4: ウサギをたおそう 5: ゴーストをたおそう 6: MISS
     [SerializeField] private List<GameObject> gameSceneUIList;
 
     // UIの透明度とかをいじる用
@@ -13,10 +14,13 @@ public class UIManager : MonoBehaviour
 
     // Imageの拡大縮小処理用
     private Coroutine scaleCoroutine;
+    private Coroutine missCoroutine;
+    private Vector3 missUIFirstPos; // missのUIの位置保存用
+
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,8 +28,8 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.U))
         {
-            SetGameSceneUI(0, true);
-            FadeOutImage(0, 2.0f);
+            
+            MissAnimation(5, 0.5f, 0.2f, 1.0f);
         }
     }
 
@@ -90,6 +94,12 @@ public class UIManager : MonoBehaviour
         SetGameSceneUI(index, false);
     }
 
+    /// <summary>
+    /// 画面の右からスライドするようにUIが動いてくる関数
+    /// 止まる地点は最初に配置してある部分
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="duration"></param>
     public void FrameInFromRight(int index, float duration)
     {
         StartCoroutine(FrameInFromRightCoroutine(index, duration));
@@ -149,5 +159,73 @@ public class UIManager : MonoBehaviour
             uiRectTransform.localScale = new Vector3(scale, scale, 1.0f); // 拡大縮小(zは必要ないので固定)
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// ミスしたときのUIアニメーション再生処理
+    /// 画像が画面手前から来るような感じで拡大率が変わり、
+    /// 特定の座標に来たら止まる
+    /// 止まった後に少し傾く
+    /// </summary>
+    /// <param name="index">画像番号(5番以外で使うのは非推奨)</param>
+    /// <param name="moveDuration">画面手前から定位置に来るまでの時間</param>
+    /// <param name="tiltDuration">傾くまでの時間</param>
+    /// <param name="endDuration">フェードアウトして消えるまでの時間</param>
+    public void MissAnimation(int index, float moveDuration, float tiltDuration, float endDuration)
+    {
+        if(missCoroutine != null)
+        {
+            StopCoroutine(missCoroutine);
+        }
+        missCoroutine = StartCoroutine(MissAnimationCoroutine(index, moveDuration, tiltDuration, endDuration));
+    }
+
+    private IEnumerator MissAnimationCoroutine(int index, float moveDuration, float tiltDuration, float endDuration)
+    {
+        SetGameSceneUI(5, true);
+        // 画像の大きさを取得
+        RectTransform uiRectTransform = gameSceneUIList[index].GetComponentInChildren<RectTransform>();
+        Vector3 startPos = new Vector3(0f, 500f, 0f); // 奥の画面
+        if (missUIFirstPos == null)
+        {
+            missUIFirstPos = uiRectTransform.anchoredPosition; // MissUIの初期位置を保存
+        }
+        Vector3 targetPos = missUIFirstPos; // 止まる座標(関数が呼ばれた際の初期位置)
+        uiRectTransform.localPosition = startPos;
+        uiRectTransform.localRotation = Quaternion.identity;
+
+        float elapsed = 0.0f; // カウンタ
+        while(elapsed < moveDuration)
+        {
+            elapsed += Time.deltaTime; // 時間を計測
+            float t = elapsed / moveDuration; // 0.0~1.0までの割合の作成
+            uiRectTransform.localPosition = Vector3.Lerp(startPos, targetPos, t); // 位置を動かす
+            yield return null;
+        }
+        transform.localPosition = targetPos; // 終わったら初期位置に移動
+
+        elapsed = 0.0f; // カウンタをリセット
+        Quaternion startRot = Quaternion.identity; // 初期回転
+        Quaternion targetRot = Quaternion.Euler(0.0f,0.0f,-10.0f); // 最終的に回転させたい角度
+        while(elapsed < tiltDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / tiltDuration;
+            uiRectTransform.localRotation = Quaternion.Lerp(startRot, targetRot, t);
+            yield return null;
+        }
+        uiRectTransform.localRotation = targetRot; // 終わったら終了位置に補正
+
+        Vector3 endPos = new Vector3(0f,-500f, 0f);
+        elapsed = 0.0f; // カウンタをリセット
+        while (elapsed < endDuration)
+        {
+            elapsed += Time.deltaTime; // 時間を計測
+            float t = elapsed / endDuration; // 0.0~1.0までの割合の作成
+            uiRectTransform.localPosition = Vector3.Lerp(targetPos, endPos, t); // 位置を動かす
+            yield return null;
+        }
+
+        SetGameSceneUI(index, false);
     }
 }
