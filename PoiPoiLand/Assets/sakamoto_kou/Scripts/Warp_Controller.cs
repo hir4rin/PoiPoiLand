@@ -183,6 +183,8 @@ public class Warp_Controller : MonoBehaviour
                     if (!isMovieStart)
                     {
                         // ここでmovie用の音に変更したい
+                        SoundManager.Instance.ChangeBGMClip(6); // ボス戦前のムービー用BGMに変更
+                        SoundManager.Instance.PlayBGMWithCrossFade(1.5f);
                         UnityEngine.SceneManagement.SceneManager.LoadScene("BossMovieScene");
                         isMovieStart = true;
                     }
