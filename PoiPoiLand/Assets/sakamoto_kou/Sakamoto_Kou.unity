@@ -443,6 +443,7 @@ MonoBehaviour:
   warpToMapSecond: {x: -91, y: 15, z: 15.5}
   warpToThirdStage: {x: 225, y: 19, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
+  whiteImage: {fileID: 0}
 --- !u!4 &515050465
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isColHit: 0
   _playerManager: {fileID: 1495393331}
+  _player: {fileID: 0}
 --- !u!65 &1096162951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1123,6 +1125,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096162948}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1116057340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1116057342}
+  - component: {fileID: 1116057341}
+  m_Layer: 0
+  m_Name: HammerGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1116057341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116057340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52e1a2e2f574474d8efbf83c07425ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hammerPrefab: {fileID: 8721299393686393830, guid: 5da2289fc2f1db345ad98dfe22cd5366, type: 3}
+--- !u!4 &1116057342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116057340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 151.7712, y: 33.07967, z: 36.795288}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1116345211
 GameObject:
   m_ObjectHideFlags: 3
@@ -1307,6 +1354,7 @@ MonoBehaviour:
   warpToMapSecond: {x: -91, y: 15, z: 15.5}
   warpToThirdStage: {x: 225, y: 4, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
+  whiteImage: {fileID: 0}
 --- !u!65 &1216819057
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1375,8 +1423,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db7a6920b157b945a7335f048e5f918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isThrowBowling: 0
   isColHit: 0
   currentState: 0
+  boss: {fileID: 0}
+  _respawn: {fileID: 0}
+  popEffectPrefab: {fileID: 0}
+  hitBossEffect: {fileID: 0}
 --- !u!54 &1245008688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1602,7 +1655,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
+  isGround: 0
   _animator: {fileID: 0}
+  fadeImage: {fileID: 0}
+  isMovie: 0
+  blackImage: {fileID: 0}
+  _audioClips: []
   _state: 0
 --- !u!4 &1683455822 stripped
 Transform:
@@ -2252,3 +2310,4 @@ SceneRoots:
   - {fileID: 1245008692}
   - {fileID: 515050465}
   - {fileID: 2031230885}
+  - {fileID: 1116057342}

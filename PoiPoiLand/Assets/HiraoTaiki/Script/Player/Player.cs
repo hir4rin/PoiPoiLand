@@ -392,6 +392,34 @@ public class Player : MonoBehaviour
 
 
     }
+    public void Die(Collider other)
+    {
+        if (isMovie) return;
+        //死ぬアニメーションとフェード
+        if (other.CompareTag("Hit"))
+        {
+            isMovie = true;
+            _animator.SetTrigger("TriggerDie");
+            StartCoroutine(DieSequence());
+        }
+        //if (other.CompareTag("Enemy"))
+        //{
+        //    isMovie = true;
+        //    _animator.SetTrigger("TriggerDie");
+        //    StartCoroutine(DieSequence());
+        //}
+        if (other.CompareTag("Bowling"))
+        {
+
+            _bowling = other.GetComponent<BowlingNokonokoController>();
+            if (_bowling.currentState == BowlingNokonokoState.Boss)
+            {
+                isMovie = true;
+                _animator.SetTrigger("TriggerDie");
+                StartCoroutine(DieSequence());
+            }
+        }
+    }
     private IEnumerator DieSequence()
     {
         Debug.Log("イーなむれーた");

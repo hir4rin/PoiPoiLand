@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerHitBox : MonoBehaviour
+{
+
+    public Player _player;
+    // Start is called before the first frame update
+    void Start()
+    {
+        _
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        _player.Die(other);
+    }
+}

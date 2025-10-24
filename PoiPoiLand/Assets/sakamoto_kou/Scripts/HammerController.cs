@@ -16,16 +16,9 @@ public enum HammerState
 public class HammerController : MonoBehaviour
 {
     /// <summary>
-    /// x軸を軸にして毎秒6度、回転させるQuaternion
-    /// </summary>
-    Quaternion throwRotation = Quaternion.AngleAxis(20, Vector3.right);
-
-    /// <summary>
     /// Pop中に毎秒5度、y軸を軸にして回転させるQuaternion
     /// </summary>
     Quaternion popRotation = Quaternion.AngleAxis(5, Vector3.up);
-
-    Quaternion throwForward = Quaternion.AngleAxis(90.0f, Vector3.up);
 
     /// <summary>
     /// ハンマーを傾ける角度
@@ -92,7 +85,7 @@ public class HammerController : MonoBehaviour
 
         playerTransform = transform.root;//親オブジェクト(player)のTransformを取得
 
-        throwDir = playerTransform.forward + Vector3.up * 0.7f;//投げる向きはプレイヤーの向き＋少し上
+        throwDir = playerTransform.forward + transform.up * 0.7f;//投げる向きはプレイヤーの向き＋少し上
 
     }
 
@@ -109,10 +102,12 @@ public class HammerController : MonoBehaviour
                 break;
             case HammerState.thrown://なげられている状態
                 UpdateThrow();
+                //プレイヤーの向きに対して縦に回転するようにする
+                Quaternion throwRotation = Quaternion.AngleAxis(20, _player.transform.right);
                 //現在の自身の回転の情報を取得する。
                 Quaternion q = this.transform.rotation;
                 //合成して自身に設定
-                this.transform.rotation = throwRotation * q;
+                this.transform.localRotation = throwRotation * q;
                 break;
         }
 
@@ -135,8 +130,7 @@ public class HammerController : MonoBehaviour
         {
             ChangeSE(0); // ポップ音に変更
             SoundManager.Instance.PlaySE(audioSource);
-            //再度pop状態にする
-            currentState = HammerState.pop;
+            
         }
     }
 
@@ -144,7 +138,8 @@ public class HammerController : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-
+            //再度pop状態にする
+            currentState = HammerState.pop;
         }
 
         if (!other.CompareTag("Ground"))
@@ -158,7 +153,7 @@ public class HammerController : MonoBehaviour
         {
             if (currentState == HammerState.thrown)
             {
-                ChangeSE(2); // ヒット音に変更 
+                ChangeSE(2); // ヒット音に変更
                 SoundManager.Instance.PlaySE(audioSource);
                 //呼び出し
                 _hG.HammerSpawn(posNum);
@@ -276,13 +271,14 @@ public class HammerController : MonoBehaviour
 
         }
         this.transform.SetParent(_player.transform, false);
-        this.transform.localPosition = new Vector3(0.5f, 0.5f, 0.0f);
+        this.transform.localPosition = new Vector3(0.25f, 0.5f, 0.0f);
         this.transform.localScale = new Vector3(40.0f, 40.0f, 40.0f);
-        //this.transform.rotation = this.transform.rotation = _player.transform.rotation * Quaternion.Euler(20.0f, 90.0f, -35.0f);
-        this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        this.transform.rotation = Quaternion.Euler(40.0f, 90.0f, 0.0f);
         col.enabled = false;
         rb.useGravity = false;
         rb.isKinematic = true;
+
+        //this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     }
     public void QuitHold() //離したとき
     {
@@ -295,20 +291,30 @@ public class HammerController : MonoBehaviour
     public void UpdateThrow()//なげたとき
     {
         col.enabled = true;
+        col.isTrigger = true;
         rb.useGravity = true;
         rb.isKinematic = false;
         //最初だけ回転を0にする
         if (!isInclination)
         {
             ResetRotate();
+            //プレイヤーの向きに合わせてハンマーが縦向きにする
+            Vector3 forward = _player.transform.forward;//プレイヤーの正面
+            Vector3 up = _player.transform.up;//プレイヤーの上方向
+
+            //ハンマーの殴る部分を前面に向ける
+            Quaternion baseRotation = Quaternion.LookRotation(forward, up);
+
+            //モデルの軸補正
+            Quaternion modelOffset = Quaternion.Euler(0, 90, 0);
+            this.transform.rotation = baseRotation * modelOffset;
         }
 
         if (!isThrowHammer)
         {
-            ChangeSE(1); // 使う音を投げる音に変更 
+            ChangeSE(1); // 使う音を投げる音に変更
             SoundManager.Instance.PlaySE(audioSource);
 
-            this.transform.rotation = throwForward;
             this.transform.SetParent(null);
 
             rb.AddForce(throwDir.normalized * 10f, ForceMode.Impulse);
