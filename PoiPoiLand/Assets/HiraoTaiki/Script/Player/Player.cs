@@ -65,6 +65,9 @@ public class Player : MonoBehaviour
     private bool isPlayThrowSE;
     private bool isPlayHoldSE;
 
+    [SerializeField] private GameObject _uiManagerObj;
+    private UIManager _uiManager;
+
     float fadeDuration = 2f;
     BowlingNokonokoController _bowling = null;//のこのこボーリング
 
@@ -92,6 +95,7 @@ public class Player : MonoBehaviour
             c.a = 0f;
             fadeImage.color = c;
         }
+        _uiManager = _uiManagerObj.GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -394,6 +398,8 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut());
+        _uiManager.MissAnimation(5, 0.5f, 0.2f, 0.5f); // MISS時のUIを動かすアニメーション
+
 
         yield return new WaitForSeconds(1.3f);
         Death();
@@ -407,6 +413,7 @@ public class Player : MonoBehaviour
         //yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut2());
+        _uiManager.MissAnimation(5, 0.5f, 0.2f, 0.5f); // MISS時のUIを動かすアニメーション
 
         yield return new WaitForSeconds(1f);
         Death();
