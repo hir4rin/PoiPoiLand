@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     Warp_Controller _checkPoint;
 
     public Image fadeImage;//
+    bool isCoroutine = false;//コルーチンの旗
 
     public bool isMovie = false;
     [SerializeField] GameObject blackImage;//黒いImageで登録
@@ -326,8 +327,14 @@ public class Player : MonoBehaviour
 
         if (transform.position.y < 9)
         {
-            
-            StartCoroutine(DarkenRoutine());
+            if (!isCoroutine)
+            {
+                //
+                //StartCoroutine(DarkenRoutine());
+                isCoroutine = true;
+                 StartCoroutine(DieSequence2());
+            }
+
         }
 
     }
@@ -394,6 +401,19 @@ public class Player : MonoBehaviour
         yield return StartCoroutine(FadeIn());
         isMovie = false;
     }
+    private IEnumerator DieSequence2()
+    {
+        
+        //yield return new WaitForSeconds(0.5f);
+        //ここでフェード
+        yield return StartCoroutine(FadeOut2());
+
+        yield return new WaitForSeconds(1f);
+        Death();
+       
+        yield return StartCoroutine(FadeIn2());
+       
+    }
     //private IEnumerator DieSequence2()
     //{
         
@@ -412,6 +432,19 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
+    private IEnumerator FadeOut2()
+    {
+        float elapsed = 0f;
+        Color c = fadeImage.color;
+
+        while (elapsed < (fadeDuration *0.1f))
+        {
+            elapsed += Time.deltaTime;
+            c.a = Mathf.Clamp01(elapsed / (fadeDuration * 0.1f)); // 透明→黒
+            fadeImage.color = c;
+            yield return null;
+        }
+    }
     private IEnumerator FadeIn()
     {
 
@@ -425,6 +458,23 @@ public class Player : MonoBehaviour
             c.a = 1f - Mathf.Clamp01(elapsed / (fadeDuration *0.5f)); // 黒→透明
             fadeImage.color = c;
             yield return null;
+        }
+    }
+    private IEnumerator FadeIn2()
+    {
+
+        Debug.Log("フェードイン中");
+        float elapsed = 0f;
+        Color c = fadeImage.color;
+
+        while (elapsed < fadeDuration * 0.5f)
+        {
+            elapsed += Time.deltaTime;
+            c.a = 1f - Mathf.Clamp01(elapsed / (fadeDuration *0.5f)); // 黒→透明
+            fadeImage.color = c;
+            yield return null;
+            isCoroutine = false;
+
         }
     }
     private IEnumerator DarkenRoutine()
