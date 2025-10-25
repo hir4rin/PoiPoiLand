@@ -3760,7 +3760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &409061071
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8951,6 +8951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819393917}
+  - component: {fileID: 819393918}
   m_Layer: 0
   m_Name: warp_3
   m_TagString: Untagged
@@ -8974,6 +8975,27 @@ Transform:
   - {fileID: 1833156140}
   m_Father: {fileID: 2075038492}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+--- !u!65 &819393918
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819393916}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.07, y: 2.16, z: 0.49}
+  m_Center: {x: 0, y: -0.13, z: 0}
 --- !u!1 &834974687
 GameObject:
   m_ObjectHideFlags: 0
@@ -23445,6 +23467,14 @@ PrefabInstance:
     - target: {fileID: 4694796096254396554, guid: 74e8e1c76d258bc4c9f071738ea495aa, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330122501283273235, guid: 74e8e1c76d258bc4c9f071738ea495aa, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330122501283273235, guid: 74e8e1c76d258bc4c9f071738ea495aa, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5337858086215805228, guid: 74e8e1c76d258bc4c9f071738ea495aa, type: 3}
       propertyPath: m_TagString
