@@ -69,15 +69,7 @@ public class CameraSwitcher : MonoBehaviour
             behindCam.Priority = 20;
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Debug.Log("変わった");
-            behindCam.Priority = 10;
-            _secondBehind.Priority = 10;
-            _secondSide.Priority = 10;
-            sidecam.Priority = 20;//横が有効
-            //currentCamera = sidecam;
-        }
+      
 
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -88,15 +80,7 @@ public class CameraSwitcher : MonoBehaviour
             //currentCamera = _secondBehind;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            _secondBehind.Priority = 10;
-            behindCam.Priority = 10;
-            sidecam.Priority = 10;
-            _secondSide.Priority = 20;//横が有効
-            //currentCamera = _secondSide;
-        }
-
+       
         if (Input.GetKeyDown(KeyCode.Y))
         {
             _secondSide.Priority = 10;
@@ -117,9 +101,11 @@ public class CameraSwitcher : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("PointNum") == 4)
         {
-            _stage2Cam.Priority = 10;
-            behindCam.Priority = 20;
-            //currentCamera = behindCam;
+            _secondBehind.Priority = 10;
+            behindCam.Priority = 10;
+            sidecam.Priority = 10;
+            _secondSide.Priority = 20;//横が有効
+                                      //currentCamera = _secondSide;
         }
         if (PlayerPrefs.GetInt("PointNum") == 5)
         {
@@ -156,5 +142,18 @@ public class CameraSwitcher : MonoBehaviour
     private void LookGoal()
     {
         goalCam.Priority = 20;
+    }
+    public void SideChange()
+    {
+       // Debug.Log("変わった");
+        behindCam.Priority = 10;
+        _secondBehind.Priority = 10;
+        _secondSide.Priority = 10;
+        sidecam.Priority = 20;//横が有効
+                              //currentCamera = sidecam;
+    }
+    public void SideChange2()
+    {
+      
     }
 }

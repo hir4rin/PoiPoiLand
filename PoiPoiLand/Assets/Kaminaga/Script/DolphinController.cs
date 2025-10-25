@@ -6,7 +6,7 @@ public class DolphinController : MonoBehaviour
 {
     private Animator m_animator;
     private float m_animTime;
-    public float interval = 6.0f;   // üŠú
+     float interval = 3.0f;   // üŠú
     private float offset;           // ŒÂ‘Ì‚²‚Æ‚ÌƒYƒŒ
     private bool lastState = false;
 

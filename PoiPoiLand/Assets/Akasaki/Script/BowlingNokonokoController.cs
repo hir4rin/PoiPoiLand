@@ -165,7 +165,7 @@ public class BowlingNokonokoController : MonoBehaviour
         }
 
         //Debug_akasaki();
-        if (turtletimer > 7.0f)//10fになったらリセット気味
+        if (turtletimer > 10.0f)//10fになったらリセット気味
         {
             //Debug.Log("時間です");
            // if (_respawn != null) return;
@@ -203,6 +203,10 @@ public class BowlingNokonokoController : MonoBehaviour
                 GameObject effect = Instantiate(hitBossEffect, boss.transform.position, Quaternion.identity);
                 Destroy(effect, 7f);
             }
+        }
+        if (other.CompareTag("Goal"))
+        {
+            Destroy(gameObject);
         }
     }
 

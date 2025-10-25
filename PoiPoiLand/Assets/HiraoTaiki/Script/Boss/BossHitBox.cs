@@ -85,7 +85,7 @@ public class BossHitBox : MonoBehaviour
                 SoundManager.Instance.PlaySE(audioSource);
 
                 //ƒ_ƒ[ƒWˆ—
-                _hp.TakeDamage(1500);
+                _hp.TakeDamage(3000);
                 _mimic.HeavyDamage();
             }
 
