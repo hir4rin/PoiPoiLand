@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour
                 _hammer.QuitHold();
                 return;
             }
-            else if(_bowling.currentState == BowlingNokonokoState.held)
+            else if (_bowling.currentState == BowlingNokonokoState.held)
             {
                 _bowling.QuitHoldTurtle();
                 return;
@@ -60,13 +60,13 @@ public class PlayerManager : MonoBehaviour
                 return;
             }
 
-                
+
         }
 
 
-       // Debug.Log($"PlayerStateは{_playerState}です");
-       // Debug.Log($"GravityTuttleは{_bowling.currentState}です");
-       //持つとき----------------------------------------------------------
+        // Debug.Log($"PlayerStateは{_playerState}です");
+        // Debug.Log($"GravityTuttleは{_bowling.currentState}です");
+        //持つとき----------------------------------------------------------
         //ハンマー
         if (_holdManager.isColHit　&& _hammer.isColHit)
         {
@@ -196,6 +196,33 @@ public class PlayerManager : MonoBehaviour
             }
 
         }
+
+    }
+    public void Init()
+    {
+        _player._state = PlayerState.Idle;
+        isHaving = false;
+        _player._animator.SetBool("isHold", false);
+        if (_hammer != null)
+        {
+            if (_hammer.currentState == HammerState.held)
+            {
+                // Debug.Log("ハンマーリセット");
+                _hammer.QuitHold();
+                return;
+            }
+        }
+
+        if (_bowling != null)
+        {
+            if (_bowling.currentState == BowlingNokonokoState.held)
+            {
+                _bowling.QuitHoldTurtle();
+                return;
+            }
+        }
+       
+        
 
     }
 

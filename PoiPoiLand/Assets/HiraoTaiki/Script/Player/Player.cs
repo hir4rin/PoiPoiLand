@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
     Vector3 JumpPower = new Vector3(0,15,0);
     //キャラクターの向き
     public Vector3 moveDirection; //キャラクターの向き
-
+    //プレイヤーマネージャー
+    public PlayerManager _playerManager;
 
 
     //移動スピード
@@ -526,9 +527,13 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
+
         _state = PlayerState.Idle;
+
+        _playerManager.Init();
+
         //ここでチェックポイントによって座標を変える
-        Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
+        //Debug.Log($"{PlayerPrefs.GetInt("PointNum")}");
         switch (PlayerPrefs.GetInt("PointNum"))
         {
             case 0:

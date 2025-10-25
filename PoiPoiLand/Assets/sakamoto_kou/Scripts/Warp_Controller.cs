@@ -20,6 +20,9 @@ public class Warp_Controller : MonoBehaviour
     private bool isMovieStart;
     private bool isBGMChange;
     float fadeDuration = 2f;
+    //プレイヤーマネージャー
+    public PlayerManager _playerManager;
+
 
     [SerializeField] Image whiteImage;//白いImageで登録
     float whiteDuration = 1f;//暗転時間
@@ -142,6 +145,7 @@ public class Warp_Controller : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("触れた");
+            _playerManager.Init();
             switch (PlayerPrefs.GetInt("PointNum"))
             {
                 case 0:
