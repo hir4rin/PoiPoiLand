@@ -12,8 +12,11 @@ public class Stage1StoneManager : MonoBehaviour
     [SerializeField] private Image burnHpGauge;
     [SerializeField] private GameObject stage1;
     [SerializeField] private GameObject warpEffect;
+    [SerializeField] private GameObject burnEffect;
+    [SerializeField] private GameObject restartEffect;
     private GameObject warpEffectInstance;
     private GameObject burnEffectInstance;
+    private GameObject restartEffectInstance;
     private Stage1Manager stage1Manager;
     private Stage1State stage1State;
     private bool isReset;
@@ -72,6 +75,10 @@ public class Stage1StoneManager : MonoBehaviour
         if (stage1State == Stage1State.Start)
         {
             transform.GetChild(0).gameObject.SetActive(true);
+            if(restartEffectInstance != null)
+            {
+                Destroy(restartEffectInstance);
+            }
             if (isReset)
             {
                 stoneHealthPoint = 3.0f;
@@ -85,10 +92,18 @@ public class Stage1StoneManager : MonoBehaviour
         if (stage1State == Stage1State.Failed)
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            if (restartEffectInstance == null)
+            {
+                restartEffectInstance = Instantiate(restartEffect, this.transform.position, Quaternion.identity);
+            }
             isReset = true;
         }
         if (stage1State == Stage1State.Cleared)
         {
+            if(restartEffectInstance != null)
+            {
+                Destroy(restartEffectInstance);
+            }
             hpGaugeBack.enabled = false;
             hpGauge.enabled = false;
             burnHpGauge.enabled = false;
@@ -106,7 +121,7 @@ public class Stage1StoneManager : MonoBehaviour
         {
             if(burnEffectInstance == null)
             {
-                burnEffectInstance = Instantiate(warpEffect, this.transform.position, Quaternion.identity); // ここを燃焼エフェクトに変更
+                burnEffectInstance = Instantiate(burnEffect, this.transform.position, Quaternion.identity); // ここを燃焼エフェクトに変更
             }
             stoneHealthPoint -= 0.25f;
             isMoving = true;
