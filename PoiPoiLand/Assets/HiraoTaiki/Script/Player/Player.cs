@@ -427,7 +427,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut());
-        _uiManager.MissAnimation(5, 0.5f, 0.2f, 0.5f); // MISS時のUIを動かすアニメーション
+        _uiManager.MissAnimation(5, 0.3f, 0.3f, 0.3f); // MISS時のUIを動かすアニメーション
 
 
         yield return new WaitForSeconds(1.3f);
@@ -443,7 +443,7 @@ public class Player : MonoBehaviour
         //yield return new WaitForSeconds(0.5f);
         //ここでフェード
         yield return StartCoroutine(FadeOut2());
-        _uiManager.MissAnimation(5, 0.5f, 0.2f, 0.5f); // MISS時のUIを動かすアニメーション
+        _uiManager.MissAnimation(5, 0.3f, 0.3f, 0.3f); // MISS時のUIを動かすアニメーション
 
         yield return new WaitForSeconds(1f);
         Death();

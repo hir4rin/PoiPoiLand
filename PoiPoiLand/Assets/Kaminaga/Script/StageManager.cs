@@ -54,7 +54,7 @@ public class StageManager : MonoBehaviour
             {
                 _UIManager.SetGameSceneUI(4, true); // ボスをたおそうをセット
                 _UIManager.FrameInFromRight(4, 1.0f);
-                _UIManager.ScaleAnimationImage(4, 1.0f, 1.5f, 13.6f); // 画像の拡大縮小を行う処理(どこかで止めなければならない)
+                _UIManager.ScaleAnimationImage(4, 1.0f, 1.25f, 13.6f); // 画像の拡大縮小を行う処理(どこかで止めなければならない)
                 _isStage3Active = true;
             }
             _stage3.SetActive(true);

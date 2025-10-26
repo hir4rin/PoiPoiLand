@@ -22,6 +22,9 @@ public class PlayerManager : MonoBehaviour
 
     bool isHaving = false;
 
+    [SerializeField] private AudioClip _warpSE; // ワープSE
+    private AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         _nokonoko = Resources.Load<GameObject>("Nokonoko").GetComponent<NokonokoController>();
         _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
         _check = GameObject.Find("CheckPoint").GetComponent<Warp_Controller>();
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _warpSE;
     }
 
     // Update is called once per frame
@@ -203,6 +208,7 @@ public class PlayerManager : MonoBehaviour
         _player._state = PlayerState.Idle;
         isHaving = false;
         _player._animator.SetBool("isHold", false);
+        SoundManager.Instance.PlaySE(_audioSource);
         if (_hammer != null)
         {
             if (_hammer.currentState == HammerState.held)
