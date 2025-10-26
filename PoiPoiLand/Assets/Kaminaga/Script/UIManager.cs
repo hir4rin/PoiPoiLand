@@ -146,8 +146,9 @@ public class UIManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ScaleAnimationImageCoroutine(int index, float minScale, float maxScale, float speed)
     {
+        Image uiImage = gameSceneUIList[index].GetComponentInChildren<Image>();
         // 画像の大きさを取得
-        RectTransform uiRectTransform = gameSceneUIList[index].GetComponentInChildren<RectTransform>();
+        RectTransform uiRectTransform = uiImage.GetComponent<RectTransform>();
         // ループ計測用の時間を取得
         float time = 0.0f;
 
@@ -195,7 +196,7 @@ public class UIManager : MonoBehaviour
         uiRectTransform.localRotation = Quaternion.identity;
 
         float elapsed = 0.0f; // カウンタ
-        while(elapsed < moveDuration)
+        while (elapsed < moveDuration)
         {
             elapsed += Time.deltaTime; // 時間を計測
             float t = elapsed / moveDuration; // 0.0~1.0までの割合の作成
@@ -207,7 +208,8 @@ public class UIManager : MonoBehaviour
         elapsed = 0.0f; // カウンタをリセット
         Quaternion startRot = Quaternion.identity; // 初期回転
         Quaternion targetRot = Quaternion.Euler(0.0f,0.0f,-10.0f); // 最終的に回転させたい角度
-        while(elapsed < tiltDuration)
+        yield return new WaitForSeconds(0.2f);
+        while (elapsed < tiltDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / tiltDuration;
