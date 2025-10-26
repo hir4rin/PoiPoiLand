@@ -4,6 +4,12 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum TitleState
+{
+    Default,
+    Tutorial,
+    Option
+}
 public class TitleManager : MonoBehaviour
 {
 
@@ -11,56 +17,73 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private GameObject soundUI;
     [SerializeField] private GameObject tutorialUI;
     [SerializeField] private List<Slider> soundSliders; // Master, BGM, SE
-    [SerializeField] private List<Image> buttonImages;
-    [SerializeField] private List<Image> currentButtonImages;
+
+    // ボタンの画像リスト
+    [SerializeField] private List<Image> defaultRedButtonImages;
+    [SerializeField] private List<Image> defaultYellowButtonImages;
+    [SerializeField] private List<Image> TutorialRedButtonImages;
+    [SerializeField] private List<Image> TutorialYellowButtonImages;
+    [SerializeField] private List<Image> OptionRedButtonImages;
+    [SerializeField] private List<Image> OptionYellowButtonImages;
+
     private int selectedIndex = 0;
-    private int phase = 0; // 0: メイン, 1: 操作説明, 2: 音量調整
     private int sliderIndex = 0;
     [SerializeField] private GameObject manualObj;
     private ManualController manualController;
+    TitleState titleState;
+    private float horizontalInput;
+    private float verticalInput;
 
     void Start()
     {
         manualController = manualObj.GetComponent<ManualController>();
+        titleState = TitleState.Default;
+        horizontalInput = 0;
+        verticalInput = 0;
     }
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (phase == 0) // メイン選択
+        switch (titleState)
         {
-            if (v > 0) selectedIndex = Mathf.Max(0, selectedIndex - 1);
-            if (v < 0) selectedIndex = Mathf.Min(mainButtons.Count - 1, selectedIndex + 1);
-
-            HighlightButton(selectedIndex);
-
-            if (Input.GetButtonDown("AButton"))
-            {
-                switch (selectedIndex)
-                {
-                    case 0: manualController.GameStart(); break;
-                    case 1: manualController.SetTutorialUI(); phase = 1; break;
-                    case 2: manualController.SetSoundUI(); phase = 2; break;
-                }
-            }
+            case TitleState.Default:
+                DefaultUpdate();
+                break;
+            case TitleState.Tutorial:
+                TutorialUpdate();
+                break;
+            case TitleState.Option:
+                OptionUpdate();
+                break;
         }
-        else if (phase == 2) // 音量調整
+    }
+
+    private void DefaultUpdate()
+    {
+        switch(verticalInput)
         {
-            if (v > 0) sliderIndex = Mathf.Max(0, sliderIndex - 1);
-            if (v < 0) sliderIndex = Mathf.Min(soundSliders.Count - 1, sliderIndex + 1);
-
-            if (h > 0) soundSliders[sliderIndex].value += 0.05f;
-            if (h < 0) soundSliders[sliderIndex].value -= 0.05f;
-
-
-            if (Input.GetButtonDown("BButton"))
-            {
-                soundUI.SetActive(false);
-                phase = 0;
-            }
+            case 1:
+                selectedIndex = (selectedIndex - 1 + mainButtons.Count) % mainButtons.Count;
+                HighlightButton(selectedIndex);
+                break;
+            case -1:
+                selectedIndex = (selectedIndex + 1) % mainButtons.Count;
+                HighlightButton(selectedIndex);
+                break;
         }
+    }
+
+    private void TutorialUpdate()
+    {
+       
+    }
+
+    private void OptionUpdate()
+    {
+        
     }
 
     void HighlightButton(int index)
