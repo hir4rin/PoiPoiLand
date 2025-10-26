@@ -130,17 +130,13 @@ public class HammerController : MonoBehaviour
         {
             ChangeSE(0); // ポップ音に変更
             SoundManager.Instance.PlaySE(audioSource);
-            
+            //再度pop状態にする
+            currentState = HammerState.pop;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ground"))
-        {
-            //再度pop状態にする
-            currentState = HammerState.pop;
-        }
 
         if (!other.CompareTag("Ground"))
         {
@@ -268,17 +264,17 @@ public class HammerController : MonoBehaviour
         {
             Destroy(popEffectInstance);
             isEffect = false;
-
+            
         }
         this.transform.SetParent(_player.transform, false);
-        this.transform.localPosition = new Vector3(0.25f, 0.5f, 0.0f);
+        this.transform.localPosition = new Vector3(0.5f, 0.5f, 0.0f);
         this.transform.localScale = new Vector3(40.0f, 40.0f, 40.0f);
-        this.transform.rotation = Quaternion.Euler(40.0f, 90.0f, 0.0f);
+        this.transform.rotation = Quaternion.Euler(30.0f, 90.0f, 0.0f);
         col.enabled = false;
         rb.useGravity = false;
         rb.isKinematic = true;
 
-        //this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     }
     public void QuitHold() //離したとき
     {
@@ -291,7 +287,6 @@ public class HammerController : MonoBehaviour
     public void UpdateThrow()//なげたとき
     {
         col.enabled = true;
-        col.isTrigger = true;
         rb.useGravity = true;
         rb.isKinematic = false;
         //最初だけ回転を0にする

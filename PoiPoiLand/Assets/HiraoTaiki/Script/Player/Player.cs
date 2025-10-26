@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
     Warp_Controller _checkPoint;
 
-    public Image fadeImage;//
+    public Image fadeImage;
     bool isCoroutine = false;//コルーチンの旗
 
     public bool isMovie = false;
@@ -102,9 +102,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-
         if (Input.GetButtonDown("Jump") && isGround)//ジャンプ
         {
             // Debug.Log("飛んでいます");
