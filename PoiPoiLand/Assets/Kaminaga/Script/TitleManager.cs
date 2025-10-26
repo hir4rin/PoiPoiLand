@@ -91,8 +91,8 @@ public class TitleManager : MonoBehaviour
         for (int i = 0; i < mainButtons.Count; i++)
         {
             bool isSelected = (i == index);
-            buttonImages[i].enabled = !isSelected;
-            currentButtonImages[i].enabled = isSelected;
+            //buttonImages[i].enabled = !isSelected;
+            //currentButtonImages[i].enabled = isSelected;
         }
     }
 }
