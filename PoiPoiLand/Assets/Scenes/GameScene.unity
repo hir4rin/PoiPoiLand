@@ -8951,7 +8951,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819393917}
-  - component: {fileID: 819393918}
   m_Layer: 0
   m_Name: warp_3
   m_TagString: Untagged
@@ -8975,27 +8974,6 @@ Transform:
   - {fileID: 1833156140}
   m_Father: {fileID: 2075038492}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!65 &819393918
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819393916}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.07, y: 2.16, z: 0.49}
-  m_Center: {x: 0, y: -0.13, z: 0}
 --- !u!1 &834974687
 GameObject:
   m_ObjectHideFlags: 0
@@ -12943,7 +12921,7 @@ MonoBehaviour:
   warpToMapFirst: {x: -36, y: 13.5, z: 10.1}
   warpToSecondStage: {x: 152.5, y: 35, z: -2.5}
   warpToMapSecond: {x: -91, y: 15, z: -3.5}
-  warpToThirdStage: {x: 225, y: 4, z: -4}
+  warpToThirdStage: {x: 225, y: 15.8, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
   whiteImage: {fileID: 2087705939}
@@ -19911,7 +19889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785984772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19134532, y: 0.68345124, z: -0.19302247, w: 0.6775129}
+  m_LocalRotation: {x: 0.19134533, y: 0.6834512, z: -0.19302243, w: 0.67751294}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
