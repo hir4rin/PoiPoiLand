@@ -31,6 +31,8 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private GameObject manualObj;
     private ManualController manualController;
     TitleState titleState;
+    private float prevHorizontalInput;
+    private float prevVerticalInput;
     private float horizontalInput;
     private float verticalInput;
 
@@ -42,8 +44,13 @@ public class TitleManager : MonoBehaviour
         verticalInput = 0;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        // 前フレーム値を更新
+        prevHorizontalInput = horizontalInput;
+        prevVerticalInput = verticalInput;
+
+        // 現在の入力値を取得
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
