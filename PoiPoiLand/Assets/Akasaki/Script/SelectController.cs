@@ -22,8 +22,11 @@ public class SelectController : MonoBehaviour
     public Image _operationBack2;
     public Image _bgmBack;
     public Image _bgmBack2;
+    // スタート
     int _num;
+    // 操作設定
     int _num2;
+    // 音量設定
     int _num3;
     int _phase;
 
@@ -40,6 +43,8 @@ public class SelectController : MonoBehaviour
     void Start()
     {
         _num = 0;
+        _num2 = 0;
+        _num3 = 0;
         _phase = 0;
 
     }
@@ -94,9 +99,9 @@ public class SelectController : MonoBehaviour
         }
 
         
-
         switch (_num)
         {
+            // スタートボタン
             case 0:
         _start.enabled = false;
         _start2.enabled = true;
@@ -106,6 +111,7 @@ public class SelectController : MonoBehaviour
         _bgm2.enabled = false;
 
                 break;
+            // 操作説明
             case 1:
         _operation.enabled = false;
         _operation2.enabled = true;
@@ -114,6 +120,7 @@ public class SelectController : MonoBehaviour
                 _bgm.enabled = true;
                 _bgm2.enabled = false;
                 break;
+            // 音量設定
             case 2:
                 _bgm.enabled = false;
                 _bgm2.enabled = true;
