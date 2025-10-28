@@ -18,7 +18,7 @@ public class SelectController : MonoBehaviour
     //public Image _right2;
     //public Image _left;
     //public Image _left2;
-    public Image _operationBack;
+    //public Image _operationBack;
     public Image _operationBack2;
     public Image _bgmBack;
     public Image _bgmBack2;
@@ -133,31 +133,31 @@ public class SelectController : MonoBehaviour
         switch (_num2)
         {
             case 0:// ¶–îˆó
-                _operationBack.enabled = true;
-                _operationBack2.enabled = false;
+                
+                _operationBack2.enabled = true;
                 break;
             case 1:// ‰E–îˆó
-                _operationBack.enabled = true;
-                _operationBack2.enabled = false;
+                
+                _operationBack2.enabled = true;
                 break;
             case 2:// –ß‚é
-                _operationBack.enabled = false;
+                
                 _operationBack2.enabled = true;
                 break;
         }
         switch (_num3)
         {
             case 0:// ¶–îˆó
-                _operationBack.enabled = true;
-                _operationBack2.enabled = false;
+                _bgmBack.enabled = true;
+                _bgmBack2.enabled = false;
                 break;
             case 1:// ‰E–îˆó
-                _operationBack.enabled = true;
+                _bgmBack.enabled = true;
                 _operationBack2.enabled = false;
                 break;
             case 2:// –ß‚é
-                _operationBack.enabled = false;
-                _operationBack2.enabled = true;
+                _bgmBack.enabled = false;
+                _bgmBack2.enabled = true;
                 break;
         }
         if (Input.GetButtonDown("AButton"))
