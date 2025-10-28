@@ -15,10 +15,7 @@ public class BarrierController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("PointNum") >= 1)
-        {
-            Baria[0].gameObject.SetActive(false);
-        }
+       
         
         if (PlayerPrefs.GetInt("PointNum") >= 5)
         {
