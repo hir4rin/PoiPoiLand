@@ -91,6 +91,9 @@ public class Boss : MonoBehaviour
     RedGostMove _redGhost;//Ô‚¢ƒS[ƒXƒg
 
 
+    private  bool _isDead = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,14 +106,27 @@ public class Boss : MonoBehaviour
         _hammer = Resources.Load<GameObject>("Hammer_Prefab").GetComponent<HammerController>();
         _bowling = Resources.Load<GameObject>("GravityTurtle").GetComponent<BowlingNokonokoController>();
         _redGhost = Resources.Load<GameObject>("RedGhost").GetComponent<RedGostMove>();
+        _isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-     //   Debug.Log($"_player2: {_player2}, isMovie: {_player2.isMovie}");
+        //€–S‚Ìˆ—
+        if (isShrinking)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * shrinkSpeed);
+            // ‰ñ“]
+            transform.Rotate(new Vector3(0, 0, 1) * rotateSpeed * Time.deltaTime);
+            // ‚ ‚é’ö“x¬‚³‚­‚È‚Á‚½‚çíœ
+            if (transform.localScale.magnitude < 0.5f)
+            {
+                Destroy(gameObject);
+            }
+        }
+        //   Debug.Log($"_player2: {_player2}, isMovie: {_player2.isMovie}");
         if (_player2.isMovie) return; 
-
+        if (_isDead) return;
         if (!isRush)
         {
             LookAtPlayerQuaternion();
@@ -169,17 +185,7 @@ public class Boss : MonoBehaviour
         {
             Warp();
         }
-        if (isShrinking)
-        {
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * shrinkSpeed);
-            // ‰ñ“]
-            transform.Rotate(new Vector3(0,0,1) * rotateSpeed * Time.deltaTime);
-            // ‚ ‚é’ö“x¬‚³‚­‚È‚Á‚½‚çíœ
-            if (transform.localScale.magnitude < 0.2f)
-            {
-                Destroy(gameObject);
-            }
-        }
+       
 
     }
     private void FixedUpdate()
@@ -360,6 +366,7 @@ public class Boss : MonoBehaviour
     public void StartShrink()
     {
         isShrinking = true;
+        _isDead = true;
     }
     //Œq‚°—p
     public void SetHammer(HammerController hammer)
