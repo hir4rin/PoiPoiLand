@@ -79,7 +79,7 @@ public class TitleManager : MonoBehaviour
         // → 右を押した瞬間
         if (horizontalInput > 0 && prevHorizontalInput <= 0)
         {
-            if (defaultNum == 0||defaultNum == 1)
+            if (defaultNum == 0 || defaultNum == 1)
             {
                 defaultNum = 2;
             }
@@ -102,6 +102,10 @@ public class TitleManager : MonoBehaviour
             {
                 defaultNum = 0;
             }
+            else if (defaultNum == 0)
+            {
+                defaultNum = 1;
+            }
             Debug.Log("上を押した瞬間！");
         }
         // ↓ 下を押した瞬間
@@ -111,7 +115,11 @@ public class TitleManager : MonoBehaviour
             {
                 defaultNum = 1;
             }
-            Debug.Log("下を押した瞬間！");
+            else if (defaultNum == 1)
+            {  
+                defaultNum = 0;
+            }
+                Debug.Log("下を押した瞬間！");
         }
         switch (defaultNum)
         {
@@ -120,7 +128,7 @@ public class TitleManager : MonoBehaviour
                 DefaultRedUI(1);
                 DefaultRedUI(2);
                 DefaultYellowUI(0);
-                if (Input.GetButtonDown("AButton")|| Input.GetKeyDown(KeyCode.A))
+                if (Input.GetButtonDown("AButton")|| Input.GetKeyDown(KeyCode.Return))
                 {
                     manualController.GameStart();
                 }
@@ -130,7 +138,7 @@ public class TitleManager : MonoBehaviour
                 DefaultRedUI(0);
                 DefaultRedUI(2);
                 DefaultYellowUI(1);
-                if (Input.GetButtonDown("AButton"))
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
                 {
                     titleState = TitleState.Tutorial;
                     manualController.SetTutorialUI();
@@ -141,8 +149,9 @@ public class TitleManager : MonoBehaviour
                 DefaultRedUI(0);
                 DefaultRedUI(1);
                 DefaultYellowUI(2);
-                if (Input.GetButtonDown("AButton"))
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
                 {
+                    Debug.Log("設定画面へ");
                     titleState = TitleState.Option;
                     manualController.SetSoundUI();
                 }
@@ -152,9 +161,8 @@ public class TitleManager : MonoBehaviour
 
     private void TutorialUpdate()
     {
-        // スタートのボタンにカーソルがあっているとき
-
-        if (Input.GetButtonDown("AButton"))
+        // ボタンのUIが一つしかないため、そのまま決定で戻る処理
+        if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
         {
             manualController.BackSelect();
             titleState = TitleState.Default;
@@ -171,19 +179,23 @@ public class TitleManager : MonoBehaviour
             {
                 soundSliders[0].value += 0.05f;
             }
-            if (optionNum == 1)
+            else if (optionNum == 1)
             {
                 soundSliders[1].value += 0.05f;
             }
-            if (optionNum == 2)
+            else if (optionNum == 2)
             {
                 soundSliders[2].value += 0.05f;
             }
-            if (optionNum == 3)
+            else if (optionNum == 3)
             {
                 optionNum = 4;
             }
-            Debug.Log("右を押した瞬間！");
+            else if (optionNum == 4)
+            {
+                optionNum = 3;
+            }
+                Debug.Log("右を押した瞬間！");
         }
         // ← 左を押した瞬間
         if (horizontalInput < 0 && prevHorizontalInput >= 0)
@@ -192,17 +204,21 @@ public class TitleManager : MonoBehaviour
             {
                 soundSliders[0].value -= 0.05f;
             }
-            if (optionNum == 1)
+            else if (optionNum == 1)
             {
                 soundSliders[1].value -= 0.05f;
             }
-            if (optionNum == 2)
+            else if (optionNum == 2)
             {
                 soundSliders[2].value -= 0.05f;
             }
-            if (optionNum == 3)
+            else if (optionNum == 3)
             {
                 optionNum = 4;
+            }
+            else if (optionNum == 4)
+            {
+                optionNum = 3;
             }
             Debug.Log("左を押した瞬間！");
         }
@@ -214,11 +230,11 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 0;
             }
-            if(optionNum == 2)
+            else if(optionNum == 2)
             {
                 optionNum = 1;
             }
-            if (optionNum == 3 || optionNum == 4)
+            else if (optionNum == 3 || optionNum == 4)
             {
                 optionNum = 2;
             }
@@ -231,11 +247,11 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 1;
             }
-            if (optionNum == 1)
+            else if (optionNum == 1)
             {
                 optionNum = 2;
             }
-            if (optionNum == 2)
+            else if (optionNum == 2)
             {
                 optionNum = 3;
             }
@@ -245,19 +261,36 @@ public class TitleManager : MonoBehaviour
         {
             // マスターボタンにカーソルがあっているとき
             case 0:
-                
+                OptionRedUI(1);
+                OptionRedUI(2);
+                OptionRedUI(3);
+                OptionRedUI(4);
+                OptionYellowUI(0);
                 break;
             // BGMのボタンにカーソルがあっているとき
             case 1:
-                
+                OptionRedUI(0);
+                OptionRedUI(2);
+                OptionRedUI(3);
+                OptionRedUI(4);
+                OptionYellowUI(1);
                 break;
             // SEのボタンにカーソルがあっているとき
             case 2:
-                
+                OptionRedUI(0);
+                OptionRedUI(1);
+                OptionRedUI(3);
+                OptionRedUI(4);
+                OptionYellowUI(2);
                 break;
             // 戻るのボタンにカーソルがあっているとき
             case 3:
-                if (Input.GetButtonDown("AButton"))
+                OptionRedUI(0);
+                OptionRedUI(1);
+                OptionRedUI(2);
+                OptionRedUI(4);
+                OptionYellowUI(3);
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
                 {
                     titleState = TitleState.Default;
                     manualController.BackSelect();
@@ -265,7 +298,12 @@ public class TitleManager : MonoBehaviour
                 break;
             // ゲーム終了のボタンにカーソルがあっているとき
             case 4:
-                if (Input.GetButtonDown("AButton"))
+                OptionRedUI(0);
+                OptionRedUI(1);
+                OptionRedUI(2);
+                OptionRedUI(3);
+                OptionYellowUI(4);
+                if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
                 {
                     titleState = TitleState.Default;
                     manualController.EndGame();
