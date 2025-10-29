@@ -114,7 +114,7 @@ public class HammerController : MonoBehaviour
         //  Debug_sakamoto();
 
         //‚‚³‚ª’n–Ê‚ğ’´‚¦‚½ê‡‚Í”j‰ó‚·‚é
-        if (transform.position.y < 0.0f)
+        if (transform.position.y < 9.0f)
         {
             //ŒÄ‚Ño‚µ
             _hG.HammerSpawn(posNum);
