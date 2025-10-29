@@ -105,6 +105,7 @@ public class Warp_Controller : MonoBehaviour
        player.transform.position = map;
 
         yield return StartCoroutine(FadeIn2());
+        Destroy(gameObject);
 
     }
     private IEnumerator FadeOut2()
@@ -216,6 +217,7 @@ public class Warp_Controller : MonoBehaviour
                     Debug.Log("PointNum‚ª‚ ‚è‚Ü‚¹‚ñ");
                     break;
             }
+          
         }
     }
 }

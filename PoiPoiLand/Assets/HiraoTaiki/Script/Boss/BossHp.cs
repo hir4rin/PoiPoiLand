@@ -67,6 +67,8 @@ public class BossHp : MonoBehaviour
             isUISet = true;
         }
         Debug.Log("Boss Defeated");
+        //PointNum‚ğ6‚É‚ ‚°‚é
+        PlayerPrefs.SetInt("PointNum", 6);
         //ƒ{ƒX€–Sˆ—
         _boss.StartShrink();
 
