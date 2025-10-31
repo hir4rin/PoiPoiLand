@@ -26,7 +26,16 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerPrefs.GetInt("PointNum") == 1)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+#else
+    Application.Quit();//ゲームプレイ終了
+#endif
+        }
+
+        if (PlayerPrefs.GetInt("PointNum") == 1)
         {
             _stage1.SetActive(true);
         }
