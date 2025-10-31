@@ -30,7 +30,7 @@ public class GoalController : MonoBehaviour
     {
             if (effectInstance == null)
             {
-                Debug.Log("‚¦‚Á‚Ó‚¥‚­‚Æ‚¤");
+                //Debug.Log("‚¦‚Á‚Ó‚¥‚­‚Æ‚¤");
                 effectInstance = Instantiate(goalEffect, this.transform.position, Quaternion.identity);
             }   
     }

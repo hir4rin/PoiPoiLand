@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     // ListでUIを管理、表示非表示用
-    // 1:ゴールを目指そう 2:ステージクリア 3:ゴーストをたおそう 4: ウサギをたおそう 5: ゴーストをたおそう 6: MISS
+    // 0:ゴールを目指そう 1:ステージクリア 2:ゴーストをたおそう 3: ウサギをたおそう 4: ゴーストをたおそう 5: MISS 6: 操作説明
     [SerializeField] private List<GameObject> gameSceneUIList;
 
     // UIの透明度とかをいじる用
@@ -26,10 +27,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
+        if (Input.GetButtonDown("Manual"))
         {
-            
-            MissAnimation(5, 0.5f, 0.2f, 1.0f);
+            gameSceneUIList[6].SetActive(!gameSceneUIList[6].activeSelf);
         }
     }
 

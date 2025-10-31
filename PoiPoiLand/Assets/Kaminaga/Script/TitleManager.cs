@@ -59,7 +59,7 @@ public class TitleManager : MonoBehaviour
         // Œ»İ‚Ì“ü—Í’l‚ğæ“¾
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        Debug.Log("”Ô†" + defaultNum.ToString());
+        //Debug.Log("”Ô†" + defaultNum.ToString());
         switch (titleState)
         {
             case TitleState.Default:
@@ -83,7 +83,7 @@ public class TitleManager : MonoBehaviour
             {
                 defaultNum = 2;
             }
-            Debug.Log("‰E‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("‰E‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         // © ¶‚ğ‰Ÿ‚µ‚½uŠÔ
         if (horizontalInput < 0 && prevHorizontalInput >= 0)
@@ -92,7 +92,7 @@ public class TitleManager : MonoBehaviour
             {
                 defaultNum = 0;
             }
-            Debug.Log("¶‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("¶‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
 
         // ª ã‚ğ‰Ÿ‚µ‚½uŠÔ
@@ -104,9 +104,13 @@ public class TitleManager : MonoBehaviour
             }
             else if (defaultNum == 0)
             {
+                defaultNum = 2;
+            }
+            else if(defaultNum == 2)
+            {
                 defaultNum = 1;
             }
-            Debug.Log("ã‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("ã‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         // « ‰º‚ğ‰Ÿ‚µ‚½uŠÔ
         if (verticalInput < 0 && prevVerticalInput >= 0)
@@ -115,11 +119,15 @@ public class TitleManager : MonoBehaviour
             {
                 defaultNum = 1;
             }
-            else if (defaultNum == 1)
-            {  
+            else if(defaultNum == 1)
+            {
+                defaultNum = 2;
+            }
+            else if (defaultNum == 2)
+            {
                 defaultNum = 0;
             }
-                Debug.Log("‰º‚ğ‰Ÿ‚µ‚½uŠÔI");
+               // Debug.Log("‰º‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         switch (defaultNum)
         {
@@ -151,7 +159,7 @@ public class TitleManager : MonoBehaviour
                 DefaultYellowUI(2);
                 if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
                 {
-                    Debug.Log("İ’è‰æ–Ê‚Ö");
+                    //Debug.Log("İ’è‰æ–Ê‚Ö");
                     titleState = TitleState.Option;
                     manualController.SetSoundUI();
                 }
@@ -162,7 +170,7 @@ public class TitleManager : MonoBehaviour
     private void TutorialUpdate()
     {
         // ƒ{ƒ^ƒ“‚ÌUI‚ªˆê‚Â‚µ‚©‚È‚¢‚½‚ßA‚»‚Ì‚Ü‚ÜŒˆ’è‚Å–ß‚éˆ—
-        if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("AButton") || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Cancel"))
         {
             manualController.BackSelect();
             titleState = TitleState.Default;
@@ -172,22 +180,58 @@ public class TitleManager : MonoBehaviour
 
     private void OptionUpdate()
     {
-        // ¨ ‰E‚ğ‰Ÿ‚µ‚½uŠÔ
-        if (horizontalInput > 0 && prevHorizontalInput <= 0)
+        if(Input.GetButtonDown("Cancel"))
+        {
+            titleState = TitleState.Default;
+            manualController.BackSelect();
+        }
+        if (horizontalInput == 1) // ‰E‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
         {
             if (optionNum == 0)
             {
-                soundSliders[0].value += 0.05f;
+                soundSliders[0].value += 0.01f;
             }
             else if (optionNum == 1)
             {
-                soundSliders[1].value += 0.05f;
+                soundSliders[1].value += 0.01f;
             }
             else if (optionNum == 2)
             {
-                soundSliders[2].value += 0.05f;
+                soundSliders[2].value += 0.01f;
             }
-            else if (optionNum == 3)
+        }
+        else if(horizontalInput == -1) // ¶‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+        {
+            if (optionNum == 0)
+            {
+                soundSliders[0].value -= 0.01f;
+            }
+            else if (optionNum == 1)
+            {
+                soundSliders[1].value -= 0.01f;
+            }
+            else if (optionNum == 2)
+            {
+                soundSliders[2].value -= 0.01f;
+            }
+        }
+
+        // ¨ ‰E‚ğ‰Ÿ‚µ‚½uŠÔ
+        if (horizontalInput > 0 && prevHorizontalInput <= 0)
+        {
+            //if (optionNum == 0)
+            //{
+            //    soundSliders[0].value += 0.05f;
+            //}
+            //else if (optionNum == 1)
+            //{
+            //    soundSliders[1].value += 0.05f;
+            //}
+            //else if (optionNum == 2)
+            //{
+            //    soundSliders[2].value += 0.05f;
+            //}
+            if (optionNum == 3)
             {
                 optionNum = 4;
             }
@@ -195,24 +239,24 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 3;
             }
-                Debug.Log("‰E‚ğ‰Ÿ‚µ‚½uŠÔI");
+                //Debug.Log("‰E‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         // © ¶‚ğ‰Ÿ‚µ‚½uŠÔ
         if (horizontalInput < 0 && prevHorizontalInput >= 0)
         {
-            if (optionNum == 0)
-            {
-                soundSliders[0].value -= 0.05f;
-            }
-            else if (optionNum == 1)
-            {
-                soundSliders[1].value -= 0.05f;
-            }
-            else if (optionNum == 2)
-            {
-                soundSliders[2].value -= 0.05f;
-            }
-            else if (optionNum == 3)
+            //if (optionNum == 0)
+            //{
+            //    soundSliders[0].value -= 0.05f;
+            //}
+            //else if (optionNum == 1)
+            //{
+            //    soundSliders[1].value -= 0.05f;
+            //}
+            //else if (optionNum == 2)
+            //{
+            //    soundSliders[2].value -= 0.05f;
+            //}
+            if (optionNum == 3)
             {
                 optionNum = 4;
             }
@@ -220,7 +264,7 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 3;
             }
-            Debug.Log("¶‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("¶‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
 
         // ª ã‚ğ‰Ÿ‚µ‚½uŠÔ
@@ -238,7 +282,7 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 2;
             }
-            Debug.Log("ã‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("ã‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         // « ‰º‚ğ‰Ÿ‚µ‚½uŠÔ
         if (verticalInput < 0 && prevVerticalInput >= 0)
@@ -255,7 +299,7 @@ public class TitleManager : MonoBehaviour
             {
                 optionNum = 3;
             }
-            Debug.Log("‰º‚ğ‰Ÿ‚µ‚½uŠÔI");
+            //Debug.Log("‰º‚ğ‰Ÿ‚µ‚½uŠÔI");
         }
         switch (optionNum)
         {

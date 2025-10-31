@@ -53,7 +53,7 @@ public class Stage1Manager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("stage1の状態は " + state);
+        //Debug.Log("stage1の状態は " + state);
         //Debug.Log("enemyの数" + enemyNum.ToString());
         if(Input.GetKeyDown(KeyCode.Q))
         {
@@ -87,7 +87,7 @@ public class Stage1Manager : MonoBehaviour
                     startUI.SetActive(true);
                 }
                 stageTime += Time.deltaTime;
-                Debug.Log("ステージの経過時間は" + stageTime.ToString());
+                //Debug.Log("ステージの経過時間は" + stageTime.ToString());
                 timeGauge.fillAmount = 1.0f - stageTime / maxStageTime;
                 if (stageTime > maxStageTime)
                 {
