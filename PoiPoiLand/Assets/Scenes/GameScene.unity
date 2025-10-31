@@ -7982,6 +7982,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 4, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 711226761}
   whiteImage: {fileID: 2087705939}
 --- !u!1 &713158931
 GameObject:
@@ -8432,6 +8433,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 15.8, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 372370315}
   whiteImage: {fileID: 2087705939}
 --- !u!64 &746745711
 MeshCollider:
@@ -8583,6 +8585,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 4, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 852007861}
   whiteImage: {fileID: 2087705939}
 --- !u!1 &765612784
 GameObject:
@@ -10267,7 +10270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940619698}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.030193679, y: -0.6724447, z: 0.027473617, w: 0.7390208}
+  m_LocalRotation: {x: 0.03019368, y: -0.6724447, z: 0.027473623, w: 0.7390208}
   m_LocalPosition: {x: 6.5300217, y: 28.559998, z: 0.099999905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13327,6 +13330,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 15.8, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 1221352251}
   whiteImage: {fileID: 2087705939}
 --- !u!65 &1221352253
 BoxCollider:
@@ -13820,7 +13824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259744674}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.030193679, y: -0.6724447, z: 0.027473617, w: 0.7390208}
+  m_LocalRotation: {x: 0.03019368, y: -0.6724447, z: 0.027473623, w: 0.7390208}
   m_LocalPosition: {x: -186.40952, y: -63.705383, z: 6.4783645}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13921,6 +13925,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 4, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 1408229875}
   whiteImage: {fileID: 2087705939}
 --- !u!65 &1271745111
 BoxCollider:
@@ -14555,6 +14560,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 19, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 0}
+  _child: {fileID: 0}
   whiteImage: {fileID: 2087705939}
 --- !u!4 &1332092748
 Transform:
@@ -20293,7 +20299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785984772}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19134533, y: 0.68345124, z: -0.19302244, w: 0.67751294}
+  m_LocalRotation: {x: 0.19134532, y: 0.68345124, z: -0.19302247, w: 0.6775129}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21551,6 +21557,7 @@ MonoBehaviour:
   warpToThirdStage: {x: 225, y: 15.8, z: -4}
   warpToMapThird: {x: -65.5, y: 15.8, z: -3.5}
   _playerManager: {fileID: 558015584}
+  _child: {fileID: 1833156141}
   whiteImage: {fileID: 2087705939}
 --- !u!65 &1833156143
 BoxCollider:
