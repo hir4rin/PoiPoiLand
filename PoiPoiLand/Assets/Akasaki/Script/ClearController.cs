@@ -36,7 +36,7 @@ public class ClearController : MonoBehaviour
             if (timer > 0.8f)
             {
                 Flash = !Flash;
-                Debug.Log("変わりました");
+                //Debug.Log("変わりました");
                 timer = 0;
             }
         }
@@ -44,7 +44,7 @@ public class ClearController : MonoBehaviour
         if (Flash)
         {
             _message.GetComponent<SpriteRenderer>().enabled = true;
-            Debug.Log("aaaaaaaaa");
+            //Debug.Log("aaaaaaaaa");
         }
         else
         {
@@ -52,6 +52,8 @@ public class ClearController : MonoBehaviour
         }
         if (canPress && Input.GetButtonDown("Submit"))
         {
+            SoundManager.Instance.ChangeBGMClip(0); // タイトルのBGMに変更
+            SoundManager.Instance.PlayBGMWithCrossFade(2.0f);
             UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
 
         }

@@ -29,18 +29,18 @@ public class SceneManager : MonoBehaviour
 
         // シーン遷移条件
         // 条件は今後変更予定
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("SelectScene"); // spaceキーでセレクト画面に遷移
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"); // gキーでゲーム画面に遷移
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene"); // hキーでタイトル画面に遷移
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("SelectScene"); // spaceキーでセレクト画面に遷移
+        //}
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"); // gキーでゲーム画面に遷移
+        //}
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene"); // hキーでタイトル画面に遷移
+        //}
     }
 
     public void SceneChange(string sceneName)
