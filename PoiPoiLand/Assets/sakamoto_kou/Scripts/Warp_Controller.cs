@@ -22,7 +22,8 @@ public class Warp_Controller : MonoBehaviour
     float fadeDuration = 2f;
     //プレイヤーマネージャー
     public PlayerManager _playerManager;
-
+    Collider _collider;
+    public GameObject _child;
 
     [SerializeField] Image whiteImage;//白いImageで登録
     float whiteDuration = 1f;//暗転時間
@@ -40,6 +41,7 @@ public class Warp_Controller : MonoBehaviour
             c.a = 0f;
             whiteImage.color = c;
         }
+        _collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -103,9 +105,10 @@ public class Warp_Controller : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
        player.transform.position = map;
-
+        
         yield return StartCoroutine(FadeIn2());
-        Destroy(gameObject);
+        _collider.enabled = false;
+        _child.GetComponent<Renderer>().enabled = false;
 
     }
     private IEnumerator FadeOut2()
